@@ -1,0 +1,38 @@
+/node_modules/
+/.vscode/
+
+HELP.md
+node_modules
+/target/
+!.mvn/wrapper/maven-wrapper.jar
+
+### STS ###
+.apt_generated
+.classpath
+.factorypath
+.project
+.settings
+.springBeans
+.sts4-cache
+
+### IntelliJ IDEA ###
+.idea
+*.iws
+*.iml
+*.ipr
+
+### NetBeans ###
+/nbproject/private/
+/nbbuild/
+/dist/
+/nbdist/
+/.nb-gradle/
+/build/
+
+### VS Code ###
+.vscode/
+/service-hospital-admin/target/
+/common-service/langting-service-print/target/classes/
+/hospital-information-platform/service-hospital-admin/target/classes/
+/common-service/langting-service-print/target/
+/hospital-information-platform/service-hospital-admin/target/
