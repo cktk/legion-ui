@@ -10,41 +10,41 @@ export const loginRouter = {
   component: () => import("@/views/login.vue"),
 };
 
-export const registRouter = {
-  path: "/regist",
-  name: "regist",
-  meta: {
-    title: "注册",
-  },
-  component: () => import("@/views/regist.vue"),
-};
+// export const registRouter = {
+//   path: "/regist",
+//   name: "regist",
+//   meta: {
+//     title: "注册",
+//   },
+//   component: () => import("@/views/regist.vue"),
+// };
 
-export const registResult = {
-  path: "/regist-result",
-  name: "regist-result",
-  meta: {
-    title: "注册结果",
-  },
-  component: () => import("@/views/regist-result.vue"),
-};
+// export const registResult = {
+//   path: "/regist-result",
+//   name: "regist-result",
+//   meta: {
+//     title: "注册结果",
+//   },
+//   component: () => import("@/views/regist-result.vue"),
+// };
 
-export const reset = {
-  path: "/reset",
-  name: "reset",
-  meta: {
-    title: "重置密码",
-  },
-  component: () => import("@/views/reset.vue"),
-};
+// export const reset = {
+//   path: "/reset",
+//   name: "reset",
+//   meta: {
+//     title: "重置密码",
+//   },
+//   component: () => import("@/views/reset.vue"),
+// };
 
-export const relateRouter = {
-  path: "/relate",
-  name: "relate",
-  meta: {
-    title: "绑定账号",
-  },
-  component: () => import("@/views/relate.vue"),
-};
+// export const relateRouter = {
+//   path: "/relate",
+//   name: "relate",
+//   meta: {
+//     title: "绑定账号",
+//   },
+//   component: () => import("@/views/relate.vue"),
+// };
 
 export const authorizeRouter = {
   path: "/authorize",
@@ -141,10 +141,10 @@ export const appRouter = [];
 // 所有上面定义的路由都要写在下面的routers里
 export const routers = [
   loginRouter,
-  registRouter,
-  registResult,
-  reset,
-  relateRouter,
+  // registRouter,
+  // registResult,
+  // reset,
+  // relateRouter,
   authorizeRouter,
   otherRouter,
   ...appRouter,

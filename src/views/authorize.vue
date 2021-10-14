@@ -43,7 +43,7 @@
                       prefix="ios-contact"
                       size="large"
                       clearable
-                      placeholder="账号/邮箱/手机号"
+                      placeholder="账号/邮箱"
                       autocomplete="off"
                     />
                   </FormItem>
@@ -100,14 +100,6 @@
                 <span v-if="!loading">{{ $t("authorizeAndSignin") }}</span>
                 <span v-else>{{ $t("authorizing") }}</span>
               </Button>
-            </Row>
-            <Row type="flex" justify="space-between" class="other-thing">
-              <router-link to="/reset" class="back">{{
-                $t("forgetPass")
-              }}</router-link>
-              <router-link to="/regist" class="back">
-                {{ $t("registerNow") }}
-              </router-link>
             </Row>
           </div>
           <div v-if="!error && !authLoading && userInfo">

@@ -16,9 +16,7 @@
             @on-select="currName = $event"
           >
             <MenuItem name="oss">文件对象存储配置</MenuItem>
-            <MenuItem name="sms">短信配置</MenuItem>
             <MenuItem name="email">邮件配置</MenuItem>
-            <MenuItem name="vaptcha">Vaptcha验证码</MenuItem>
             <MenuItem name="stopWord">禁用词管理</MenuItem>
             <MenuItem name="notice">系统公告配置</MenuItem>
             <MenuItem name="other">其他配置</MenuItem>
@@ -35,10 +33,10 @@
             <div class="setting-title">文件对象存储配置</div>
             <oss />
           </div>
-          <div v-show="currName == 'sms'">
+          <!-- <div v-show="currName == 'sms'">
             <div class="setting-title">短信配置</div>
             <sms />
-          </div>
+          </div> -->
           <div v-show="currName == 'email'">
             <div class="setting-title">邮箱配置</div>
             <div style="display: flex; position: relative">
@@ -131,13 +129,13 @@
                   </Tooltip>
                 </FormItem>
                 <FormItem>
-                  <Button
+                  <!-- <Button
                     type="primary"
                     style="width: 100px"
                     :loading="saveLoading"
                     @click="saveEditVaptcha"
                     >保存更改</Button
-                  >
+                  > -->
                 </FormItem>
               </Form>
               <Spin fix v-if="loading"></Spin>
@@ -452,20 +450,20 @@ export default {
         }
       });
     },
-    saveEditVaptcha() {
-      this.$refs.vaptchaForm.validate((valid) => {
-        if (valid) {
-          this.saveLoading = true;
-          this.vaptcha.changed = this.changedVaptchaSK;
-          editVaptchaSet(this.vaptcha).then((res) => {
-            this.saveLoading = false;
-            if (res.success) {
-              this.$Message.success("保存成功");
-            }
-          });
-        }
-      });
-    },
+    // saveEditVaptcha() {
+    //   this.$refs.vaptchaForm.validate((valid) => {
+    //     if (valid) {
+    //       this.saveLoading = true;
+    //       this.vaptcha.changed = this.changedVaptchaSK;
+    //       editVaptchaSet(this.vaptcha).then((res) => {
+    //         this.saveLoading = false;
+    //         if (res.success) {
+    //           this.$Message.success("保存成功");
+    //         }
+    //       });
+    //     }
+    //   });
+    // },
     saveEditOther() {
       this.$refs.otherForm.validate((valid) => {
         if (valid) {

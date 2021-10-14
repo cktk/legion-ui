@@ -443,7 +443,7 @@
 </template>
 
 <script>
-import { ipInfo, getNotice } from "@/api/index";
+import { ipInfo, getNotice, systemInfo } from "@/api/index";
 import visitVolume from "./components/visitVolume.vue";
 import visitSeparation from "./components/visitSeparation.vue";
 import card1 from "@/views/my-components/widget/card1.vue";
@@ -510,6 +510,15 @@ export default {
         }
       });
       this.time = this.format(new Date(), "yyyy年MM月dd日");
+
+      // 获取系统信息
+      systemInfo().then((res) => {
+        console.log(res);
+        if (res.success) {
+          console.log(res);
+        } else {
+        }
+      });
     },
     showNotice() {
       getNotice().then((res) => {

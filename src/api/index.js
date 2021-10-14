@@ -18,6 +18,10 @@ export const getDictData = `${config.baseApi}/dictData/getByType/`
 export const ws = `${config.baseApi}/ws`
 
 
+//获取系统信息
+export const systemInfo = (params) => {
+    return getRequest('/system/info', params)
+}
 
 // 登陆
 export const login = (params) => {

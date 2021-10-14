@@ -18,9 +18,9 @@
         >
           <Option value="LOCAL_OSS">本地服务器</Option>
           <Option value="MINIO_OSS">MinIO</Option>
-          <Option value="QINIU_OSS">七牛云</Option>
+          <!-- <Option value="QINIU_OSS">七牛云</Option> -->
           <Option value="ALI_OSS">阿里云</Option>
-          <Option value="TENCENT_OSS">腾讯云</Option>
+          <!-- <Option value="TENCENT_OSS">腾讯云</Option> -->
         </Select>
       </FormItem>
       <div v-if="oss.serviceName != 'LOCAL_OSS'">
@@ -48,7 +48,7 @@
             />
           </Tooltip>
         </FormItem>
-        <FormItem
+        <!-- <FormItem
           v-if="oss.serviceName == 'QINIU_OSS'"
           label="zone存储区域"
           prop="zone"
@@ -66,7 +66,7 @@
             <Option :value="3">北美</Option>
             <Option :value="4">东南亚</Option>
           </Select>
-        </FormItem>
+        </FormItem> -->
         <FormItem label="bucket空间" prop="bucket">
           <Input
             type="text"
@@ -76,7 +76,7 @@
             :disabled="changeLoading"
           />
         </FormItem>
-        <FormItem
+        <!-- <FormItem
           v-if="oss.serviceName == 'TENCENT_OSS'"
           label="所属地域"
           prop="bucketRegion"
@@ -89,7 +89,7 @@
             :disabled="changeLoading"
             transfer
           />
-        </FormItem>
+        </FormItem> -->
         <FormItem label="endpoint域名" prop="endpoint" :error="errorMsg">
           <Input
             type="text"
