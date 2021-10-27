@@ -1,27 +1,27 @@
 <template>
   <Card
-    :padding="0"
-    :bordered="bordered"
-    :style="{ backgroundColor: realBackgroundColor }"
+      :padding="0"
+      :bordered="bordered"
+      :style="{ backgroundColor: realBackgroundColor }"
   >
     <div
-      class="card-app card-content"
-      @click="click"
-      @mouseover="itemHover"
-      @mouseout="removeHover"
+        class="card-app card-content"
+        @click="click"
+        @mouseover="itemHover"
+        @mouseout="removeHover"
     >
       <div class="card-body">
         <Icon
-          class="card-icon"
-          :type="icon"
-          :color="realIconColor"
-          :size="iconSize"
-          v-if="icon"
+            class="card-icon"
+            :type="icon"
+            :color="realIconColor"
+            :size="iconSize"
+            v-if="icon"
         ></Icon>
         <img :src="image" :width="width" :height="height" v-else />
         <div
-          class="card-title"
-          :style="{
+            class="card-title"
+            :style="{
             color: realTitleColor,
             fontSize: titleSize,
             fontWeight: titleWeight,
@@ -133,31 +133,6 @@ export default {
   },
 };
 </script>
-<style lang="less" scoped>
-.card-content {
-  height: 150px;
-  padding: 26px 30px;
-}
-.card-app {
-  cursor: pointer;
-  .card-body {
-    display: flex;
-    flex-direction: column;
-    height: 102px;
-    justify-content: center;
-    align-items: center;
-    .card-icon {
-      transition: all 0.2s ease;
-    }
-    .card-title {
-      transition: all 0.2s ease;
-      overflow: hidden;
-      text-overflow: ellipsis;
-      white-space: nowrap;
-      margin-top: 10px;
-    }
-  }
-}
-</style>
+<style lang="less" scoped></style>
 
 
