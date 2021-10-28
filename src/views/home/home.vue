@@ -616,4 +616,15 @@ export default {
   },
 };
 </script>
-<style lang="less" scoped></style>
+<style lang="less" scoped>
+/deep/.ivuListStyle {
+  ul {
+    li {
+      justify-content: space-between;
+      .ivu-list-item-extra {
+        display: none;
+      }
+    }
+  }
+}
+</style>
