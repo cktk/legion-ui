@@ -5,7 +5,8 @@
 <template>
   <div>
     <div class="home">
-      <Row :gutter="10">
+      <!-- v-if掉了!!!!!!!!! -->
+      <Row :gutter="10" v-if="false">
         <!-- 左上侧 用户信息及github链接 -->
         <Col :xs="24" :sm="24" :lg="24" :xl="8">
           <Row :gutter="10">
@@ -176,6 +177,145 @@
           </Row>
         </Col>
       </Row>
+
+      <Row :gutter="10">
+        <Col
+          :xs="12"
+          :sm="12"
+          :lg="12"
+          :xl="12"
+          :style="{ marginBottom: '10px' }"
+        >
+          <Card>
+            <p slot="title">CPU</p>
+            <table class="table">
+              <tr>
+                <th style="text-align: left">属性</th>
+                <th style="text-align: left">值</th>
+              </tr>
+              <tr>
+                <td style="">核心数</td>
+                <td>{{ systemInfoList.cpu.cpuNum }}</td>
+              </tr>
+              <tr>
+                <td>用户使用率</td>
+                <td>{{ systemInfoList.cpu.used }}%</td>
+              </tr>
+              <tr>
+                <td>系统使用率</td>
+                <td>{{ systemInfoList.cpu.sys }}%</td>
+              </tr>
+              <tr>
+                <td>当前空闲率</td>
+                <td>{{ systemInfoList.cpu.free }}%</td>
+              </tr>
+            </table>
+          </Card>
+        </Col>
+
+        <Col
+          :xs="12"
+          :sm="12"
+          :lg="12"
+          :xl="12"
+          :style="{ marginBottom: '10px' }"
+        >
+          <Card>
+            <p slot="title">内存</p>
+            <table class="table">
+              <tr>
+                <th style="text-align: left">属性</th>
+                <th style="text-align: left">内存</th>
+                <th style="text-align: left">JVM</th>
+              </tr>
+              <tr>
+                <td style="">总内存</td>
+                <td>{{ systemInfoList.mem.total }}G</td>
+                <td>{{ systemInfoList.jvm.total }}M</td>
+              </tr>
+              <tr>
+                <td>已用内存</td>
+                <td>{{ systemInfoList.mem.used }}G</td>
+                <td>{{ systemInfoList.jvm.used }}M</td>
+              </tr>
+              <tr>
+                <td>剩余内存</td>
+                <td>{{ systemInfoList.mem.free }}G</td>
+                <td>{{ systemInfoList.jvm.free }}M</td>
+              </tr>
+              <tr>
+                <td>使用率</td>
+                <td>{{ systemInfoList.mem.usage }}%</td>
+                <td>{{ systemInfoList.jvm.usage }}%</td>
+              </tr>
+            </table>
+          </Card>
+        </Col>
+      </Row>
+
+      <Row :gutter="10"
+        ><Col
+          :xs="24"
+          :sm="24"
+          :lg="24"
+          :xl="24"
+          :style="{ marginBottom: '10px' }"
+        >
+          <Card>
+            <p slot="title">服务器信息</p>
+            <table class="table">
+              <tr>
+                <td>服务器名称</td>
+                <td>{{ systemInfoList.sys.computerName }}</td>
+                <td>操作系统</td>
+                <td>{{ systemInfoList.sys.osName }}</td>
+              </tr>
+              <tr>
+                <td>服务器IP</td>
+                <td>{{ systemInfoList.sys.computerIp }}</td>
+                <td>操作系统</td>
+                <td>{{ systemInfoList.sys.osArch }}</td>
+              </tr>
+            </table>
+          </Card>
+        </Col></Row
+      >
+      <Row :gutter="10"
+        ><Col
+          :xs="24"
+          :sm="24"
+          :lg="24"
+          :xl="24"
+          :style="{ marginBottom: '10px' }"
+        >
+          <Card>
+            <p slot="title">Java虚拟机信息</p>
+            <table class="table">
+              <tr>
+                <td>Java名称</td>
+                <td>{{ systemInfoList.jvm.name }}</td>
+                <td>Java版本</td>
+                <td>{{ systemInfoList.jvm.version }}</td>
+              </tr>
+              <tr>
+                <td>启动时间</td>
+                <td>{{ systemInfoList.jvm.startTime }}</td>
+                <td>运行时长</td>
+                <td colspan="3">{{ systemInfoList.jvm.runTime }}</td>
+              </tr>
+              <tr>
+                <td>安装路径</td>
+                <td colspan="3">{{ systemInfoList.jvm.home }}</td>
+              </tr>
+              <tr>
+                <td>项目路径</td>
+                <td colspan="3">{{ systemInfoList.sys.userDir }}</td>
+              </tr>
+            </table>
+          </Card>
+        </Col></Row
+      >
+
       <Row :gutter="10">
         <Col
           :xs="24"
@@ -184,14 +324,21 @@
           :xl="24"
           :style="{ marginBottom: '10px' }"
         >
-          <Table
-            size="large"
-            :columns="sysFilescolumns"
-            :data="systemInfoList.sysFiles"
-          ></Table>
+          <Card :bordered="false">
+            <p slot="title">磁盘状态</p>
+            <Table
+              size="large"
+              :columns="sysFilescolumns"
+              :data="systemInfoList.sysFiles"
+            >
+              <template slot-scope="{ row }" slot="usage">
+                <span>{{ row.usage }}%</span>
+              </template>
+            </Table>
+          </Card>
         </Col>
       </Row>
-      <Row :gutter="10">
+      <!-- <Row :gutter="10">
         <Col
           :xs="24"
           :sm="24"
@@ -254,8 +401,8 @@
             titleSize="18px"
           />
         </Col>
-      </Row>
-      <Row :gutter="10">
+      </Row> -->
+      <!-- <Row :gutter="10">
         <Col
           :xs="24"
           :sm="24"
@@ -310,8 +457,8 @@
         >
           <cardApp activeColor="#ed4014" icon="md-people" title="用户分析"
         /></Col>
-      </Row>
-      <Row :gutter="10">
+      </Row> -->
+      <!-- <Row :gutter="10">
         <Col
           :xs="24"
           :sm="24"
@@ -387,7 +534,7 @@
             title="月活"
           />
         </Col>
-      </Row>
+      </Row> -->
       <!-- 这两个是那个apexchart图表的 -->
       <!--       <Row :gutter="10">
         <Col
@@ -409,8 +556,8 @@
           <visit-separation />
         </Col>
       </Row> -->
-
-      <Row :gutter="10">
+      <!-- 这下面的是准备放echarts图表的 -->
+      <!-- <Row :gutter="10">
         <Col
           :xs="24"
           :sm="24"
@@ -429,7 +576,7 @@
         >
           2
         </Col>
-      </Row>
+      </Row> -->
     </div>
     <div v-if="currNav == 'app'">
       <dashboard2 />
@@ -499,7 +646,15 @@ export default {
       time: "",
       price: "...",
       systemInfoList: {},
-      sysFilescolumns: [],
+      sysFilescolumns: [
+        { title: "盘符路径", key: "dirName" },
+        { title: "文件系统", key: "sysTypeName" },
+        { title: "盘符类型", key: "typeName" },
+        { title: "总大小", key: "total" },
+        { title: "可用大小", key: "free" },
+        { title: "已用大小", key: "used" },
+        { title: "已用百分比", slot: "usage" },
+      ],
     };
   },
   computed: {
@@ -534,21 +689,21 @@ export default {
         console.log(res);
         if (res.success) {
           this.systemInfoList = res.result ? res.result : {};
-          const aaa = Object.keys(
-            this.systemInfoList.sysFiles[0]
-              ? this.systemInfoList.sysFiles[0]
-              : []
-          );
-          this.sysFilescolumns = [];
-          for (let i = 0; i < aaa.length; i++) {
-            this.sysFilescolumns.push({
-              title: aaa[i],
-              key: aaa[i],
-            });
-          }
-          console.log(this.sysFilescolumns);
+          // const aaa = Object.keys(
+          //   this.systemInfoList.sysFiles[0]
+          //     ? this.systemInfoList.sysFiles[0]
+          //     : []
+          // );
+          // this.sysFilescolumns = [];
+          // for (let i = 0; i < aaa.length; i++) {
+          //   this.sysFilescolumns.push({
+          //     title: aaa[i],
+          //     key: aaa[i],
+          //   });
+          // }
+          // console.log(this.sysFilescolumns);
         } else {
-          this.systemInfoList = [];
+          // this.systemInfoList = [];
         }
       });
     },
@@ -600,16 +755,16 @@ export default {
       clientID: "a128de2dd7383614273a",
       clientSecret: "a77691ecb662a8303a6c686ae651ae035868da6e",
       repo: "legion-comments",
-      owner: "Exrick",
-      admin: ["Exrick"],
+      owner: "Legion",
+      admin: ["Legion"],
       distractionFreeMode: false, // 遮罩效果
     });
     // 渲染到带这个id 的盒子上
     gitalk.render("comments"); */
     // 宣传视频
     let videoFlag = "videoShowed";
-    let xbootVideo = Cookies.get(videoFlag);
-    if (xbootVideo != videoFlag) {
+    let legionVideo = Cookies.get(videoFlag);
+    if (legionVideo != videoFlag) {
       // this.showVideo = true;
       Cookies.set(videoFlag, videoFlag);
     }
@@ -624,6 +779,36 @@ export default {
       .ivu-list-item-extra {
         display: none;
       }
+    }
+  }
+}
+.table {
+  position: relative;
+  overflow: hidden;
+  -webkit-box-sizing: border-box;
+  box-sizing: border-box;
+  -webkit-box-flex: 1;
+  -ms-flex: 1;
+  flex: 1;
+  width: 100%;
+  max-width: 100%;
+  background-color: #fff;
+  font-size: 14px;
+  color: #606266;
+  tr {
+    td,
+    th {
+      border-bottom: 1px solid #dfe6ec;
+      padding: 10px 0;
+
+      overflow: hidden;
+      text-overflow: ellipsis;
+      white-space: normal;
+      word-break: break-all;
+      line-height: 23px;
+      padding-left: 10px;
+      padding-right: 10px;
+      box-sizing: border-box;
     }
   }
 }

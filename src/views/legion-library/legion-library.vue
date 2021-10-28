@@ -286,9 +286,9 @@
               <span class="href-text">官方文档：</span>
               <a
                 class="href-text"
-                href="http://xyxiao.cn/vue-cropper/example"
+                href=""
                 target="_blank"
-                >http://xyxiao.cn/vue-cropper/example</a
+                >_</a
               >
               <br />
               <br />

@@ -302,7 +302,7 @@
           <Row type="flex" justify="space-between">
             <Input
               v-model="entityForm.path"
-              placeholder="例如：cn.exrick.legion.modules.base.entity.User"
+              placeholder="例如：legion"
               clearable
               style="width: 410px"
             />

@@ -89,6 +89,32 @@ export default {
   },
 };
 </script>
-<style lang="less" scoped></style>
+<style lang="less" scoped>
+.card-content {
+  height: 150px;
+  padding: 26px 30px;
+}
+.card2 {
+  background-position: right top;
+  background-size: 30% auto;
+  background-repeat: no-repeat;
+  .card-body {
+    display: flex;
+    flex-direction: column;
+    height: 102px;
+    justify-content: space-around;
+    align-items: flex-start;
+    .card-title {
+      font-weight: 600;
+    }
+    .card-data {
+      display: flex;
+      align-items: flex-end;
+      .card-description {
+        margin: 0 0 5px 5px;
+      }
+    }
+  }
+}</style>
 
 
