@@ -1,36 +1,36 @@
 <template>
   <Card :padding="0" :style="{ backgroundColor: backgroundColor }">
     <div
-      class="card-content card2"
-      :style="{ backgroundImage: backgroundImage }"
+        class="card-content card2"
+        :style="{ backgroundImage: backgroundImage }"
     >
       <div class="card-body">
         <div :style="{ color: color }" class="card-title">{{ title }}</div>
         <div class="card-data">
           <count-up
-            :prefix="prefix"
-            :suffix="suffix"
-            :id="id"
-            :end-val="endVal"
-            :color="dataColor"
-            :countSize="countSize"
-            :countWeight="countWeight"
+              :prefix="prefix"
+              :suffix="suffix"
+              :id="id"
+              :end-val="endVal"
+              :color="dataColor"
+              :countSize="countSize"
+              :countWeight="countWeight"
           />
           <span
-            class="card-description"
-            :style="{
+              class="card-description"
+              :style="{
               color: descriptionColor,
               fontSize: descriptionSize,
               fontWeight: descriptionWeight,
             }"
-            >{{ description }}</span
+          >{{ description }}</span
           >
         </div>
         <Progress
-          :percent="endVal"
-          :stroke-color="color"
-          :stroke-width="strokeWidth"
-          hide-info
+            :percent="endVal"
+            :stroke-color="color"
+            :stroke-width="strokeWidth"
+            hide-info
         />
       </div>
     </div>
@@ -89,33 +89,6 @@ export default {
   },
 };
 </script>
-<style lang="less" scoped>
-.card-content {
-  height: 150px;
-  padding: 26px 30px;
-}
-.card2 {
-  background-position: right top;
-  background-size: 30% auto;
-  background-repeat: no-repeat;
-  .card-body {
-    display: flex;
-    flex-direction: column;
-    height: 102px;
-    justify-content: space-around;
-    align-items: flex-start;
-    .card-title {
-      font-weight: 600;
-    }
-    .card-data {
-      display: flex;
-      align-items: flex-end;
-      .card-description {
-        margin: 0 0 5px 5px;
-      }
-    }
-  }
-}
-</style>
+<style lang="less" scoped></style>
 
 

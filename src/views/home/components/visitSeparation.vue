@@ -6,10 +6,10 @@
       </p>
       <Row type="flex" justify="center" align="middle" style="height: 273px">
         <apexchart
-          type="donut"
-          width="350"
-          :options="chartOptions"
-          :series="series"
+            type="donut"
+            width="350"
+            :options="chartOptions"
+            :series="series"
         />
       </Row>
     </Card>

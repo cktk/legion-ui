@@ -6079,7 +6079,7 @@
                   {
                     staticClass: "item",
                     attrs: {
-                      href: "http://xpay.exrick.cn/pay?xboot",
+                      href: "http://xpay.esmooc.com/pay?xboot",
                       target: "_blank",
                     },
                   },
@@ -6099,7 +6099,7 @@
                   "a",
                   {
                     staticStyle: { margin: "0 5px" },
-                    attrs: { href: "http://exrick.cn", target: "_blank" },
+                    attrs: { href: "http://esmooc.com", target: "_blank" },
                   },
                   [e._v("Exrick")]
                 ),

@@ -1,8 +1,8 @@
 <template>
-  <div class="visit">
+  <div class="sysFiles">
     <Card>
       <p slot="title" class="card-title">
-        <Icon type="md-map" style="margin-right: 5px"></Icon>每日来访量统计
+        <Icon type="md-map" style="margin-right: 5px"></Icon>系统文件
       </p>
       <div slot="extra">
         <DatePicker
@@ -12,14 +12,7 @@
             style="width: 250px"
         ></DatePicker>
       </div>
-      <div style="height: 273px">
-        <apexchart
-            type="bar"
-            height="280"
-            :options="chartOptions"
-            :series="series"
-        />
-      </div>
+      <div style="height: 273px">这里放echarts的图表</div>
     </Card>
   </div>
 </template>
