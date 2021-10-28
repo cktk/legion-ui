@@ -6,7 +6,7 @@ module.exports = {
     port: 9999,
     proxy: {
       "/legion": {
-        target: "http://127.0.0.1:8888/api", // 请求本地 需要legion后端项目
+        target: "http://192.168.0.103:8881/api", // 请求本地 需要legion后端项目 http://127.0.0.1:8888/api
         ws: true,
       },
       "/foo": {

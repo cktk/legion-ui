@@ -15,16 +15,16 @@
                   <div class="left">
                     <div class="user">
                       <Avatar
-                          v-if="avatar"
-                          :src="avatar"
-                          size="60"
-                          class="avator-img"
+                        v-if="avatar"
+                        :src="avatar"
+                        size="60"
+                        class="avator-img"
                       ></Avatar>
                       <Avatar
-                          v-else
-                          icon="md-person"
-                          size="60"
-                          class="avator-icon"
+                        v-else
+                        icon="md-person"
+                        size="60"
+                        class="avator-icon"
                       ></Avatar>
                       <div class="info">
                         <p class="username">Hi, {{ nickname }} !</p>
@@ -47,8 +47,8 @@
                     </div>
                   </div>
                   <img
-                      class="pic"
-                      :src="require('@/assets/icon/computer.svg')"
+                    class="pic"
+                    :src="require('@/assets/icon/computer.svg')"
                   />
                 </div>
               </Card>
@@ -57,18 +57,17 @@
               <Card>
                 <p slot="title">
                   <Icon
-                      type="logo-github"
-                      size="20"
-                      style="margin-right: 5px"
+                    type="logo-github"
+                    size="20"
+                    style="margin-right: 5px"
                   />
                   CPU
                 </p>
-                <p slot="extra">
-                </p>
-                <div style="height: 300px; overflow: auto">
+                <p slot="extra"></p>
+                <div style="height: 266px; overflow: auto">
                   <List border class="ivuListStyle">
                     <ListItem v-for="(value, key, index) in systemInfoList.cpu"
-                    ><span style="float: left">{{ key }}</span>
+                      ><span style="float: left">{{ key }}</span>
                       <span style="float: right">{{ value }}</span></ListItem
                     >
                   </List>
@@ -81,11 +80,11 @@
         <Col :lg="24" :xl="16">
           <Row :gutter="10">
             <Col
-                :xs="24"
-                :sm="24"
-                :lg="24"
-                :xl="12"
-                style="margin-bottom: 10px"
+              :xs="24"
+              :sm="24"
+              :lg="24"
+              :xl="12"
+              style="margin-bottom: 10px"
             >
               <Card>
                 <p slot="title" style="overflow: visible">
@@ -102,7 +101,14 @@
                 <div class="buy-content">
                   <div class="qr">
                     <img src="@/assets/qr.png" width="130" />
-                    {{ systemInfoList.jvm }}
+                    <!-- {{ systemInfoList.jvm }} -->
+                    <List border class="ivuListStyle">
+                      <ListItem
+                        v-for="(value, key, index) in systemInfoList.jvm"
+                        ><span style="float: left">{{ key }}</span>
+                        <span style="float: right">{{ value }}</span></ListItem
+                      >
+                    </List>
                   </div>
                 </div>
               </Card>
@@ -113,14 +119,23 @@
                   <Card>
                     <p slot="title">
                       <Icon
-                          type="logo-github"
-                          size="20"
-                          style="margin-right: 5px"
+                        type="logo-github"
+                        size="20"
+                        style="margin-right: 5px"
                       />
                       mem
                     </p>
                     <div style="height: 130px; overflow: hidden">
-                      {{ systemInfoList.mem }}
+                      <!-- {{ systemInfoList.mem }} -->
+                      <List border class="ivuListStyle">
+                        <ListItem
+                          v-for="(value, key, index) in systemInfoList.mem"
+                          ><span style="float: left">{{ key }}</span>
+                          <span style="float: right">{{
+                            value
+                          }}</span></ListItem
+                        >
+                      </List>
                     </div>
                   </Card>
                 </Col>
@@ -128,15 +143,24 @@
                   <Card>
                     <p slot="title">
                       <Icon
-                          type="logo-github"
-                          size="20"
-                          style="margin-right: 5px"
+                        type="logo-github"
+                        size="20"
+                        style="margin-right: 5px"
                       />
                       sys
                     </p>
                     <p slot="extra"></p>
                     <div style="height: 233px; overflow: auto">
-                      {{ systemInfoList.sys }}
+                      <!-- {{ systemInfoList.sys }} -->
+                      <List border class="ivuListStyle">
+                        <ListItem
+                          v-for="(value, key, index) in systemInfoList.sys"
+                          ><span style="float: left">{{ key }}</span>
+                          <span style="float: right">{{
+                            value
+                          }}</span></ListItem
+                        >
+                      </List>
                     </div>
                   </Card>
                 </Col>
@@ -154,213 +178,213 @@
       </Row>
       <Row :gutter="10">
         <Col
-            :xs="24"
-            :sm="24"
-            :lg="24"
-            :xl="24"
-            :style="{ marginBottom: '10px' }"
+          :xs="24"
+          :sm="24"
+          :lg="24"
+          :xl="24"
+          :style="{ marginBottom: '10px' }"
         >
           <Table
-              size="large"
-              :columns="sysFilescolumns"
-              :data="systemInfoList.sysFiles"
+            size="large"
+            :columns="sysFilescolumns"
+            :data="systemInfoList.sysFiles"
           ></Table>
         </Col>
       </Row>
       <Row :gutter="10">
         <Col
-            :xs="24"
-            :sm="24"
-            :md="12"
-            :lg="6"
-            :style="{ marginBottom: '10px' }"
+          :xs="24"
+          :sm="24"
+          :md="12"
+          :lg="6"
+          :style="{ marginBottom: '10px' }"
         >
           <card1
-              id="card1"
-              prefix="￥"
-              :end-val="count.data1"
-              title="card1"
-              :image="require('@/assets/icon/money.png')"
-              width="34px"
-              height="34px"
+            id="card1"
+            prefix="￥"
+            :end-val="count.data1"
+            title="card1"
+            :image="require('@/assets/icon/money.png')"
+            width="34px"
+            height="34px"
           />
         </Col>
         <Col
-            :xs="24"
-            :sm="24"
-            :md="12"
-            :lg="6"
-            :style="{ marginBottom: '10px' }"
+          :xs="24"
+          :sm="24"
+          :md="12"
+          :lg="6"
+          :style="{ marginBottom: '10px' }"
         >
           <card2
-              id="card2"
-              suffix="%"
-              :end-val="count.data2"
-              color="#f90"
-              title="card2"
-              description="相比昨日"
+            id="card2"
+            suffix="%"
+            :end-val="count.data2"
+            color="#f90"
+            title="card2"
+            description="相比昨日"
           />
         </Col>
         <Col
-            :xs="24"
-            :sm="24"
-            :md="12"
-            :lg="6"
-            :style="{ marginBottom: '10px' }"
+          :xs="24"
+          :sm="24"
+          :md="12"
+          :lg="6"
+          :style="{ marginBottom: '10px' }"
         >
           <card4
-              title="待办事项"
-              :time="time"
-              description="您有一个新的待审批任务，请前往查看"
+            title="待办事项"
+            :time="time"
+            description="您有一个新的待审批任务，请前往查看"
           />
         </Col>
         <Col
-            :xs="24"
-            :sm="24"
-            :md="12"
-            :lg="6"
-            :style="{ marginBottom: '10px' }"
+          :xs="24"
+          :sm="24"
+          :md="12"
+          :lg="6"
+          :style="{ marginBottom: '10px' }"
         >
           <card3
-              title="应用中心"
-              description="销量统计，用户统计，日活分析"
-              :image="require('@/assets/icon/app.png')"
-              width="34px"
-              height="34px"
-              titleSize="18px"
+            title="应用中心"
+            description="销量统计，用户统计，日活分析"
+            :image="require('@/assets/icon/app.png')"
+            width="34px"
+            height="34px"
+            titleSize="18px"
           />
         </Col>
       </Row>
       <Row :gutter="10">
         <Col
-            :xs="24"
-            :sm="24"
-            :md="12"
-            :lg="4"
-            :style="{ marginBottom: '10px' }"
+          :xs="24"
+          :sm="24"
+          :md="12"
+          :lg="4"
+          :style="{ marginBottom: '10px' }"
         >
           <cardApp icon="logo-buffer" title="SaaS应用" />
         </Col>
         <Col
-            :xs="24"
-            :sm="24"
-            :md="12"
-            :lg="4"
-            :style="{ marginBottom: '10px' }"
+          :xs="24"
+          :sm="24"
+          :md="12"
+          :lg="4"
+          :style="{ marginBottom: '10px' }"
         >
           <cardApp activeColor="#2db7f5" icon="md-bookmarks" title="日志分析" />
         </Col>
         <Col
-            :xs="24"
-            :sm="24"
-            :md="12"
-            :lg="4"
-            :style="{ marginBottom: '10px' }"
+          :xs="24"
+          :sm="24"
+          :md="12"
+          :lg="4"
+          :style="{ marginBottom: '10px' }"
         >
           <cardApp activeColor="#19be6b" icon="md-cloud" title="云运维" />
         </Col>
         <Col
-            :xs="24"
-            :sm="24"
-            :md="12"
-            :lg="4"
-            :style="{ marginBottom: '10px' }"
+          :xs="24"
+          :sm="24"
+          :md="12"
+          :lg="4"
+          :style="{ marginBottom: '10px' }"
         >
           <cardApp activeColor="#f90" icon="md-film" title="视频监控" />
         </Col>
         <Col
-            :xs="24"
-            :sm="24"
-            :md="12"
-            :lg="4"
-            :style="{ marginBottom: '10px' }"
+          :xs="24"
+          :sm="24"
+          :md="12"
+          :lg="4"
+          :style="{ marginBottom: '10px' }"
         >
           <cardApp activeColor="#8950fc" icon="md-stats" title="数据分析"
-          /></Col>
+        /></Col>
         <Col
-            :xs="24"
-            :sm="24"
-            :md="12"
-            :lg="4"
-            :style="{ marginBottom: '10px' }"
+          :xs="24"
+          :sm="24"
+          :md="12"
+          :lg="4"
+          :style="{ marginBottom: '10px' }"
         >
           <cardApp activeColor="#ed4014" icon="md-people" title="用户分析"
-          /></Col>
+        /></Col>
       </Row>
       <Row :gutter="10">
         <Col
-            :xs="24"
-            :sm="24"
-            :md="12"
-            :lg="6"
-            :style="{ marginBottom: '10px' }"
+          :xs="24"
+          :sm="24"
+          :md="12"
+          :lg="6"
+          :style="{ marginBottom: '10px' }"
         >
           <card1
-              id="card5"
-              :bordered="false"
-              :end-val="126778"
-              title="今日新增互动数"
-              backgroundColor="#fff4df"
-              :image="require('@/assets/icon/comment.png')"
-              width="34px"
-              height="34px"
+            id="card5"
+            :bordered="false"
+            :end-val="126778"
+            title="今日新增互动数"
+            backgroundColor="#fff4df"
+            :image="require('@/assets/icon/comment.png')"
+            width="34px"
+            height="34px"
           />
         </Col>
         <Col
-            :xs="24"
-            :sm="24"
-            :md="12"
-            :lg="6"
-            :style="{ marginBottom: '10px' }"
+          :xs="24"
+          :sm="24"
+          :md="12"
+          :lg="6"
+          :style="{ marginBottom: '10px' }"
         >
           <card1
-              id="card6"
-              :bordered="false"
-              :end-val="68893"
-              backgroundColor="#6993fe"
-              countColor="#fff"
-              icon="md-person-add"
-              iconColor="#fff"
-              titleColor="#fff"
-              title="今日新增用户"
+            id="card6"
+            :bordered="false"
+            :end-val="68893"
+            backgroundColor="#6993fe"
+            countColor="#fff"
+            icon="md-person-add"
+            iconColor="#fff"
+            titleColor="#fff"
+            title="今日新增用户"
           />
         </Col>
         <Col
-            :xs="24"
-            :sm="24"
-            :md="12"
-            :lg="6"
-            :style="{ marginBottom: '10px' }"
+          :xs="24"
+          :sm="24"
+          :md="12"
+          :lg="6"
+          :style="{ marginBottom: '10px' }"
         >
           <card1
-              id="card7"
-              :bordered="false"
-              :end-val="count.data4"
-              backgroundColor="#8950fe"
-              countColor="#fff"
-              icon="md-cloud-download"
-              iconColor="#fff"
-              titleColor="#fff"
-              title="今日下载量"
+            id="card7"
+            :bordered="false"
+            :end-val="count.data4"
+            backgroundColor="#8950fe"
+            countColor="#fff"
+            icon="md-cloud-download"
+            iconColor="#fff"
+            titleColor="#fff"
+            title="今日下载量"
           />
         </Col>
         <Col
-            :xs="24"
-            :sm="24"
-            :md="12"
-            :lg="6"
-            :style="{ marginBottom: '10px' }"
+          :xs="24"
+          :sm="24"
+          :md="12"
+          :lg="6"
+          :style="{ marginBottom: '10px' }"
         >
           <card1
-              id="card8"
-              :bordered="false"
-              :end-val="13507632434"
-              backgroundColor="#f64e61"
-              countColor="#fff"
-              icon="md-calendar"
-              iconColor="#fff"
-              titleColor="#fff"
-              title="月活"
+            id="card8"
+            :bordered="false"
+            :end-val="13507632434"
+            backgroundColor="#f64e61"
+            countColor="#fff"
+            icon="md-calendar"
+            iconColor="#fff"
+            titleColor="#fff"
+            title="月活"
           />
         </Col>
       </Row>
@@ -388,20 +412,20 @@
 
       <Row :gutter="10">
         <Col
-            :xs="24"
-            :sm="24"
-            :lg="24"
-            :xl="16"
-            :style="{ marginBottom: '10px' }"
+          :xs="24"
+          :sm="24"
+          :lg="24"
+          :xl="16"
+          :style="{ marginBottom: '10px' }"
         >
           <sys-files></sys-files>
         </Col>
         <Col
-            :xs="24"
-            :sm="24"
-            :lg="24"
-            :xl="8"
-            :style="{ marginBottom: '10px' }"
+          :xs="24"
+          :sm="24"
+          :lg="24"
+          :xl="8"
+          :style="{ marginBottom: '10px' }"
         >
           2
         </Col>
@@ -511,9 +535,9 @@ export default {
         if (res.success) {
           this.systemInfoList = res.result ? res.result : {};
           const aaa = Object.keys(
-              this.systemInfoList.sysFiles[0]
-                  ? this.systemInfoList.sysFiles[0]
-                  : []
+            this.systemInfoList.sysFiles[0]
+              ? this.systemInfoList.sysFiles[0]
+              : []
           );
           this.sysFilescolumns = [];
           for (let i = 0; i < aaa.length; i++) {
@@ -536,9 +560,9 @@ export default {
           }
           let data = res.result;
           if (
-              data.open &&
-              (data.title || data.content) &&
-              data.position == "HOME"
+            data.open &&
+            (data.title || data.content) &&
+            data.position == "HOME"
           ) {
             this.$Notice.info({
               title: data.title,
