@@ -3,17 +3,17 @@ import { getRequest, postRequest, putRequest, postBodyRequest, getNoAuthRequest,
 
 // 分页获取数据
 export const getReplyList = (params) => {
-    return getRequest('/autoChat/getByCondition', params)
+    return getRequest('/legion/autoChat/getByCondition', params)
 }
 // 添加
 export const addReply = (params) => {
-    return postRequest('/autoChat/save', params)
+    return postRequest('/legion/autoChat/save', params)
 }
 // 编辑
 export const editReply = (params) => {
-    return putRequest('/autoChat/update', params)
+    return putRequest('/legion/autoChat/update', params)
 }
 // 删除
 export const deleteReply = (params) => {
-    return postRequest('/autoChat/delByIds', params)
+    return postRequest('/legion/autoChat/delByIds', params)
 }
