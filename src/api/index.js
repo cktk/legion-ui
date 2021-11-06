@@ -15,7 +15,7 @@ export const getMenuList = `${config.baseApi}/legion/permission/getMenuList`
 // 获取数据字典
 export const getDictData = `${config.baseApi}/legion/dictData/getByType/`
 // Websocket
-export const ws = `${config.baseApi}/ws`
+export const ws = `${config.baseApi}/api/ws`
 
 
 //获取系统信息

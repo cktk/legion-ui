@@ -645,7 +645,37 @@ export default {
       userType: "无",
       time: "",
       price: "...",
-      systemInfoList: {},
+      systemInfoList: {
+        cpu: {
+          cpuNum: "",
+          free: "",
+          sys: "",
+          total: "",
+          used: "",
+          wait: "",
+        },
+        jvm: {
+          free: "",
+          home: "",
+          max: "",
+          name: "",
+          runTime: "",
+          startTime: "",
+          total: "",
+          usage: "",
+          used: "",
+          version: "",
+        },
+        mem: { free: "", total: "", usage: "", used: "" },
+        sys: {
+          computerIp: "",
+          computerName: "",
+          osArch: "",
+          osName: "",
+          userDir: "",
+        },
+        sysFiles: [],
+      },
       sysFilescolumns: [
         { title: "盘符路径", key: "dirName" },
         { title: "文件系统", key: "sysTypeName" },
@@ -688,7 +718,39 @@ export default {
       systemInfo().then((res) => {
         console.log(res);
         if (res.success) {
-          this.systemInfoList = res.result ? res.result : {};
+          this.systemInfoList = res.result
+            ? res.result
+            : {
+                cpu: {
+                  cpuNum: "",
+                  free: "",
+                  sys: "",
+                  total: "",
+                  used: "",
+                  wait: "",
+                },
+                jvm: {
+                  free: "",
+                  home: "",
+                  max: "",
+                  name: "",
+                  runTime: "",
+                  startTime: "",
+                  total: "",
+                  usage: "",
+                  used: "",
+                  version: "",
+                },
+                mem: { free: "", total: "", usage: "", used: "" },
+                sys: {
+                  computerIp: "",
+                  computerName: "",
+                  osArch: "",
+                  osName: "",
+                  userDir: "",
+                },
+                sysFiles: [],
+              };
           // const aaa = Object.keys(
           //   this.systemInfoList.sysFiles[0]
           //     ? this.systemInfoList.sysFiles[0]
@@ -739,16 +801,16 @@ export default {
       Cookies.set(noticeFlag, noticeFlag);
     }
     // 价格
-    AV.init({
-      appId: "6Bstbxl4NDU69I77D3nzf61h-gzGzoHsz",
-      appKey: "gaFTnYlTul3M8qdiGlbfvoJK",
-      serverURL: "https://6bstbxl4.lc-cn-n1-shared.com",
-    });
-    const query = new AV.Query("Price");
-    query.equalTo("objectId", "6080216c2a5bb23590bcaedb");
-    query.first().then((e) => {
-      this.price = e.attributes.price;
-    });
+    // AV.init({
+    //   appId: "6Bstbxl4NDU69I77D3nzf61h-gzGzoHsz",
+    //   appKey: "gaFTnYlTul3M8qdiGlbfvoJK",
+    //   serverURL: "https://6bstbxl4.lc-cn-n1-shared.com",
+    // });
+    // const query = new AV.Query("Price");
+    // query.equalTo("objectId", "6080216c2a5bb23590bcaedb");
+    // query.first().then((e) => {
+    //   this.price = e.attributes.price;
+    // });
     // Gitalk
     // 这像是渲染用的
     /*    var gitalk = new Gitalk({
@@ -762,12 +824,12 @@ export default {
     // 渲染到带这个id 的盒子上
     gitalk.render("comments"); */
     // 宣传视频
-    let videoFlag = "videoShowed";
-    let legionVideo = Cookies.get(videoFlag);
-    if (legionVideo != videoFlag) {
-      // this.showVideo = true;
-      Cookies.set(videoFlag, videoFlag);
-    }
+    // let videoFlag = "videoShowed";
+    // let legionVideo = Cookies.get(videoFlag);
+    // if (legionVideo != videoFlag) {
+    //   // this.showVideo = true;
+    //   Cookies.set(videoFlag, videoFlag);
+    // }
   },
 };
 </script>
