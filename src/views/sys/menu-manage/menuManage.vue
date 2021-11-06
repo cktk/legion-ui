@@ -920,7 +920,7 @@ export default {
     },
     getAllList() {
       this.loading = true;
-      this.getRequest("/permission/getAllList").then((res) => {
+      this.getRequest("/legion/permission/getAllList").then((res) => {
         this.loading = false;
         if (res.success) {
           // 仅展开指定级数 默认后端已展开所有
