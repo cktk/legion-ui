@@ -74,7 +74,7 @@
 <script>
 import mapboxgl from "mapbox-gl";
 import MapboxGeocoder from "@mapbox/mapbox-gl-geocoder";
-import config from "@/config";
+import config from "../../../config/config";
 export default {
   name: "map",
   props: {

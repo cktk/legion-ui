@@ -1,7 +1,7 @@
 // 统一请求路径前缀在libs/axios.js中修改
 import { getRequest, postRequest, putRequest, postBodyRequest, getNoAuthRequest, postNoAuthRequest } from '@/libs/axios';
 
-import config from "@/config";
+import config from "../config/config";
 
 // Vaptcha ID
 export const vaptchaID = config.vaptchaID
