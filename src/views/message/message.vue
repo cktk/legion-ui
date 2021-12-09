@@ -8,46 +8,46 @@
       <div class="message-mainlist-content">
         <div>
           <Button
-            @click="setCurrentMesType('unread')"
-            size="large"
-            long
-            type="text"
+              @click="setCurrentMesType('unread')"
+              size="large"
+              long
+              type="text"
           >
             <div class="mes-wrap">
               <transition name="mes-current-type-btn">
                 <Icon
-                  v-show="currentMesType == 'unread'"
-                  type="md-checkmark"
+                    v-show="currentMesType == 'unread'"
+                    type="md-checkmark"
                 ></Icon>
               </transition>
               <span class="mes-type-btn-text">未读消息</span>
               <Badge
-                class="message-count-badge-outer"
-                class-name="message-count-badge-red"
-                :count="unreadCount"
+                  class="message-count-badge-outer"
+                  class-name="message-count-badge-red"
+                  :count="unreadCount"
               ></Badge>
             </div>
           </Button>
         </div>
         <div>
           <Button
-            @click="setCurrentMesType('hasread')"
-            size="large"
-            long
-            type="text"
+              @click="setCurrentMesType('hasread')"
+              size="large"
+              long
+              type="text"
           >
             <div class="mes-wrap">
               <transition name="mes-current-type-btn">
                 <Icon
-                  v-show="currentMesType == 'hasread'"
-                  type="md-checkmark"
+                    v-show="currentMesType == 'hasread'"
+                    type="md-checkmark"
                 ></Icon>
               </transition>
               <span class="mes-type-btn-text">已读消息</span>
               <Badge
-                class="message-count-badge-outer"
-                class-name="message-count-badge"
-                :count="hasreadCount"
+                  class="message-count-badge-outer"
+                  class-name="message-count-badge"
+                  :count="hasreadCount"
               ></Badge>
             </div>
           </Button>
@@ -57,46 +57,41 @@
         <transition name="view-message">
           <div v-if="showMesList" class="message-title-list-content">
             <Table
-              ref="messageList"
-              :loading="loading"
-              :columns="columns"
-              :data="mesList"
+                ref="messageList"
+                :loading="loading"
+                :columns="columns"
+                :data="mesList"
             ></Table>
             <div class="message-page">
               <Poptip
-                confirm
-                transfer
-                title="确定标记所有消息为已读？"
-                @on-ok="readAll"
-                v-if="currentMesType == 'unread'"
-              >
-                <Button icon="md-notifications-off" :disabled="unreadCount <= 0"
-                  >全部标记已读</Button
-                >
+                  confirm
+                  transfer
+                  title="确定标记所有消息为已读？"
+                  @on-ok="readAll"
+                  v-if="currentMesType == 'unread'">
+                <Button icon="md-notifications-off" :disabled="unreadCount <= 0">全部标记已读</Button>
               </Poptip>
               <Poptip
-                confirm
-                transfer
-                title="确定彻底删除所有已读消息？"
-                @on-ok="deleteAll"
-                v-if="currentMesType == 'hasread'"
-              >
-                <Button icon="md-trash" :disabled="hasreadCount <= 0"
-                  >全部彻底删除</Button
-                >
+                  confirm
+                  transfer
+                  title="确定彻底删除所有已读消息？"
+                  @on-ok="deleteAll"
+                  v-if="currentMesType == 'hasread'">
+                <Button icon="md-trash" :disabled="hasreadCount <= 0">全部彻底删除
+                </Button>
               </Poptip>
               <Page
-                :current="params.pageNumber"
-                :total="total"
-                :page-size="params.pageSize"
-                @on-change="changePage"
-                @on-page-size-change="changePageSize"
-                :page-size-opts="[5, 10]"
-                size="small"
-                show-total
-                show-elevator
-                show-sizer
-                class="page-fix"
+                  :current="params.pageNumber"
+                  :total="total"
+                  :page-size="params.pageSize"
+                  @on-change="changePage"
+                  @on-page-size-change="changePageSize"
+                  :page-size-opts="[5, 10]"
+                  size="small"
+                  show-total
+                  show-elevator
+                  show-sizer
+                  class="page-fix"
               ></Page>
             </div>
           </div>
@@ -129,76 +124,72 @@
 
 <script>
 import Cookies from "js-cookie";
-import {
-  getMessageSendData,
-  editMessageSend,
-  deleteMessageSend,
-  allMessageSend,
-} from "@/api/index";
+import {allMessageSend, deleteMessageSend, editMessageSend, getMessageSendData,} from "@/api/index";
+
 export default {
   name: "message_index",
   data() {
     const markAsreadBtn = (h, params) => {
       return h(
-        "Button",
-        {
-          props: {
-            icon: "md-eye-off",
-            size: "small",
-          },
-          on: {
-            click: () => {
-              // 标记已读
-              let v = params.row;
-              // 转换null为""
-              for (let attr in v) {
-                if (v[attr] == null) {
-                  v[attr] = "";
+          "Button",
+          {
+            props: {
+              icon: "md-eye-off",
+              size: "small",
+            },
+            on: {
+              click: () => {
+                // 标记已读
+                let v = params.row;
+                // 转换null为""
+                for (let attr in v) {
+                  if (v[attr] == null) {
+                    v[attr] = "";
+                  }
                 }
-              }
-              let str = JSON.stringify(v);
-              let data = JSON.parse(str);
-              data.status = 1;
-              this.loading = true;
-              editMessageSend(data).then((res) => {
-                this.loading = false;
-                if (res.success) {
-                  this.$Message.success("操作成功");
-                  this.getCount();
-                  this.refreshMessage();
-                }
-              });
+                let str = JSON.stringify(v);
+                let data = JSON.parse(str);
+                data.status = 1;
+                this.loading = true;
+                editMessageSend(data).then((res) => {
+                  this.loading = false;
+                  if (res.success) {
+                    this.$Message.success("操作成功");
+                    this.getCount();
+                    this.refreshMessage();
+                  }
+                });
+              },
             },
           },
-        },
-        "标为已读"
+          "标为已读"
       );
     };
     const deleteRealBtn = (h, params) => {
       return h(
-        "Button",
-        {
-          props: {
-            icon: "md-trash",
-            size: "small",
-          },
-          on: {
-            click: () => {
-              // 彻底删除
-              let v = params.row;
-              this.loading = true;
-              deleteMessageSend({ ids: v.id }).then((res) => {
-                this.loading = false;
-                if (res.success) {
-                  this.$Message.success("操作成功");
-                  this.getCount();
-                  this.refreshMessage();
-                }
-              });
+          "Button",
+          {
+            props: {
+              icon: "md-trash",
+              size: "small",
+            },
+            on: {
+              click: () => {
+                // 彻底删除
+                let v = params.row;
+                this.loading = true;
+                deleteMessageSend({ids: v.id}).then((res) => {
+                  this.loading = false;
+                  if (res.success) {
+                    this.$Message.success("操作成功");
+                    this.getCount();
+                    this.refreshMessage();
+                  }
+                });
+              },
             },
           },
-        },
-        "删除"
+          "删除"
       );
     };
     return {
@@ -237,18 +228,18 @@ export default {
           render: (h, params) => {
             return h("span", [
               h(
-                "a",
-                {
-                  style: {
-                    margin: "0 30px 0 0",
-                  },
-                  on: {
-                    click: () => {
-                      this.getContent(params.row);
+                  "a",
+                  {
+                    style: {
+                      margin: "0 30px 0 0",
+                    },
+                    on: {
+                      click: () => {
+                        this.getContent(params.row);
+                      },
                     },
                   },
-                },
-                "【" + params.row.type + "】 " + params.row.title
+                  "【" + params.row.type + "】 " + params.row.title
               ),
             ]);
           },
@@ -311,8 +302,8 @@ export default {
       getMessageSendData(this.params).then((res) => {
         this.loading = false;
         if (res.success) {
-          this.mesList = res.result.content;
-          this.total = res.result.totalElements;
+          this.mesList = res.result.records;
+          this.total = res.result.total;
           if (type == "unread") {
             this.unreadCount = this.total;
           } else if (type == "hasread") {
@@ -343,7 +334,7 @@ export default {
             this.loading = false;
             this.mesList = res.result.content;
           }
-          this.unreadCount = res.result.totalElements;
+          this.unreadCount = res.result.total;
           this.$store.commit("setMessageCount", this.unreadCount);
         }
       });
@@ -353,12 +344,12 @@ export default {
       this.params.status = 1;
       getMessageSendData(this.params).then((res) => {
         if (res.success) {
-          this.hasreadCount = res.result.totalElements;
+          this.hasreadCount = res.result.total;
         }
       });
     },
     deleteMessage(id) {
-      deleteMessageSend({ ids: id }).then((res) => {
+      deleteMessageSend({ids: id}).then((res) => {
         if (res.success) {
           this.$Message.success("删除成功");
         }

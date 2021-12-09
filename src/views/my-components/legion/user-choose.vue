@@ -319,8 +319,8 @@ export default {
       getUserListData(this.searchForm).then((res) => {
         this.userLoading = false;
         if (res.success) {
-          this.userData = res.result.content;
-          this.totalUser = res.result.totalElements;
+          this.userData = res.result.records;
+          this.totalUser = res.result.total;
         }
       });
     },

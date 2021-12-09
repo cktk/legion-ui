@@ -309,6 +309,7 @@ export default {
                 {
                   on: {
                     click: () => {
+                      console.log(params)
                       this.editPerm(params.row);
                     },
                   },
@@ -451,8 +452,8 @@ export default {
       getRoleList(this.searchForm).then((res) => {
         this.loading = false;
         if (res.success) {
-          this.data = res.result.content;
-          this.total = res.result.totalElements;
+          this.data = res.result.records;
+          this.total = res.result.total;
           if (this.data.length == 0 && this.searchForm.pageNumber > 1) {
             this.searchForm.pageNumber -= 1;
             this.getDataList();
@@ -619,6 +620,8 @@ export default {
       this.modalTitle = "分配 " + v.name + " 的菜单权限";
       // 匹配勾选
       let rolePerms = v.permissions;
+
+      console.log(v)
       if (this.treeLoading) {
         this.$Message.warning("菜单权限数据加载中，请稍后点击查看");
         return;

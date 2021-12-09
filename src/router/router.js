@@ -120,19 +120,7 @@ export const otherRouter = {
       component: () =>
         import("@/views/legion-vue-template/new-window/edit.vue"),
     },
-    {
-      path: "leave",
-      title: "请假申请",
-      name: "leave",
-      component: () => import("@/views/activiti/business/leave.vue"),
-    },
-    {
-      path: "historic-detail",
-      title: "流程进度历史详情",
-      name: "historic_detail",
-      component: () =>
-        import("@/views/activiti/historic-detail/historicDetail.vue"),
-    },
+
   ],
 };
 

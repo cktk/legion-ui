@@ -440,8 +440,8 @@ export default {
       // this.getRequest("请求路径", this.searchForm).then(res => {
       //   this.loading = false;
       //   if (res.success) {
-      //     this.data = res.result.content;
-      //     this.total = res.result.totalElements;
+      //     this.data = res.result.records;
+      //     this.total = res.result.total;
       //     if (this.data.length == 0 && this.searchForm.pageNumber > 1) {
       //       this.searchForm.pageNumber -= 1;
       //       this.getDataList();

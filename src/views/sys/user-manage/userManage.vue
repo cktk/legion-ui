@@ -193,9 +193,7 @@
         </Upload>
         <Button @click="clearImportData" icon="md-trash">清空数据</Button>
       </div>
-      <Alert type="warning" show-icon
-        >导入前请下载查看导入模版数据文件查看所需字段及说明，确保数据格式正确，不得修改列英文名称</Alert
-      >
+      <Alert type="warning" show-icon>导入前请下载查看导入模版数据文件查看所需字段及说明，确保数据格式正确，不得修改列英文名称</Alert>
       <Table
         :columns="importColumns"
         border
@@ -614,12 +612,12 @@ export default {
         this.loading = false;
         if (res.success) {
           if (!this.getStore("roles").includes("ROLE_ADMIN")) {
-            res.result.content.forEach((e) => {
+            res.result.records.forEach((e) => {
               e.mobile = "您无权查看该数据";
             });
           }
-          this.data = res.result.content;
-          this.total = res.result.totalElements;
+          this.data = res.result.records;
+          this.total = res.result.total;
           if (this.data.length == 0 && this.searchForm.pageNumber > 1) {
             this.searchForm.pageNumber -= 1;
             this.getDataList();

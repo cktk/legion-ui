@@ -20,16 +20,15 @@
           <FormItem label="消息标题" prop="title">
             <Input
               type="text"
-              v-model="searchForm.title"
+              v-model="searchForm.like_title"
               placeholder="请输入消息标题"
               clearable
-              style="width: 200px"
-            />
+              style="width: 200px"/>
           </FormItem>
           <FormItem label="消息内容" prop="content">
             <Input
               type="text"
-              v-model="searchForm.content"
+              v-model="searchForm.like_content"
               placeholder="请输入消息内容"
               clearable
               style="width: 200px"
@@ -57,9 +56,7 @@
             </FormItem>
           </span>
           <FormItem style="margin-left: -35px" class="br">
-            <Button @click="handleSearch" type="primary" icon="ios-search"
-              >搜索</Button
-            >
+            <Button @click="handleSearch" type="primary" icon="ios-search">搜索</Button>
             <Button @click="handleReset">重置</Button>
             <a class="drop-down" @click="dropDown">
               {{ dropDownContent }}
@@ -127,7 +124,7 @@
 
 <script>
 import {
-  getMessageData,
+  postMessageData,
   deleteMessage,
 } from "@/api/index";
 import { shortcuts } from "@/libs/shortcuts";
@@ -155,16 +152,18 @@ export default {
       dropDownContent: "展开",
       dropDownIcon: "ios-arrow-down",
       searchForm: {
+
         // 搜索框对应data对象
-        title: "",
-        content: "",
+        like_title: "",
+        like_content: "",
+        ge_startDate: "", // 起始时间
+        le_endDate: "", // 终止时间
+        eq_isTemplate: false,
         pageNumber: 1, // 当前页数
         pageSize: 10, // 页面大小
         sort: "createTime", // 默认排序字段
         order: "desc", // 默认排序方式
-        startDate: "", // 起始时间
-        endDate: "", // 终止时间
-        isTemplate: false,
+
       },
       transferData: {},
       selectDate: null, // 选择日期绑定modal
@@ -313,9 +312,9 @@ export default {
     },
     changeTab(name) {
       if (name == "normal") {
-        this.searchForm.isTemplate = false;
+        this.searchForm.eq_isTemplate = false;
       } else {
-        this.searchForm.isTemplate = true;
+        this.searchForm.eq_isTemplate = true;
       }
       this.getDataList();
     },
@@ -350,11 +349,11 @@ export default {
     },
     getDataList() {
       this.loading = true;
-      getMessageData(this.searchForm).then((res) => {
+      postMessageData(this.searchForm).then((res) => {
         this.loading = false;
         if (res.success) {
-          this.data = res.result.content;
-          this.total = res.result.totalElements;
+          this.data = res.result.records;
+          this.total = res.result.total;
           if (this.data.length == 0 && this.searchForm.pageNumber > 1) {
             this.searchForm.pageNumber -= 1;
             this.getDataList();
@@ -372,8 +371,8 @@ export default {
       this.searchForm.pageNumber = 1;
       this.searchForm.pageSize = 10;
       this.selectDate = null;
-      this.searchForm.startDate = "";
-      this.searchForm.endDate = "";
+      this.searchForm.ge_startDate = "";
+      this.searchForm.le_endDate = "";
       // 重新加载数据
       this.getDataList();
     },

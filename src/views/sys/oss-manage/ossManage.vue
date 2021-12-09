@@ -10,7 +10,7 @@
           <FormItem label="原文件名" prop="name">
             <Input
               type="text"
-              v-model="searchForm.name"
+              v-model="searchForm.like_name"
               placeholder="请输入文件名"
               clearable
               style="width: 200px"
@@ -19,7 +19,7 @@
           <FormItem label="上传者账号" prop="createBy">
             <Input
               type="text"
-              v-model="searchForm.createBy"
+              v-model="searchForm.eq_createBy"
               placeholder="请输入上传者登录账号"
               clearable
               style="width: 200px"
@@ -29,7 +29,7 @@
             <FormItem label="存储文件名" prop="name">
               <Input
                 type="text"
-                v-model="searchForm.fkey"
+                v-model="searchForm.like_f_key"
                 placeholder="请输入存储文件名"
                 clearable
                 style="width: 200px"
@@ -38,7 +38,7 @@
             <FormItem label="创建时间">
               <DatePicker
                 :options="options"
-                v-model="selectDate"
+                v-model="le_endDate"
                 type="daterange"
                 format="yyyy-MM-dd"
                 clearable
@@ -307,7 +307,7 @@
 import {
   uploadFile,
   checkOssSet,
-  getFileListData,
+  postFileListData,
   copyFile,
   renameFile,
   deleteFile,
@@ -340,15 +340,13 @@ export default {
       modalTitle: "", // 添加或编辑标题
       searchForm: {
         // 搜索框对应data对象
-        name: "",
-        fkey: "",
-        type: "",
+        like_name: "",
+        like_f_key: "",
+        eq_type: "",
         pageNumber: 1, // 当前页数
         pageSize: 5, // 页面大小
         sort: "createTime", // 默认排序字段
         order: "desc", // 默认排序方式
-        startDate: "", // 起始时间
-        endDate: "", // 终止时间
       },
       selectDate: null, // 选择日期绑定modal
       options: {
@@ -868,8 +866,8 @@ export default {
     },
     selectDateRange(v) {
       if (v) {
-        this.searchForm.startDate = v[0];
-        this.searchForm.endDate = v[1];
+        this.searchForm.ge_createTime = v[0];
+        this.searchForm.le_createTime = v[1];
       }
     },
     changeShowType() {
@@ -888,11 +886,11 @@ export default {
         this.pageSizeOpts = [12, 24];
       }
       this.loading = true;
-      getFileListData(this.searchForm).then((res) => {
+      postFileListData(this.searchForm).then((res) => {
         this.loading = false;
         if (res.success) {
-          this.data = res.result.content;
-          this.total = res.result.totalElements;
+          this.data = res.result.records;
+          this.total = res.result.total;
           if (this.data.length == 0 && this.searchForm.pageNumber > 1) {
             this.searchForm.pageNumber -= 1;
             this.getDataList();
@@ -945,8 +943,8 @@ export default {
         this.searchForm.pageSize = 12;
       }
       this.selectDate = null;
-      this.searchForm.startDate = "";
-      this.searchForm.endDate = "";
+      this.searchForm.ge_createTime = "";
+      this.searchForm.le_createTime = "";
       // 重新加载数据
       this.getDataList();
     },

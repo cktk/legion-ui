@@ -285,20 +285,6 @@ export default {
       }
     },
     getParentList() {
-      // this.loading = true;
-      // this.getRequest("一级数据请求路径，如/tree/getByParentId/0").then(res => {
-      //   this.loading = false;
-      //   if (res.success) {
-      //     res.result.forEach(function(e) {
-      //       if (e.isParent) {
-      //         e.loading = false;
-      //         e.children = [];
-      //       }
-      //     });
-      //     this.data = res.result;
-      //   }
-      // });
-      // 模拟请求成功
       this.data = [
         {
           title: "自定义图标",
@@ -357,26 +343,6 @@ export default {
       ];
     },
     getParentListEdit() {
-      // this.loadingEdit = true;
-      // this.getRequest("/tree/getByParentId/0").then(res => {
-      //   this.loadingEdit = false;
-      //   if (res.success) {
-      //     res.result.forEach(function(e) {
-      //       if (e.isParent) {
-      //         e.loading = false;
-      //         e.children = [];
-      //       }
-      //     });
-      //     // 头部加入一级
-      //     let first = {
-      //       id: "0",
-      //       title: "一级节点"
-      //     };
-      //     res.result.unshift(first);
-      //     this.dataEdit = res.result;
-      //   }
-      // });
-      // 模拟请求成功
       this.dataEdit = [
         {
           title: "自定义图标",
@@ -434,38 +400,10 @@ export default {
         },
       ];
     },
-    loadData(item, callback) {
-      // 异步加载树子节点数据
-      // this.getRequest("请求路径，如/tree/getByParentId/" + item.id).then(res => {
-      //   if (res.success) {
-      //     res.result.forEach(function(e) {
-      //       if (e.isParent) {
-      //         e.loading = false;
-      //         e.children = [];
-      //       }
-      //     });
-      //     callback(res.result);
-      //   }
-      // });
-    },
+
     search() {
       // 搜索树
       if (this.searchKey) {
-        // 模拟请求
-        // this.loading = true;
-        // this.getRequest("搜索请求路径", { title: this.searchKey }).then(res => {
-        //   this.loading = false;
-        //   if (res.success) {
-        //     res.result.forEach(function(e) {
-        //       if (e.isParent) {
-        //         e.loading = false;
-        //         e.children = [];
-        //       }
-        //     });
-        //     this.data = res.result;
-        //   }
-        // });
-        // 模拟请求成功
         this.data = [
           {
             title: "这里需要请求后端接口",
@@ -548,16 +486,6 @@ export default {
             return;
           }
           this.submitLoading = true;
-          // 避免传入null字符串
-          // this.postRequest("请求路径，如/tree/edit", this.form).then(res => {
-          //   this.submitLoading = false;
-          //   if (res.success) {
-          //     this.$Message.success("编辑成功");
-          //     this.init();
-          //     this.modalVisible = false;
-          //   }
-          // });
-          // 模拟成功
           this.submitLoading = false;
           this.$Message.success("编辑成功");
           this.modalVisible = false;
@@ -568,15 +496,6 @@ export default {
       this.$refs.formAdd.validate((valid) => {
         if (valid) {
           this.submitLoading = true;
-          // this.postRequest("请求路径，如/tree/add", this.formAdd).then(res => {
-          //   this.submitLoading = false;
-          //   if (res.success) {
-          //     this.$Message.success("添加成功");
-          //     this.init();
-          //     this.modalVisible = false;
-          //   }
-          // });
-          // 模拟成功
           this.submitLoading = false;
           this.$Message.success("添加成功");
           this.modalVisible = false;
@@ -628,16 +547,6 @@ export default {
             ids += e.id + ",";
           });
           ids = ids.substring(0, ids.length - 1);
-          // this.deleteRequest("请求路径，如/tree/delByIds/" + ids).then(res => {
-          //   this.$Modal.remove();
-          //   if (res.success) {
-          //     this.$Message.success("删除成功");
-          //     this.selectList = [];
-          //     this.cancelEdit();
-          //     this.init();
-          //   }
-          // });
-          // 模拟成功
           this.$Modal.remove();
           this.$Message.success("删除成功");
           this.selectList = [];
@@ -647,7 +556,6 @@ export default {
     },
   },
   mounted() {
-    // 计算高度
     let height = document.documentElement.clientHeight;
     this.maxHeight = Number(height - 287) + "px";
     this.init();

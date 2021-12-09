@@ -128,7 +128,7 @@ export default {
         },
         {
           title: "更新时间",
-          key: "createTime",
+          key: "updateTime",
           sortable: true,
           width: 200,
         },
@@ -201,8 +201,8 @@ export default {
       getStopWordData(this.searchForm).then((res) => {
         this.loading = false;
         if (res.success) {
-          this.data = res.result.content;
-          this.total = res.result.totalElements;
+          this.data = res.result.records;
+          this.total = res.result.total;
         }
       });
     },

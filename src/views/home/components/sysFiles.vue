@@ -12,7 +12,6 @@
             style="width: 250px"
         ></DatePicker>
       </div>
-      <!-- <div style="height: 273px">这里放echarts的图表</div> -->
        <apexchart
             type="bar"
             height="280"

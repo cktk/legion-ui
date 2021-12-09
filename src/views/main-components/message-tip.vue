@@ -140,8 +140,8 @@ export default {
       }).then((res) => {
         if (res.success) {
           this.loading = false;
-          this.messageList = res.result.content;
-          this.$store.commit("setMessageCount", res.result.totalElements);
+          this.messageList = res.result.records;
+          this.$store.commit("setMessageCount", res.result.total);
         }
       });
     },

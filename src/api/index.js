@@ -16,7 +16,7 @@ export const getMenuList = `${config.baseApi}/legion/permission/getMenuList`
 // 获取数据字典
 export const getDictData = `${config.baseApi}/legion/dictData/getByType/`
 // Websocket
-export const ws = `${config.baseApi}/api/ws`
+export const ws = `${config.baseApi}/ws`
 
 
 //获取系统信息
@@ -342,7 +342,7 @@ export const getDictDataByType = (type, params) => {
 
 // 分页获取日志数据
 export const getLogListData = (params) => {
-    return getRequest('/legion/log/getAllByPage', params)
+    return postBodyRequest('/legion/log/getAllByPage', params)
 }
 // 删除日志
 export const deleteLog = (params) => {
@@ -417,8 +417,9 @@ export const deleteQuartz = (params) => {
 
 
 // 分页获取消息数据
-export const getMessageData = (params) => {
-    return getRequest('/legion/message/getByCondition', params)
+export const postMessageData = (params) => {
+
+    return postBodyRequest('/legion/message/getByCondition', params)
 }
 // 获取单个消息详情
 export const getMessageDataById = (id, params) => {
@@ -456,8 +457,8 @@ export const allMessageSend = (type, params) => {
 
 
 // 分页获取文件数据
-export const getFileListData = (params) => {
-    return getRequest('/legion/file/getByCondition', params)
+export const postFileListData = (params) => {
+    return postBodyRequest('/legion/file/getByCondition', params)
 }
 // 复制文件
 export const copyFile = (params) => {
