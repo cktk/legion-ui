@@ -169,7 +169,7 @@
           <customList
             v-model="form.dictType"
             filterable
-            url="/dict/getAll"
+            url="/api/legion/dict/getAll"
             valueBind="type"
             description="type"
           />

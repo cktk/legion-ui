@@ -67,7 +67,7 @@ export default {
     url: String,
     preUrl: {
       type: String,
-      default: "/legion"
+      default: "/api/legion"
     },
     method: {
       type: String,
