@@ -186,8 +186,8 @@ export default {
       // this.getRequest("请求路径", this.searchForm).then(res => {
       //   this.loading = false;
       //   if (res.success) {
-      //     this.data = res.result.records;
-      //     this.total = res.result.total;
+      //     this.data = res.result.content;
+      //     this.total = res.result.totalElements;
       //     if (this.data.length == 0 && this.searchForm.pageNumber > 1) {
       //       this.searchForm.pageNumber -= 1;
       //       this.getDataList();
@@ -198,15 +198,15 @@ export default {
       this.data = [
         {
           id: "1",
-          name: "1",
-          createTime: "2021-10-10 00:08:00",
-          updateTime: "2021-10-10 00:08:00",
+          name: "",
+          createTime: "2018-08-08 00:08:00",
+          updateTime: "2018-08-08 00:08:00",
         },
         {
           id: "2",
-          name: "2",
-          createTime: "2021-10-10 00:08:00",
-          updateTime: "2021-10-10 00:08:00",
+          name: "Daimao",
+          createTime: "2018-08-08 00:08:00",
+          updateTime: "2018-08-08 00:08:00",
         },
       ];
       this.total = this.data.length;

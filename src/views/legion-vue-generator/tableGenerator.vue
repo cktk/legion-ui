@@ -52,7 +52,7 @@
         <Button @click="clear" icon="md-trash">清空全部</Button>
       </Row>
       <Alert show-icon>
-        将生成的代码复制粘贴至Legion前端新建的空白组件中，再做少许修改并自行调通接口即可
+        将生成的代码复制粘贴至前端新建的空白组件中，再做少许修改并自行调通接口即可
         <span @click="preview" class="preview">增删改表格预览</span>
       </Alert>
       <Table border :columns="columns" :data="data" ref="table">
@@ -463,7 +463,7 @@
           <Row type="flex" justify="space-between">
             <Input
               v-model="entityForm.path"
-              placeholder="例如：legion"
+              placeholder="例如：cn.Daimao.legion.modules.base.entity.User"
               clearable
               style="width: 410px"
             />

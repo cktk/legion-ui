@@ -45,12 +45,12 @@ export default {
       fileInfo: [
         {
           name: "img.png",
-          url: "@/assets/logo-black.png",
+          url: "https://ooo.0o0.ooo/2019/04/28/5cc5a71a6e3b6.png",
         },
         {
           name: "video.mp4",
           size: 51 * 1024 * 1024,
-          url: "@/assets/logo-white.png",
+          url: "https://ooo.0o0.ooo/2021/01/16/VuODA1yUSCeXzFM.png",
         },
       ],
       props: props,

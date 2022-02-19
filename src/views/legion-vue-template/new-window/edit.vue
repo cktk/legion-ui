@@ -76,9 +76,9 @@ export default {
       // 模拟获取数据成功
       this.loading = false;
       if (this.form.id == "1") {
-        this.form.name = "1";
+        this.form.name = "";
       } else {
-        this.form.name = "2";
+        this.form.name = "Daimao";
       }
     },
     handleSubmit() {

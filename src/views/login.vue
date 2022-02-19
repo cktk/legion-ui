@@ -30,7 +30,7 @@
                       prefix="ios-contact"
                       size="large"
                       clearable
-                      placeholder="账号/邮箱"
+                      placeholder="账号/邮箱/手机号"
                       autocomplete="off"
                     />
                   </FormItem>
@@ -75,6 +75,50 @@
                   </FormItem>
                 </Form>
               </TabPane>
+              <TabPane
+                :label="$t('mobileLogin')"
+                name="mobile"
+                icon="ios-phone-portrait"
+              >
+                <Form
+                  ref="mobileLoginForm"
+                  :model="form"
+                  :rules="rules"
+                  class="form"
+                  v-if="tabName == 'mobile'"
+                >
+                  <FormItem prop="mobile">
+                    <Input
+                      v-model="form.mobile"
+                      prefix="ios-phone-portrait"
+                      size="large"
+                      clearable
+                      placeholder="请输入手机号"
+                    />
+                  </FormItem>
+                  <FormItem prop="code" :error="errorCode">
+                    <Row type="flex" justify="space-between">
+                      <Input
+                        v-model="form.code"
+                        prefix="ios-mail-outline"
+                        size="large"
+                        clearable
+                        placeholder="请输入短信验证码"
+                        :maxlength="6"
+                        class="input-verify"
+                      />
+                      <CountDownButton
+                        ref="countDown"
+                        @on-click="sendSmsCode"
+                        :autoCountDown="false"
+                        size="large"
+                        :loading="sending"
+                        :text="getSms"
+                      />
+                    </Row>
+                  </FormItem>
+                </Form>
+              </TabPane>
             </Tabs>
 
             <Row justify="space-between" align="middle">
@@ -85,6 +129,12 @@
                 <a class="forget-pass">{{ $t("forgetPass") }}</a>
                 <DropdownMenu slot="list">
                   <DropdownItem name="test">体验测试账号</DropdownItem>
+                  <DropdownItem name="resetByMobile"
+                    >使用手机号重置密码(付费)</DropdownItem
+                  >
+                  <DropdownItem name="resetByEmail"
+                    >使用邮箱重置密码(付费)</DropdownItem
+                  >
                 </DropdownMenu>
               </Dropdown>
             </Row>
@@ -99,6 +149,59 @@
               <span v-if="!loading">{{ $t("login") }}</span>
               <span v-else>{{ $t("logining") }}</span>
             </Button>
+            <Row type="flex" justify="space-between" class="other-login">
+              <div class="other-way icons">
+                {{ $t("otherLogin") }}
+                <div class="other-icon" @click="toGithubLogin">
+                  <Icon
+                    custom="iconfont icon-github"
+                    size="20"
+                    class="other-icon"
+                    @click="toGithubLogin"
+                  />
+                </div>
+                <div class="other-icon" @click="toQQLogin">
+                  <Icon custom="iconfont icon-qq" size="22" />
+                </div>
+                <div class="other-icon" @click="toWeixinLogin">
+                  <Icon custom="iconfont icon-weixin" size="23" />
+                </div>
+                <Icon
+                  v-show="!showMore"
+                  type="ios-arrow-down"
+                  class="other-icon"
+                  size="16"
+                  @click="showMore = true"
+                ></Icon>
+                <div class="other-icon" v-show="showMore" @click="toWeiboLogin">
+                  <Icon custom="iconfont icon-weibo" size="23" />
+                </div>
+                <div
+                  class="other-icon"
+                  v-show="showMore"
+                  @click="toDingdingLogin"
+                >
+                  <Icon custom="iconfont icon-dingding" size="20" />
+                </div>
+                <div
+                  class="other-icon"
+                  v-show="showMore"
+                  @click="toWorkwechatLogin"
+                >
+                  <Icon custom="iconfont icon-qiyeweixin" size="20" />
+                </div>
+                <Icon
+                  v-show="showMore"
+                  type="ios-arrow-up"
+                  class="other-icon"
+                  size="16"
+                  @click="showMore = false"
+                ></Icon>
+              </div>
+              <router-link to="/regist">
+                <a class="forget-pass">{{ $t("regist") }}</a>
+              </router-link>
+            </Row>
           </div>
           <div v-if="socialLogining">
             <RectLoading />
@@ -147,7 +250,7 @@ export default {
   },
   data() {
     return {
-      // showMore: false,
+      showMore: false,
       captchaId: "",
       captchaImg: "",
       loadingCaptcha: true,
@@ -162,7 +265,7 @@ export default {
       form: {
         username: "admin",
         password: "123456",
-        mobile: "",
+        mobile: "阿里云短信0.045/条 若余额不足联系作者充值",
         code: "",
       },
       rules: {
@@ -209,6 +312,23 @@ export default {
         if (res.success) {
           this.captchaId = res.result;
           this.captchaImg = drawCodeImage + this.captchaId;
+        }
+      });
+    },
+    sendSmsCode() {
+      this.$refs.mobileLoginForm.validate((valid) => {
+        if (valid) {
+          this.sending = true;
+          this.getSms = "发送中";
+          sendLoginSms(this.form.mobile).then((res) => {
+            this.getSms = "获取验证码";
+            this.sending = false;
+            if (res.success) {
+              this.$Message.success("发送短信验证码成功");
+              // 开始倒计时
+              this.$refs.countDown.startCountDown();
+            }
+          });
         }
       });
     },
@@ -278,13 +398,88 @@ export default {
             });
           }
         });
+      } else if (this.tabName == "mobile") {
+        this.$refs.mobileLoginForm.validate((valid) => {
+          if (valid) {
+            if (this.form.code == "") {
+              this.errorCode = "验证码不能为空";
+              return;
+            } else {
+              this.errorCode = "";
+            }
+            this.loading = true;
+            this.form.saveLogin = this.saveLogin;
+            smsLogin(this.form).then((res) => {
+              if (res.success) {
+                this.afterLogin(res);
+              } else {
+                this.loading = false;
+              }
+            });
+          }
+        });
       }
     },
-  
-
-
-
-
+    toGithubLogin() {
+      this.socialLogining = true;
+      githubLogin().then((res) => {
+        if (res.success) {
+          window.location.href = res.result;
+        } else {
+          this.socialLogining = false;
+        }
+      });
+    },
+    toQQLogin() {
+      this.socialLogining = true;
+      qqLogin().then((res) => {
+        if (res.success) {
+          window.location.href = res.result;
+        } else {
+          this.socialLogining = false;
+        }
+      });
+    },
+    toWeiboLogin() {
+      this.socialLogining = true;
+      weiboLogin().then((res) => {
+        if (res.success) {
+          window.location.href = res.result;
+        } else {
+          this.socialLogining = false;
+        }
+      });
+    },
+    toWeixinLogin() {
+      this.socialLogining = true;
+      wechatLogin().then((res) => {
+        if (res.success) {
+          window.location.href = res.result;
+        } else {
+          this.socialLogining = false;
+        }
+      });
+    },
+    toDingdingLogin() {
+      this.socialLogining = true;
+      dingdingLogin().then((res) => {
+        if (res.success) {
+          window.location.href = res.result;
+        } else {
+          this.socialLogining = false;
+        }
+      });
+    },
+    toWorkwechatLogin() {
+      this.socialLogining = true;
+      workwechatLogin().then((res) => {
+        if (res.success) {
+          window.location.href = res.result;
+        } else {
+          this.socialLogining = false;
+        }
+      });
+    },
     relatedLogin() {
       let q = this.$route.query;
       let error = q.error;
@@ -347,19 +542,18 @@ export default {
     handleDropDown(v) {
       if (v == "test") {
         this.test();
-      } 
-      // else if (v == "resetByMobile") {
-      //   this.$router.push({
-      //     name: "reset",
-      //   });
-      // } else if (v == "resetByEmail") {
-      //   this.$router.push({
-      //     name: "reset",
-      //     query: {
-      //       type: "1",
-      //     },
-      //   });
-      // }
+      } else if (v == "resetByMobile") {
+        this.$router.push({
+          name: "reset",
+        });
+      } else if (v == "resetByEmail") {
+        this.$router.push({
+          name: "reset",
+          query: {
+            type: "1",
+          },
+        });
+      }
     },
     showNotice() {
       getNotice().then((res) => {

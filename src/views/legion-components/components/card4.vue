@@ -15,20 +15,23 @@
             'url(' + require('@/assets/dashboard/flower.svg') + ')'
           "
           title="最新公告"
-          time="2021年10月10日"
-          description="Legion"
+          time="2021年05月27日"
+          description="是很棒的前后端分离一站式快速开发平台"
         />
       </Col>
       <Col :sm="24" :md="24" :lg="8" :style="{ marginBottom: '10px' }">
         <card
           :backgroundImage="
-            'url(' + require('@/assets/dashboard/flower.svg') + ')'
+            'url(' + require('@/assets/dashboard/abstract.svg') + ')'
           "
-          title="最新公告"
-          time="2021年10月10日"
-          description="Legion"
-        />
-      </Col>
+          cardHeight="142px"
+          title="全新版本发布"
+          time=" 完整版"
+          timeSize="14px"
+          timeBottom="16px"
+          timeColor="#975ee4"
+          description="是很棒的前后端分离一站式快速开发平台，全新版本已发布"
+      /></Col>
     </Row>
 
     <h3 class="component-article">props</h3>
@@ -68,7 +71,8 @@ export default {
         },
         {
           name: "backgroundImage",
-          desc: "卡片背景图片样式（右上角），如'url(' + require('图片链接.png') + ')'",
+          desc:
+            "卡片背景图片样式（右上角），如'url(' + require('图片链接.png') + ')'",
           type: "String",
           value: "-",
         },

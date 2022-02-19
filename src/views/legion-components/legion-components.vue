@@ -21,7 +21,7 @@
               >
               <Submenu name="1">
                 <template slot="title">
-                  <Icon type="md-ionic" />Legion通用组件
+                  <Icon type="md-ionic" />通用组件
                 </template>
                 <MenuItem name="1-0">全局Loading加载动画</MenuItem>
                 <MenuItem name="1-1">倒计时按钮</MenuItem>
@@ -46,7 +46,7 @@
               <Submenu name="3">
                 <template slot="title">
                   <Icon type="ios-create" />
-                  <Badge dot :offset="[5, -3]">编辑器</Badge>
+                  <Badge dot :offset="[5, -3]">编辑器(付费)</Badge>
                 </template>
                 <MenuItem name="3-1">wangEditor 富文本</MenuItem>
                 <MenuItem name="3-3">Monaco 代码编辑器</MenuItem>
@@ -65,7 +65,7 @@
               </Submenu>
               <Submenu name="2">
                 <template slot="title">
-                  <Icon type="md-git-compare" />工作流组件
+                  <Icon type="md-git-compare" />工作流组件(付费)
                 </template>
                 <MenuItem name="2-1">工作流程选择发起</MenuItem>
                 <MenuItem name="2-2">通过流程key直接发起</MenuItem>

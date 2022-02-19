@@ -29,7 +29,7 @@
     >、<code>绑定值valueBind</code>、<code>标题title</code>、<code>备注description(可选)</code>属性获取指定接口数据，
     使用 <code>v-model</code> 实现数据的双向绑定。
     <h3 class="component-article">数据结构</h3>
-    列表接口返回的数据结构需满足Legion框架的规范，至少包含
+    列表接口返回的数据结构需满足框架的规范，至少包含
     <code>success</code>（成功标志）与 <code>result</code>（数据列表）：
     <code>{ success: true/false, result: [] }</code>
     <h3 class="component-article">props</h3>

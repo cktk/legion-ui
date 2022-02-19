@@ -4,7 +4,7 @@
     <Alert type="info" show-icon>
       基于
       <a href="https://github.com/quilljs/quill" target="_blank">quill</a>
-      封装。已配置好中文、图片上传(上传至Legion文件服务或Base64)。扩展编辑HTML代码、全屏预览、清空、XSS攻击过滤等。
+      封装。已配置好中文、图片上传(上传至legion文件服务或Base64)。扩展编辑HTML代码、全屏预览、清空、XSS攻击过滤等。
     </Alert>
     <quill id="quill" v-model="quillData"></quill>
     <h3 class="component-article">基础用法</h3>
@@ -77,7 +77,7 @@ export default {
         {
           name: "base64",
           desc:
-            "是否使用base64保存图片，默认false上传至Legion配置的文件存储服务中，不推荐使用base64存储",
+            "是否使用base64保存图片，默认false上传至配置的文件存储服务中，不推荐使用base64存储",
           type: "Boolean",
           value: "false",
         },

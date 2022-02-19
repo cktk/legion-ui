@@ -389,8 +389,8 @@ export default {
       // this.getRequest("请求路径", this.searchForm).then(res => {
       //   this.loading = false;
       //   if (res.success) {
-      //     this.data = res.result.records;
-      //     this.total = res.result.total;
+      //     this.data = res.result.content;
+      //     this.total = res.result.totalElements;
       //     if (this.data.length == 0 && this.searchForm.pageNumber > 1) {
       //       this.searchForm.pageNumber -= 1;
       //       this.getDataList();
@@ -401,23 +401,23 @@ export default {
       this.data = [
         {
           id: "1",
-          name: "1",
+          name: "",
           mobile: "12345678901",
-          email: "cktk@qq.com",
+          email: "1012139570@qq.com",
           sex: 1,
           type: 0,
           status: 0,
-          createTime: "2021-10-10 00:08:00",
+          createTime: "2018-08-08 00:08:00",
         },
         {
           id: "2",
-          name: "2",
+          name: "Daimao",
           mobile: "12345678901",
-          email: "cktk@qq.com",
+          email: "1012139570@qq.com",
           sex: 0,
           type: 1,
           status: -1,
-          createTime: "2021-10-10 00:08:00",
+          createTime: "2018-08-08 00:08:00",
         },
       ];
       this.total = this.data.length;

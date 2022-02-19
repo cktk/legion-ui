@@ -55,7 +55,7 @@
         <Button @click="clear" icon="md-trash">清空全部</Button>
       </Row>
       <Alert show-icon>
-        将生成的代码复制粘贴至Legion前端新建的空白组件中，再做少许修改并自行调通接口即可
+        将生成的代码复制粘贴至前端新建的空白组件中，再做少许修改并自行调通接口即可
         <span @click="preview" class="preview">树形结构预览</span>
         【字段 title、parentId、sortOrder、parentTitle 将自动生成，无需填入】
       </Alert>
@@ -169,7 +169,7 @@
           <customList
             v-model="form.dictType"
             filterable
-            url="/api/legion/dict/getAll"
+            url="/dict/getAll"
             valueBind="type"
             description="type"
           />
@@ -302,7 +302,7 @@
           <Row type="flex" justify="space-between">
             <Input
               v-model="entityForm.path"
-              placeholder="例如：legion"
+              placeholder="例如：cn.Daimao.legion.modules.base.entity.User"
               clearable
               style="width: 410px"
             />

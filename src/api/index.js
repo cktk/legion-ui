@@ -1,7 +1,6 @@
 // 统一请求路径前缀在libs/axios.js中修改
 import { getRequest, postRequest, putRequest, postBodyRequest, getNoAuthRequest, postNoAuthRequest } from '@/libs/axios';
 
-import config from "../config/config";
 
 // Vaptcha ID
 export const vaptchaID = config.vaptchaID
@@ -23,7 +22,6 @@ export const ws = `${config.baseApi}/ws`
 export const systemInfo = (params) => {
     return getRequest('/legion/system/info', params)
 }
-
 // 登陆
 export const login = (params) => {
     return postNoAuthRequest('/legion/login', params)
@@ -342,7 +340,7 @@ export const getDictDataByType = (type, params) => {
 
 // 分页获取日志数据
 export const getLogListData = (params) => {
-    return postBodyRequest('/legion/log/getAllByPage', params)
+    return getRequest('/legion/log/getAllByPage', params)
 }
 // 删除日志
 export const deleteLog = (params) => {
@@ -417,9 +415,8 @@ export const deleteQuartz = (params) => {
 
 
 // 分页获取消息数据
-export const postMessageData = (params) => {
-
-    return postBodyRequest('/legion/message/getByCondition', params)
+export const getMessageData = (params) => {
+    return getRequest('/legion/message/getByCondition', params)
 }
 // 获取单个消息详情
 export const getMessageDataById = (id, params) => {
@@ -457,8 +454,8 @@ export const allMessageSend = (type, params) => {
 
 
 // 分页获取文件数据
-export const postFileListData = (params) => {
-    return postBodyRequest('/legion/file/getByCondition', params)
+export const getFileListData = (params) => {
+    return getRequest('/legion/file/getByCondition', params)
 }
 // 复制文件
 export const copyFile = (params) => {

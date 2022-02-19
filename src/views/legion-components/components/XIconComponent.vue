@@ -6,7 +6,7 @@
     <div style="font-size: 12px; margin: 10px 0">iconfont：</div>
     <XIcon type="iconfont icon-github" size="26" />
     <div style="font-size: 12px; margin: 10px 0">URL：</div>
-    <XIcon type="@/assets/logo-black.png" size="30" />
+    <XIcon type="https://ooo.0o0.ooo/2019/04/28/5cc5a71a6e3b6.png" size="30" />
     <div style="font-size: 12px; margin: 10px 0">Base64：</div>
     <XIcon :type="base64" size="26" />
     <h3 class="component-article">基础用法</h3>

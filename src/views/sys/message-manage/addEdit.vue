@@ -35,10 +35,15 @@
           <Input v-model="form.title" style="width: 600px" />
         </FormItem>
         <FormItem style="margin-bottom: 5px" v-show="form.isTemplate">
-          <Alert show-icon>消息模版变量格式：${变量名}【标题及内容都支持】
+          <Alert show-icon
+            >消息模版变量格式：${变量名}【标题及内容都支持】
             示例：您的验证码为：${code}，该验证码5分钟内有效，请勿泄漏于他人
-            <a href="http://www.baidu.com"
-              target="_blank">详见开发文档</a></Alert>
+            <a
+              href="https://www.kancloud.cn/Daimao/legion/1021404"
+              target="_blank"
+              >详见开发文档</a
+            ></Alert
+          >
         </FormItem>
         <FormItem label="内容" prop="content">
           <editor v-model="form.content" height="250"></editor>

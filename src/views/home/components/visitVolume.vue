@@ -6,18 +6,18 @@
       </p>
       <div slot="extra">
         <DatePicker
-            :options="options"
-            type="daterange"
-            placeholder="选择日期范围"
-            style="width: 250px"
+          :options="options"
+          type="daterange"
+          placeholder="选择日期范围"
+          style="width: 250px"
         ></DatePicker>
       </div>
       <div style="height: 273px">
         <apexchart
-            type="bar"
-            height="280"
-            :options="chartOptions"
-            :series="series"
+          type="bar"
+          height="280"
+          :options="chartOptions"
+          :series="series"
         />
       </div>
     </Card>
@@ -117,4 +117,10 @@ export default {
   },
 };
 </script>
-<style lang="less"></style>
+<style lang="less">
+.visit {
+  .ivu-card-head {
+    border-bottom: none !important;
+  }
+}
+</style>

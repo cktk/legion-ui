@@ -440,8 +440,8 @@ export default {
       // this.getRequest("请求路径", this.searchForm).then(res => {
       //   this.loading = false;
       //   if (res.success) {
-      //     this.data = res.result.records;
-      //     this.total = res.result.total;
+      //     this.data = res.result.content;
+      //     this.total = res.result.totalElements;
       //     if (this.data.length == 0 && this.searchForm.pageNumber > 1) {
       //       this.searchForm.pageNumber -= 1;
       //       this.getDataList();
@@ -454,54 +454,54 @@ export default {
         this.data = [
           {
             id: "1",
-            name: "1",
+            name: " ",
             description: "我是一级1的数据",
             status: 0,
-            createTime: "2021-10-10 00:08:00",
+            createTime: "2018-08-08 00:08:00",
           },
           {
             id: "2",
-            name: "2",
+            name: "Daimao",
             description: "我是二级1的数据",
             status: 0,
-            createTime: "2021-10-10 00:08:00",
+            createTime: "2018-08-08 00:08:00",
           },
           {
             id: "3",
-            name: "3",
+            name: " ",
             description: "我是一级2的数据",
             status: -1,
-            createTime: "2021-10-10 00:08:00",
+            createTime: "2018-08-08 00:08:00",
           },
         ];
       } else if (this.selectNode.id == "1") {
         this.data = [
           {
             id: "1",
-            name: "4",
+            name: " ",
             description: "我是一级1的数据",
             status: 0,
-            createTime: "2021-10-10 00:08:00",
+            createTime: "2018-08-08 00:08:00",
           },
         ];
       } else if (this.selectNode.id == "2") {
         this.data = [
           {
             id: "2",
-            name: "5",
+            name: "Daimao",
             description: "我是二级1的数据",
             status: 0,
-            createTime: "2021-10-10 00:08:00",
+            createTime: "2018-08-08 00:08:00",
           },
         ];
       } else if (this.selectNode.id == "3") {
         this.data = [
           {
             id: "3",
-            name: "6",
+            name: "Present By Daimao",
             description: "我是一级2的数据",
             status: -1,
-            createTime: "2021-10-10 00:08:00",
+            createTime: "2018-08-08 00:08:00",
           },
         ];
       }

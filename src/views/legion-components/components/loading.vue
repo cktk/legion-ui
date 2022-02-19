@@ -18,7 +18,7 @@
     <Button @click="finish" style="margin-left: 5px">结束加载</Button>
     <Button @click="error" style="margin-left: 5px">错误</Button>
     <h3 class="component-article">说明</h3>
-    如果你觉得上方Legion提供的动画不明显，你还可以使用iView官方自带的顶部
+    如果你觉得上方提供的动画不明显，你还可以使用iView官方自带的顶部
     <a href="https://www.iviewui.com/components/loading-bar" target="_blank"
       >LoadingBar组件</a
     >

@@ -1,5 +1,5 @@
 export default {
-    legion: 'Legion',
+    legion: 'niubi',
     usernameLogin: 'Username Sign in',
     mobileLogin: 'Phone',
     autoLogin: 'Remember me',
@@ -27,9 +27,9 @@ export default {
     closeAll: 'Close All',
     closeOthers: 'Close Others',
     docs: 'Docs',
-    fullVersion: 'Legion',
+    fullVersion: 'Plus',
     rights: 'All Rights Reserved',
-    sso: "Legion Authentication Platform",
+    sso: " Authentication Platform",
     authorize: "Authorize",
     authorizeAndSignin: "Authorize and Sign in",
     authorizing: "Authorizing...",
@@ -38,7 +38,8 @@ export default {
     authAquire: "Public data only",
     aquireInfo: "Limited access to your public data",
     afterAuth: "Authorizing will redirect to",
-    relateTitle: "Bind Legion's Account",
+    relateTitle: "Bind 'i" +
+        "s Account",
     relate: "Bind",
     relating: "Binding...",
     themeTitle: "Theme Style Setting",

@@ -98,7 +98,9 @@
         </Upload>
         <Button @click="clearImportData" icon="md-trash">清空数据</Button>
       </div>
-      <Alert type="warning" show-icon>导入前请下载查看导入模版数据文件查看所需字段及说明，确保数据格式正确，不得修改列英文名称</Alert>
+      <Alert type="warning" show-icon
+        >导入前请下载查看导入模版数据文件查看所需字段及说明，确保数据格式正确，不得修改列英文名称</Alert
+      >
       <Table
         :columns="importColumns"
         border
@@ -306,20 +308,29 @@ export default {
         sort: this.sortColumn,
         order: this.sortType,
       };
+      // 请求后端获取表单数据 请自行修改接口
+      // this.getRequest("请求路径", params).then(res => {
+      //   this.loading = false;
+      //   if (res.success) {
+      //     this.data = res.result.content;
+      //     this.total = res.result.totalElements;
+      //   }
+      // });
+      // 以下为模拟数据
       this.data = [
         {
           id: "1",
-          name: "1",
+          name: "",
           mobile: "12345678901",
-          createTime: "2021-10-10 00:08:00",
-          updateTime: "2021-10-10 00:08:00",
+          createTime: "2018-08-08 00:08:00",
+          updateTime: "2018-08-08 00:08:00",
         },
         {
           id: "2",
-          name: "2",
+          name: "Daimao",
           mobile: "12345678901",
-          createTime: "2021-10-10 00:08:00",
-          updateTime: "2021-10-10 00:08:00",
+          createTime: "2018-08-08 00:08:00",
+          updateTime: "2018-08-08 00:08:00",
         },
       ];
       this.total = this.data.length;
@@ -358,20 +369,27 @@ export default {
       this.exportType = "all";
       this.exportModalVisible = true;
       this.exportTitle = "确认导出全部 " + this.total + " 条数据";
+      // 请求后端获取全部数据 请自行修改接口
+      // this.getRequest("请求路径", params).then(res => {
+      //   if (res.success) {
+      //     this.exportData = res.result;
+      //   }
+      // });
+      // 以下为模拟数据
       this.exportData = [
         {
           id: "1",
-          name: "1",
+          name: "",
           mobile: "12345678901",
-          createTime: "2021-10-10 00:08:00",
-          updateTime: "2021-10-10 00:08:00",
+          createTime: "2018-08-08 00:08:00",
+          updateTime: "2018-08-08 00:08:00",
         },
         {
           id: "2",
-          name: "2",
+          name: "Daimao",
           mobile: "12345678901",
-          createTime: "2021-10-10 00:08:00",
-          updateTime: "2021-10-10 00:08:00",
+          createTime: "2018-08-08 00:08:00",
+          updateTime: "2018-08-08 00:08:00",
         },
       ];
     },
@@ -460,6 +478,19 @@ export default {
     },
     importData() {
       this.importLoading = true;
+      // 传入导入数据 后端接收body数组列表批量导入
+      // this.importRequest("请求路径", this.importTableData).then(res => {
+      //   this.importLoading = false;
+      //   if (res.success) {
+      //     this.importModalVisible = false;
+      //     this.getDataList();
+      //     this.$Modal.info({
+      //       title: "导入结果",
+      //       content: res.message
+      //     });
+      //   }
+      // });
+      // 模拟请求成功
       this.importLoading = false;
       this.importModalVisible = false;
       this.$Modal.info({

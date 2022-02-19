@@ -3,21 +3,21 @@
     <Row type="flex" justify="space-around" class="foot-item">
       <a
         class="item"
-        href="http://www.baidu.com"
+        href="www.baidu.com"
         target="_blank"
         >{{ $t("docs") }}</a
       >
-      <a class="item" href="http://www.baidu.com" target="_blank">
+      <a class="item" href="" target="_blank">
         <Icon custom="iconfont icon-github" size="16" />
       </a>
-      <a class="item" href="http://www.baidu.com" target="_blank">{{
+      <a class="item" href="https://www.esmoo.com" target="_blank">{{
         $t("fullVersion")
       }}</a>
     </Row>
     <Row type="flex" justify="center" class="copyright">
-      Copyright © 2021 - Present
-      <a href="http://www.baidu.com" target="_blank" style="margin: 0 5px"
-        >Legion</a
+      Copyright © 2018 - Present
+      <a href="" target="_blank" style="margin: 0 5px"
+        >Daiamo</a
       >
       {{ $t("rights") }}
     </Row>

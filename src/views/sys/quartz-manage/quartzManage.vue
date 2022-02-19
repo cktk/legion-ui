@@ -65,7 +65,7 @@
         <FormItem label="任务类引用路径" prop="jobClassName">
           <Input
             v-model="form.jobClassName"
-            placeholder="例如 legion"
+            placeholder="例如 cn.Daimao.legion.quartz.jobs.Job"
             clearable
           />
         </FormItem>
@@ -330,8 +330,8 @@ export default {
       getQuartzListData(this.searchForm).then((res) => {
         this.loading = false;
         if (res.success) {
-          this.data = res.result.records;
-          this.total = res.result.total;
+          this.data = res.result.content;
+          this.total = res.result.totalElements;
           if (this.data.length == 0 && this.searchForm.pageNumber > 1) {
             this.searchForm.pageNumber -= 1;
             this.getDataList();

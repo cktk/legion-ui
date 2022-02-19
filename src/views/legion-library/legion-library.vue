@@ -286,9 +286,9 @@
               <span class="href-text">官方文档：</span>
               <a
                 class="href-text"
-                href=""
+                href="http://xyxiao.cn/vue-cropper/example"
                 target="_blank"
-                >_</a
+                >http://xyxiao.cn/vue-cropper/example</a
               >
               <br />
               <br />
@@ -437,13 +437,13 @@ export default {
       data: [
         {
           id: "1",
-          name: "Legion",
+          name: "",
           createTime: "2018-08-08 00:08:00",
           updateTime: "2018-08-08 00:08:00",
         },
         {
           id: "2",
-          name: "cktk",
+          name: "Daimao",
           createTime: "2018-08-08 00:08:00",
           updateTime: "2018-08-08 00:08:00",
         },

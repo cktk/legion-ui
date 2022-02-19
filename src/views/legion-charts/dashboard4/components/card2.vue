@@ -9,7 +9,7 @@
         <Button
           type="info"
           size="large"
-          to="http://www.baidu.com"
+          to="https://www.esmoo.com"
           target="_blank"
           >立即开始</Button
         >

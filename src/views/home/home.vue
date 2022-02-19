@@ -67,7 +67,7 @@
                 <p slot="extra"></p>
                 <div style="height: 266px; overflow: auto">
                   <List border class="ivuListStyle">
-                    <ListItem v-for="(value, key, index) in systemInfoList.cpu"
+                    <ListItem v-for="(value, key) in systemInfoList.cpu" :key="value"
                       ><span style="float: left">{{ key }}</span>
                       <span style="float: right">{{ value }}</span></ListItem
                     >
@@ -105,7 +105,7 @@
                     <!-- {{ systemInfoList.jvm }} -->
                     <List border class="ivuListStyle">
                       <ListItem
-                        v-for="(value, key, index) in systemInfoList.jvm"
+                        v-for="(value, key) in systemInfoList.jvm" :key="value"
                         ><span style="float: left">{{ key }}</span>
                         <span style="float: right">{{ value }}</span></ListItem
                       >
@@ -130,7 +130,7 @@
                       <!-- {{ systemInfoList.mem }} -->
                       <List border class="ivuListStyle">
                         <ListItem
-                          v-for="(value, key, index) in systemInfoList.mem"
+                          v-for="(value, key) in systemInfoList.mem" :key="value"
                           ><span style="float: left">{{ key }}</span>
                           <span style="float: right">{{
                             value
@@ -155,7 +155,7 @@
                       <!-- {{ systemInfoList.sys }} -->
                       <List border class="ivuListStyle">
                         <ListItem
-                          v-for="(value, key, index) in systemInfoList.sys"
+                          v-for="(value, key) in systemInfoList.sys" :key="value"
                           ><span style="float: left">{{ key }}</span>
                           <span style="float: right">{{
                             value
@@ -716,7 +716,7 @@ export default {
 
       // 获取系统信息
       systemInfo().then((res) => {
-        console.log(res);
+        // console.log(res);
         if (res.success) {
           this.systemInfoList = res.result
             ? res.result

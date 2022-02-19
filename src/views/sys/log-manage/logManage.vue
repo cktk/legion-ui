@@ -115,13 +115,13 @@ export default {
       options: {
         shortcuts: shortcuts,
       },
-      like_searchKey: "",
+      searchKey: "",
       searchForm: {
-        eq_logType: "",
+        type: "",
         pageNumber: 1,
         pageSize: 10,
-        ge_createTime: "",
-        le_createTime: "",
+        startDate: "",
+        endDate: "",
         sort: "createTime",
         order: "desc",
       },
@@ -298,7 +298,7 @@ export default {
   methods: {
     init() {},
     changeTab(v) {
-      this.searchForm.eq_logType = v;
+      this.searchForm.type = v;
       this.getDataList();
     },
     changePage(v) {
@@ -312,8 +312,8 @@ export default {
     },
     selectDateRange(v) {
       if (v) {
-        this.searchForm.ge_createTime = v[0];
-        this.searchForm.le_createTime = v[1];
+        this.searchForm.startDate = v[0];
+        this.searchForm.endDate = v[1];
       }
     },
     handleSearch() {
@@ -323,16 +323,12 @@ export default {
     },
     getDataList() {
       this.loading = true;
-      this.searchForm.like_name= this.searchKey;
-      this.searchForm.or_1='';
-      this.searchForm.like_username = this.searchKey;
-      this.searchForm.or_2='';
-      this.searchForm.eq_logType = this.searchKey;
+      this.searchForm.key = this.searchKey;
       getLogListData(this.searchForm).then((res) => {
         this.loading = false;
         if (res.success) {
-          this.data = res.result.records;
-          this.total = res.result.total;
+          this.data = res.result.content;
+          this.total = res.result.totalElements;
           if (this.data.length == 0 && this.searchForm.pageNumber > 1) {
             this.searchForm.pageNumber -= 1;
             this.getDataList();
@@ -434,7 +430,7 @@ export default {
       } else {
         this.member = false;
         this.tabName = "1";
-        this.searchForm.eq_logType = "1";
+        this.searchForm.type = "1";
       }
       this.searchForm.pageNumber = 1;
       this.getDataList();

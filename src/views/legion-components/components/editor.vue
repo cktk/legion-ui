@@ -6,7 +6,7 @@
     <Alert type="info" show-icon>
       基于
       <a href="http://www.wangeditor.com" target="_blank">wangEditor v4</a>
-      封装，已配置好图片上传(上传至Legion文件服务或Base64)、视频上传；扩展编辑HTML代码、清空、XSS攻击过滤等。
+      封装，已配置好图片上传(上传至文件服务或Base64)、视频上传；扩展编辑HTML代码、清空、XSS攻击过滤等。
     </Alert>
     <editor id="editor" v-model="editorData"></editor>
     <h3 class="component-article">基础用法</h3>
@@ -88,7 +88,7 @@ export default {
         {
           name: "base64",
           desc:
-            "是否使用base64存储图片，默认false上传至Legion配置的文件存储服务中，不推荐使用base64存储",
+            "是否使用base64存储图片，默认false上传至配置的文件存储服务中，不推荐使用base64存储",
           type: "Boolean",
           value: "false",
         },

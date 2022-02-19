@@ -101,7 +101,7 @@
             <DropdownItem name="reset">重置用户密码</DropdownItem>
             <DropdownItem name="exportData">导出所选数据</DropdownItem>
             <DropdownItem name="exportAll">导出全部数据</DropdownItem>
-            <DropdownItem name="importData">导入数据</DropdownItem>
+            <DropdownItem name="importData">导入数据(付费)</DropdownItem>
           </DropdownMenu>
         </Dropdown>
         <Button type="dashed" @click="openSearch = !openSearch">{{
@@ -193,7 +193,9 @@
         </Upload>
         <Button @click="clearImportData" icon="md-trash">清空数据</Button>
       </div>
-      <Alert type="warning" show-icon>导入前请下载查看导入模版数据文件查看所需字段及说明，确保数据格式正确，不得修改列英文名称</Alert>
+      <Alert type="warning" show-icon
+        >导入前请下载查看导入模版数据文件查看所需字段及说明，确保数据格式正确，不得修改列英文名称</Alert
+      >
       <Table
         :columns="importColumns"
         border
@@ -612,12 +614,12 @@ export default {
         this.loading = false;
         if (res.success) {
           if (!this.getStore("roles").includes("ROLE_ADMIN")) {
-            res.result.records.forEach((e) => {
+            res.result.content.forEach((e) => {
               e.mobile = "您无权查看该数据";
             });
           }
-          this.data = res.result.records;
-          this.total = res.result.total;
+          this.data = res.result.content;
+          this.total = res.result.totalElements;
           if (this.data.length == 0 && this.searchForm.pageNumber > 1) {
             this.searchForm.pageNumber -= 1;
             this.getDataList();
@@ -667,11 +669,11 @@ export default {
         this.exportType = "part";
         this.exportModalVisible = true;
         this.exportTitle =
-          "确认导出 " + this.selectList.length + " 条数据";
+          "确认导出 " + this.selectList.length + " 条数据(付费)";
       } else if (name == "exportAll") {
         this.exportType = "all";
         this.exportModalVisible = true;
-        this.exportTitle = "确认导出全部 " + this.total + " 条数据";
+        this.exportTitle = "确认导出全部 " + this.total + " 条数据(付费)";
         getAllUserData().then((res) => {
           if (res.success) {
             this.exportData = res.result;

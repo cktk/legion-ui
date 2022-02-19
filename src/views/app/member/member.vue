@@ -558,7 +558,7 @@ export default {
       } else {
         this.$Modal.info({
           title: "待开发，获取PLUS版永久更新~",
-          content: "支付链接: http://www.baidu.com",
+          content: "支付链接",
         });
       }
     },
@@ -621,8 +621,8 @@ export default {
       getMemberList(this.searchForm).then((res) => {
         this.loading = false;
         if (res.success) {
-          this.data = res.result.records;
-          this.total = res.result.total;
+          this.data = res.result.content;
+          this.total = res.result.totalElements;
           if (this.data.length == 0 && this.searchForm.pageNumber > 1) {
             this.searchForm.pageNumber -= 1;
             this.getDataList();

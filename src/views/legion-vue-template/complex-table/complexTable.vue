@@ -638,8 +638,8 @@ export default {
       // this.getRequest("请求路径", this.searchForm).then(res => {
       //   this.loading = false;
       //   if (res.success) {
-      //     this.data = res.result.records;
-      //     this.total = res.result.total;
+      //     this.data = res.result.content;
+      //     this.total = res.result.totalElements;
       //     if (this.data.length == 0 && this.searchForm.pageNumber > 1) {
       //       this.searchForm.pageNumber -= 1;
       //       this.getDataList();
@@ -650,23 +650,23 @@ export default {
       this.data = [
         {
           id: "1",
-          name: "1",
-          avatar: "https://www.baidu.com/img/PCtm_d9c8750bed0b3c7d089fa7d55720d6cf.png",
+          name: "",
+          avatar: "https://s1.ax1x.com/2018/05/19/CcdVQP.png",
           categoryTitle: "分类1",
           categoryId: 1,
           type: 0,
           status: 0,
-          createTime: "2021-10-10 00:08:00",
+          createTime: "2018-08-08 00:08:00",
         },
         {
           id: "2",
-          name: "2",
-          avatar: "https://www.baidu.com/img/PCtm_d9c8750bed0b3c7d089fa7d55720d6cf.png",
+          name: "Daimao",
+          avatar: "https://s1.ax1x.com/2018/05/19/CcdVQP.png",
           categoryTitle: "分类2",
           categoryId: 2,
           type: 1,
           status: -1,
-          createTime: "2021-10-10 00:08:00",
+          createTime: "2018-08-08 00:08:00",
         },
       ];
       this.exportData = this.data;

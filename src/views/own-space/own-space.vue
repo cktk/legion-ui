@@ -10,6 +10,7 @@
           <Menu :active-name="activeName" theme="light" @on-select="changeMenu">
             <MenuItem name="基本信息">基本信息</MenuItem>
             <MenuItem name="安全设置">安全设置</MenuItem>
+            <MenuItem name="第三方账号绑定">第三方账号绑定</MenuItem>
             <MenuItem name="消息通知">消息通知</MenuItem>
           </Menu>
         </div>
@@ -20,6 +21,9 @@
           </div>
           <div v-show="currMenu == '安全设置'">
             <security @on-success="updateUserInfo" />
+          </div>
+          <div v-show="currMenu == '第三方账号绑定'">
+            <social />
           </div>
           <div v-show="currMenu == '消息通知'">
             <message />
@@ -34,11 +38,13 @@
 import { userInfo } from "@/api/index";
 import user from "./user";
 import security from "./security";
+import social from "./social";
 import message from "./message";
 export default {
   components: {
     user,
     security,
+    social,
     message,
   },
   name: "ownspace_index",

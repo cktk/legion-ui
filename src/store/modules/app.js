@@ -1,5 +1,5 @@
-import { otherRouter } from '@/router/router';
-import { router } from '@/router/index';
+import {otherRouter} from '@/router/router';
+import {router} from '@/router/index';
 import util from '@/libs/util';
 import Vue from 'vue';
 
@@ -118,10 +118,9 @@ const app = {
                 state.pageOpenedList.splice(currentIndex + 1);
                 state.pageOpenedList.splice(1, currentIndex - 1);
             }
-            let newCachepage = state.cachePage.filter(item => {
+            state.cachePage = state.cachePage.filter(item => {
                 return item == currentName;
             });
-            state.cachePage = newCachepage;
             localStorage.pageOpenedList = JSON.stringify(state.pageOpenedList);
         },
         setOpenedList(state) {
