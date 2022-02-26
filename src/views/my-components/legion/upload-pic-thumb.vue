@@ -1,72 +1,88 @@
 <template>
   <div class="upload-thumb">
     <vuedraggable
-      :list="uploadList"
-      :disabled="!draggable || !multiple"
-      :animation="200"
-      class="list-group"
-      ghost-class="thumb-ghost"
-      @end="onEnd"
+        :list="uploadList"
+        :disabled="!draggable || !multiple"
+        :animation="200"
+        class="list-group"
+        ghost-class="thumb-ghost"
+        @end="onEnd"
     >
       <div
-        class="upload-list"
-        :style="{
+          class="upload-list"
+          :style="{
           width: `calc(${width} + 2px)`,
           height: `calc(${height} + 2px)`,
           lineHeight: height,
+          marginBottom: marginBottom,
         }"
-        v-for="(item, index) in uploadList"
-        :key="index"
+          v-for="(item, index) in uploadList"
+          :key="index"
       >
         <div v-if="item.status == 'finished'">
           <img :src="item.url" :style="{ height: height }" />
           <div class="upload-list-cover">
             <Icon
-              type="ios-eye-outline"
-              @click="handleView(item.url, index)"
+                type="ios-eye-outline"
+                @click="handleView(item.url, index)"
             ></Icon>
             <Icon
-              type="ios-trash-outline"
-              @click="handleRemove(item)"
-              v-show="!preview"
+                type="ios-trash-outline"
+                @click="handleRemove(item)"
+                v-show="!preview"
             ></Icon>
           </div>
         </div>
         <div v-else>
           <Progress
-            v-if="item.showProgress"
-            :percent="item.percentage"
-            hide-info
+              v-if="item.showProgress"
+              :percent="item.percentage"
+              hide-info
           ></Progress>
         </div>
       </div>
     </vuedraggable>
     <Upload
-      ref="upload"
-      :multiple="multiple"
-      :show-upload-list="false"
-      :on-success="handleSuccess"
-      :on-error="handleError"
-      :format="format"
-      :accept="accept"
-      :max-size="maxSize * 1024"
-      :on-format-error="handleFormatError"
-      :on-exceeded-size="handleMaxSize"
-      :before-upload="handleBeforeUpload"
-      type="drag"
-      :action="uploadFileUrl"
-      :headers="accessToken"
-      class="upload-btn"
-      :style="{ width: width }"
-      v-show="!preview"
+        ref="upload"
+        :multiple="multiple"
+        :show-upload-list="false"
+        :on-success="handleSuccess"
+        :on-error="handleError"
+        :format="format"
+        :accept="accept"
+        :max-size="maxSize * 1024"
+        :on-format-error="handleFormatError"
+        :on-exceeded-size="handleMaxSize"
+        :before-upload="handleBeforeUpload"
+        type="drag"
+        :action="uploadFileUrl"
+        :headers="accessToken"
+        class="upload-btn"
+        :style="{ width: width, marginBottom: marginBottom }"
+        v-show="!preview"
+        v-if="!material"
     >
-      <div
-        class="upload-camera"
-        :style="{ width: width, height: height, lineHeight: height }"
-      >
+      <div :style="{ width: width, height: height, lineHeight: height }">
         <Icon type="md-camera" size="20"></Icon>
       </div>
     </Upload>
+    <div
+        v-if="material"
+        @click="showMaterialCenter = true"
+        class="ivu-upload-drag"
+        :style="{ width: width, height: height, lineHeight: height }"
+    >
+      <Icon type="md-camera" size="20"></Icon>
+    </div>
+
+    <materialCenter
+        v-if="material"
+        v-model="showMaterialCenter"
+        @on-change="selectFile"
+        :acceptImg="accept"
+        :maxSize="maxSize"
+        :multiple="multiple"
+    />
   </div>
 </template>
 
@@ -75,14 +91,20 @@ import "viewerjs/dist/viewer.css";
 import Viewer from "viewerjs";
 import { uploadFile } from "@/api/index";
 import vuedraggable from "vuedraggable";
+import materialCenter from "@/views/my-components/legion/material-center";
 export default {
   name: "uploadPicThumb",
   components: {
     vuedraggable,
+    materialCenter,
   },
   props: {
     value: {
       type: null,
+    },
+    material: {
+      type: Boolean,
+      default: false,
     },
     preview: {
       type: Boolean,
@@ -102,7 +124,7 @@ export default {
     },
     limit: {
       type: Number,
-      default: 10,
+      default: 5,
     },
     width: {
       type: String,
@@ -111,6 +133,10 @@ export default {
     height: {
       type: String,
       default: "60px",
+    },
+    marginBottom: {
+      type: String,
+      default: "0",
     },
     accept: {
       type: String,
@@ -135,6 +161,7 @@ export default {
       accessToken: {},
       uploadFileUrl: uploadFile,
       uploadList: [],
+      showMaterialCenter: false,
     };
   },
   methods: {
@@ -184,22 +211,22 @@ export default {
       this.$Notice.warning({
         title: "不支持的文件格式",
         desc:
-          "所选文件‘ " +
-          file.name +
-          " ’格式不正确, 请选择 " +
-          this.accept +
-          " 图片格式文件",
+            "所选文件‘ " +
+            file.name +
+            " ’格式不正确, 请选择 " +
+            this.accept +
+            " 图片格式文件",
       });
     },
     handleMaxSize(file) {
       this.$Notice.warning({
         title: "文件大小过大",
         desc:
-          "所选文件‘ " +
-          file.name +
-          " ’大小过大, 不得超过 " +
-          this.maxSize +
-          "M.",
+            "所选文件‘ " +
+            file.name +
+            " ’大小过大, 不得超过 " +
+            this.maxSize +
+            "M.",
       });
     },
     handleBeforeUpload() {
@@ -280,6 +307,17 @@ export default {
         }
       }
     },
+    selectFile(v) {
+      if (!this.multiple) {
+        // 单张
+        this.uploadList[0] = { url: v, status: "finished" };
+      } else {
+        v.forEach((e) => {
+          this.uploadList.push({ url: e, status: "finished" });
+        });
+      }
+      this.returnValue();
+    },
   },
   watch: {
     value(val) {
@@ -334,6 +372,7 @@ export default {
   }
   .list-group {
     display: flex;
+    flex-wrap: wrap;
   }
   .thumb-ghost {
     opacity: 0.5;

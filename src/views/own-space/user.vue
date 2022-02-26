@@ -27,7 +27,7 @@
       <FormItem label="所在省市：">
         <al-cascader
           v-model="form.address"
-          data-type="name"
+          data-type="code"
           level="2"
           style="width: 300px"
         />
@@ -64,9 +64,8 @@
 </template>
 
 <script>
-import { userInfo, userInfoEdit } from "@/api/index";
+import { userInfoEdit } from "@/api/index";
 import uploadPicThumb from "@/views/my-components/legion/upload-pic-thumb";
-import Cookies from "js-cookie";
 import dict from "@/views/my-components/legion/dict";
 export default {
   components: {
@@ -85,15 +84,13 @@ export default {
   },
   methods: {
     init() {
-      let v = JSON.parse(Cookies.get("userInfo"));
+      let userInfo = this.getUserInfo();
       // 转换null为""
-      for (let attr in v) {
-        if (v[attr] == null) {
-          v[attr] = "";
+      for (let attr in userInfo) {
+        if (userInfo[attr] == null) {
+          userInfo[attr] = "";
         }
       }
-      let str = JSON.stringify(v);
-      let userInfo = JSON.parse(str);
       this.form = userInfo;
       if (userInfo.address) {
         if (typeof userInfo.address == "string") {

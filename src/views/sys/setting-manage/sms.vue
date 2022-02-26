@@ -1,4 +1,5 @@
-<style lang="less"></style>
+<style lang="less">
+</style>
 <template>
   <div style="display: flex; position: relative">
     <Form
@@ -17,7 +18,6 @@
         >
           <Option value="ALI_SMS">阿里云</Option>
           <Option value="TENCENT_SMS">腾讯云</Option>
-          <Option value="CHINA_MOBILE_TA_SMS">泰安移动</Option>
         </Select>
       </FormItem>
       <FormItem label="accessKey" prop="accessKey">
@@ -79,7 +79,6 @@
           <Option value="1">注册</Option>
           <Option value="2">登录</Option>
           <Option value="3">修改绑定手机号</Option>
-          <Option value="7">两癌筛查</Option>
           <Option value="4">修改密码</Option>
           <Option value="5">重置密码</Option>
           <Option value="6">工作流消息</Option>
@@ -91,46 +90,6 @@
           v-model="sms.templateCode"
           :disabled="changeLoading"
           placeholder="请输入场景对应短信模版CODE/ID，如SMS_123456789"
-          style="width: 380px"
-        />
-      </FormItem>
-      <FormItem
-        v-if="sms.serviceName == 'CHINA_MOBILE_TA_SMS'"
-        label="服务商请求URL"
-        prop="url"
-      >
-        <Input
-          type="text"
-          v-model="sms.url"
-          :disabled="changeLoading"
-          placeholder="请输入服务商请求URL"
-          style="width: 380px"
-        />
-      </FormItem>
-      <FormItem
-        v-if="sms.serviceName == 'CHINA_MOBILE_TA_SMS'"
-        label="模板内容"
-        prop="content"
-      >
-        <Input
-          type="textarea"
-          :autosize="{ minRows: 2, maxRows: 5 }"
-          v-model="sms.content"
-          :disabled="changeLoading"
-          placeholder="请输入模板内容"
-          style="width: 380px"
-        />
-      </FormItem>
-      <FormItem
-        v-if="sms.serviceName == 'CHINA_MOBILE_TA_SMS'"
-        label="单位名称"
-        prop="useName"
-      >
-        <Input
-          type="text"
-          v-model="sms.useName"
-          :disabled="changeLoading"
-          placeholder="请输入单位名称"
           style="width: 380px"
         />
       </FormItem>
@@ -172,36 +131,18 @@ export default {
         signName: "",
         type: "",
         templateCode: "",
-        url: "",
-        useName: "",
       },
       changedSmsSK: false, // 是否修改短信的secrectKey
       smsValidate: {
         // 表单验证规则
         serviceName: [{ required: true, message: "请选择", trigger: "change" }],
-        accessKey: [{ required: true, message: "不能为空", trigger: "change" }],
-        secretKey: [{ required: true, message: "不能为空", trigger: "change" }],
-        appId: [{ required: true, message: "不能为空", trigger: "change" }],
-        signName: [{ required: true, message: "不能为空", trigger: "change" }],
-        type: [{ required: true, message: "不能为空", trigger: "change" }],
+        accessKey: [{ required: true, message: "不能为空", trigger: "blur" }],
+        secretKey: [{ required: true, message: "不能为空", trigger: "blur" }],
+        appId: [{ required: true, message: "不能为空", trigger: "blur" }],
+        signName: [{ required: true, message: "不能为空", trigger: "blur" }],
+        type: [{ required: true, message: "不能为空", trigger: "blur" }],
         templateCode: [
           { required: true, message: "不能为空", trigger: "blur" },
-        ],
-        url: [{ required: true, message: "不能为空", trigger: "change" }],
-        useName: [{ required: true, message: "不能为空", trigger: "change" }],
-        content: [
-          {
-            required: true,
-            message: "请输入模板",
-            trigger: "blur",
-          },
-          {
-            type: "string",
-            min: 0,
-            max:500,
-            message: "不超500字",
-            trigger: "blur",
-          },
         ],
       },
     };
@@ -238,6 +179,7 @@ export default {
       });
     },
     changeSms(v) {
+      this.$refs.smsForm.resetFields();
       this.changeLoading = true;
       getSmsSet(v).then((res) => {
         this.changeLoading = false;

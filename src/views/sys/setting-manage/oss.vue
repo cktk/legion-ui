@@ -232,6 +232,7 @@ export default {
       });
     },
     changeOss(v) {
+      this.$refs.ossForm.resetFields();
       if (v == "ALI_OSS") {
         this.endpointPH = "请输入EndPoint(地域节点) 非Bucket域名";
       } else if (v == "TENCENT_OSS") {

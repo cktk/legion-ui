@@ -51,41 +51,100 @@
           </FormItem>
         </Form>
       </Row>
-      <Row class="operation" align="middle">
-        <Button @click="deploy" type="primary" icon="md-cloud-upload"
-          >部署流程文件</Button
-        >
-        <Button @click="delAll" icon="md-trash">批量删除</Button>
-        <Button @click="getDataList" icon="md-refresh">刷新</Button>
-        <i-switch
-          size="large"
-          v-model="searchForm.showLatest"
-          @on-change="changeLatest"
-          style="margin: 0 5px"
-        >
-          <span slot="open">最新</span>
-          <span slot="close">全部</span>
-        </i-switch>
-        <Button type="dashed" @click="openSearch = !openSearch">{{
-          openSearch ? "关闭搜索" : "开启搜索"
-        }}</Button>
-        <Button type="dashed" @click="openTip = !openTip">{{
-          openTip ? "关闭提示" : "开启提示"
-        }}</Button>
+      <Row class="operation" align="middle" justify="space-between">
+        <div>
+          <Button @click="deploy" type="primary" icon="md-cloud-upload"
+            >部署流程文件</Button
+          >
+          <Button @click="delAll" icon="md-trash">批量删除</Button>
+          <Tooltip
+            content="同一标识的流程是否仅显示其最新版本"
+            placement="right"
+            max-width="300"
+            transfer
+          >
+            <i-switch
+              size="large"
+              v-model="searchForm.showLatest"
+              @on-change="changeLatest"
+              style="margin: 0 5px"
+            >
+              <span slot="open">最新</span>
+              <span slot="close">全部</span>
+            </i-switch>
+          </Tooltip>
+        </div>
+
+        <div class="icons">
+          <Tooltip content="刷新" placement="top" transfer>
+            <Icon
+              type="md-refresh"
+              size="18"
+              class="item"
+              @click="getDataList"
+            />
+          </Tooltip>
+          <Tooltip
+            :content="openSearch ? '关闭搜索' : '开启搜索'"
+            placement="top"
+            transfer
+          >
+            <Icon
+              type="ios-search"
+              size="18"
+              class="item tip"
+              @click="openSearch = !openSearch"
+            />
+          </Tooltip>
+          <Tooltip
+            :content="openTip ? '关闭提示' : '开启提示'"
+            placement="top"
+            transfer
+          >
+            <Icon
+              type="md-bulb"
+              size="18"
+              class="item tip"
+              @click="openTip = !openTip"
+            />
+          </Tooltip>
+          <Tooltip content="表格密度" placement="top" transfer>
+            <Dropdown @on-click="changeTableSize" trigger="click">
+              <Icon type="md-list" size="18" class="item" />
+              <DropdownMenu slot="list">
+                <DropdownItem :selected="tableSize == 'default'" name="default"
+                  >默认</DropdownItem
+                >
+                <DropdownItem :selected="tableSize == 'large'" name="large"
+                  >宽松</DropdownItem
+                >
+                <DropdownItem :selected="tableSize == 'small'" name="small"
+                  >紧密</DropdownItem
+                >
+              </DropdownMenu>
+            </Dropdown>
+          </Tooltip>
+          <Tooltip content="导出数据" placement="top" transfer>
+            <Icon
+              type="md-download"
+              size="18"
+              class="item"
+              @click="exportData"
+            />
+          </Tooltip>
+        </div>
       </Row>
       <Alert show-icon v-show="openTip">
         已选择
         <span class="select-count">{{ selectList.length }}</span> 项
         <a class="select-clear" @click="clearSelectAll">清空</a>
-        <span style="margin-left: 20px"
-          >说明：当有多个相同标识的流程时，默认仅显示其最新版本</span
-        >
       </Alert>
       <Table
         :loading="loading"
         border
         :columns="columns"
         :data="data"
+        :size="tableSize"
         sortable="custom"
         @on-sort-change="changeSort"
         @on-selection-change="showSelect"
@@ -154,15 +213,11 @@
 <script>
 import {
   getProcessDataList,
-  updateInfo,
   updateStatus,
   deployByFile,
   exportResource,
   convertToModel,
   deleteProcess,
-  initActCategory,
-  loadActCategory,
-  searchActCategory,
 } from "@/api/activiti";
 import { getDictDataByType } from "@/api/index";
 import processNodeEdit from "./processNodeEdit.vue";
@@ -174,6 +229,7 @@ export default {
   },
   data() {
     return {
+      tableSize: "default",
       showProcessNodeEdit: false,
       nodeEditData: {},
       openSearch: true,
@@ -494,6 +550,14 @@ export default {
         this.searchForm.startDate = v[0];
         this.searchForm.endDate = v[1];
       }
+    },
+    changeTableSize(v) {
+      this.tableSize = v;
+    },
+    exportData() {
+      this.$refs.table.exportCsv({
+        filename: "数据",
+      });
     },
     getDataList() {
       this.loading = true;

@@ -21,7 +21,7 @@
               >
               <Submenu name="1">
                 <template slot="title">
-                  <Icon type="md-ionic" />通用组件
+                  <Icon type="md-ionic" /><Badge dot :offset="[5, -3]">通用组件</Badge>
                 </template>
                 <MenuItem name="1-0">全局Loading加载动画</MenuItem>
                 <MenuItem name="1-1">倒计时按钮</MenuItem>
@@ -33,39 +33,36 @@
                 <MenuItem name="1-4">部门树选择</MenuItem>
                 <MenuItem name="1-5">用户抽屉选择</MenuItem>
                 <MenuItem name="1-13"> 用户搜索+抽屉选择 </MenuItem>
-                <MenuItem name="1-6">图片上传输入框</MenuItem>
+                <MenuItem name="1-15"
+                  ><Badge dot :offset="[5, -3]">素材中心[付费]</Badge></MenuItem
+                >
+                <MenuItem name="1-6"
+                  ><Badge dot :offset="[5, -3]">图片上传输入框</Badge></MenuItem
+                >
                 <MenuItem name="1-7">
                   <Badge dot :offset="[5, -3]">图片上传缩略图</Badge>
                 </MenuItem>
-                <MenuItem name="1-10">
-                  <Badge dot :offset="[5, -3]">文件上传/下载</Badge>
-                </MenuItem>
+                <MenuItem name="1-10"> 文件上传/下载 </MenuItem>
                 <MenuItem name="1-8">身份验证全屏弹框</MenuItem>
                 <MenuItem name="1-9">密码强度提示输入框</MenuItem>
               </Submenu>
               <Submenu name="3">
                 <template slot="title">
                   <Icon type="ios-create" />
-                  <Badge dot :offset="[5, -3]">编辑器(付费)</Badge>
+                  <Badge dot :offset="[5, -3]">编辑器[付费]</Badge>
                 </template>
                 <MenuItem name="3-1">wangEditor 富文本</MenuItem>
                 <MenuItem name="3-3">Monaco 代码编辑器</MenuItem>
-                <MenuItem name="3-2"
-                  ><Badge :offset="[0, -15]" text="废弃" type="normal"
-                    >Quill</Badge
-                  ></MenuItem
-                >
               </Submenu>
               <Submenu name="4">
                 <template slot="title">
-                  <Icon type="md-globe" />
-                  <Badge dot :offset="[5, -3]">地图组件</Badge>
+                  <Icon type="md-globe" />地图组件
                 </template>
                 <MenuItem name="4-1">地图选点</MenuItem>
               </Submenu>
               <Submenu name="2">
                 <template slot="title">
-                  <Icon type="md-git-compare" />工作流组件(付费)
+                  <Icon type="md-git-compare" />工作流组件[付费]
                 </template>
                 <MenuItem name="2-1">工作流程选择发起</MenuItem>
                 <MenuItem name="2-2">通过流程key直接发起</MenuItem>
@@ -73,9 +70,7 @@
               </Submenu>
               <Submenu name="5">
                 <template slot="title">
-                  <Icon type="md-albums" /><Badge dot :offset="[5, -3]"
-                    >Widget组件</Badge
-                  >
+                  <Icon type="md-albums" />Widget组件
                 </template>
                 <MenuItem name="5-1">卡片1</MenuItem>
                 <MenuItem name="5-2">卡片2</MenuItem>
@@ -142,6 +137,9 @@
             <div v-if="currName == '1-9'">
               <setPassword />
             </div>
+            <div v-if="currName == '1-15'">
+              <materialCenter />
+            </div>
 
             <div v-if="currName == '3-1'">
               <editor />
@@ -149,12 +147,9 @@
             <div v-if="currName == '3-3'">
               <monaco />
             </div>
-            <div v-if="currName == '3-2'">
-              <quill />
-            </div>
 
             <div v-if="currName == '4-1'">
-              <Map />
+              <mapLocate />
             </div>
 
             <div v-if="currName == '2-1'">
@@ -182,7 +177,6 @@
             <div v-if="currName == '5-5'">
               <countUp />
             </div>
-
           </div>
         </Content>
       </Layout>
@@ -202,6 +196,7 @@ import departmentChoose from "./components/departmentChoose";
 import departmentTreeChoose from "./components/departmentTreeChoose";
 import userChoose from "./components/userChoose";
 import userSelect from "./components/userSelect";
+import materialCenter from "./components/materialCenter";
 import uploadPicInput from "./components/uploadPicInput";
 import uploadPicThumb from "./components/uploadPicThumb";
 import fileUpload from "./components/fileUpload";
@@ -210,9 +205,8 @@ import setPassword from "./components/setPassword";
 
 import editor from "./components/editor";
 import monaco from "./components/monaco";
-import quill from "./components/quill";
 
-import Map from "./components/map";
+import mapLocate from "./components/mapLocate";
 
 import processChoose from "./components/processChoose";
 import processStart from "./components/processStart";
@@ -236,6 +230,7 @@ export default {
     departmentChoose,
     userChoose,
     departmentTreeChoose,
+    materialCenter,
     uploadPicInput,
     uploadPicThumb,
     fileUpload,
@@ -245,8 +240,7 @@ export default {
     userSelect,
     editor,
     monaco,
-    quill,
-    Map,
+    mapLocate,
     processChoose,
     processStart,
     processCancel,
@@ -254,7 +248,7 @@ export default {
     card2,
     card3,
     card4,
-    countUp
+    countUp,
   },
   data() {
     return {

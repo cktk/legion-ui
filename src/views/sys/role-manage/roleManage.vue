@@ -6,21 +6,67 @@
 <template>
   <div class="search">
     <Card>
-      <Row class="operation">
-        <Button @click="addRole" type="primary" icon="md-add">添加角色</Button>
-        <Button @click="delAll" icon="md-trash">批量删除</Button>
-        <Button @click="init" icon="md-refresh">刷新</Button>
-        <Button type="dashed" @click="openTip = !openTip">{{
-          openTip ? "关闭提示" : "开启提示"
-        }}</Button>
-        <Input
-          v-model="searchForm.key"
-          suffix="ios-search"
-          @on-change="getDataList"
-          placeholder="输入关键词搜索"
-          clearable
-          style="width: 250px"
-        />
+      <Row align="middle" justify="space-between" class="operation">
+        <div>
+          <Button @click="addRole" type="primary" icon="md-add"
+            >添加角色</Button
+          >
+          <Button @click="delAll" icon="md-trash">批量删除</Button>
+          <Input
+            v-model="searchForm.key"
+            suffix="ios-search"
+            @on-change="getDataList"
+            placeholder="输入关键词搜索"
+            clearable
+            style="width: 250px"
+          />
+        </div>
+        <div class="icons">
+          <Tooltip content="刷新" placement="top" transfer>
+            <Icon
+              type="md-refresh"
+              size="18"
+              class="item"
+              @click="init"
+            />
+          </Tooltip>
+          <Tooltip
+            :content="openTip ? '关闭提示' : '开启提示'"
+            placement="top"
+            transfer
+          >
+            <Icon
+              type="md-bulb"
+              size="18"
+              class="item tip"
+              @click="openTip = !openTip"
+            />
+          </Tooltip>
+          <Tooltip content="表格密度" placement="top" transfer>
+            <Dropdown @on-click="changeTableSize" trigger="click">
+              <Icon type="md-list" size="18" class="item" />
+              <DropdownMenu slot="list">
+                <DropdownItem :selected="tableSize == 'default'" name="default"
+                  >默认</DropdownItem
+                >
+                <DropdownItem :selected="tableSize == 'large'" name="large"
+                  >宽松</DropdownItem
+                >
+                <DropdownItem :selected="tableSize == 'small'" name="small"
+                  >紧密</DropdownItem
+                >
+              </DropdownMenu>
+            </Dropdown>
+          </Tooltip>
+          <Tooltip content="导出数据" placement="top" transfer>
+            <Icon
+              type="md-download"
+              size="18"
+              class="item"
+              @click="exportData"
+            />
+          </Tooltip>
+        </div>
       </Row>
       <Alert show-icon v-show="openTip">
         已选择
@@ -32,6 +78,7 @@
         border
         :columns="columns"
         :data="data"
+        :size="tableSize"
         ref="table"
         sortable="custom"
         @on-sort-change="changeSort"
@@ -83,6 +130,7 @@
         >
       </div>
     </Modal>
+
     <!-- 菜单权限 -->
     <Drawer
       :title="modalTitle"
@@ -125,38 +173,40 @@
         <Button type="text" @click="cancelPermEdit">取消</Button>
       </div>
     </Drawer>
+
     <!-- 数据权限 -->
     <Modal
       :title="modalTitle"
       v-model="depModalVisible"
       :mask-closable="false"
       :width="500"
-      class="depModal"
     >
-      <Alert show-icon
-        >默认可查看全部数据，自定义数据范围时请勾选下方数据</Alert
-      >
-      <Form :label-width="85">
-        <FormItem label="数据范围">
-          <Select v-model="dataType" transfer>
-            <Option :value="0">全部数据权限</Option>
-            <Option :value="1">自定义数据权限</Option>
-            <Option :value="2">本部门及以下数据权限</Option>
-            <Option :value="3">本部门数据权限</Option>
-          </Select>
-        </FormItem>
-      </Form>
-      <div v-show="dataType == 1" style="margin-top: 15px">
-        <div style="position: relative">
-          <Tree
-            ref="depTree"
-            :data="depData"
-            :load-data="loadData"
-            @on-toggle-expand="expandCheckDep"
-            multiple
-            style="margin-top: 15px"
-          ></Tree>
-          <Spin size="large" fix v-if="depTreeLoading"></Spin>
+      <div class="depModal">
+        <Alert show-icon
+          >默认可查看全部数据，自定义数据范围时请勾选下方数据</Alert
+        >
+        <Form :label-width="85">
+          <FormItem label="数据范围">
+            <Select v-model="dataType" transfer>
+              <Option :value="0">全部数据权限</Option>
+              <Option :value="1">自定义数据权限</Option>
+              <Option :value="2">本部门及以下数据权限</Option>
+              <Option :value="3">本部门数据权限</Option>
+            </Select>
+          </FormItem>
+        </Form>
+        <div v-show="dataType == 1" style="margin-top: 15px">
+          <div style="position: relative">
+            <Tree
+              ref="depTree"
+              :data="depData"
+              :load-data="loadData"
+              @on-toggle-expand="expandCheckDep"
+              multiple
+              style="margin-top: 15px"
+            ></Tree>
+            <Spin size="large" fix v-if="depTreeLoading"></Spin>
+          </div>
         </div>
       </div>
       <div slot="footer">
@@ -190,6 +240,7 @@ export default {
   name: "role-manage",
   data() {
     return {
+      tableSize: "default",
       maxHeight: 510,
       openTip: true,
       openLevel: "0",
@@ -220,7 +271,7 @@ export default {
       },
       roleFormValidate: {
         name: [
-          { required: true, message: "角色名称不能为空", trigger: "change" },
+          { required: true, message: "角色名称不能为空", trigger: "blur" },
         ],
       },
       submitLoading: false,
@@ -239,7 +290,7 @@ export default {
         {
           title: "角色名称",
           key: "name",
-          width: 150,
+          minWidth: 150,
           sortable: true,
         },
         {
@@ -301,7 +352,7 @@ export default {
           key: "action",
           align: "center",
           fixed: "right",
-          width: 280,
+          width: 270,
           render: (h, params) => {
             return h("div", [
               h(
@@ -445,6 +496,14 @@ export default {
         this.searchForm.order = "";
       }
       this.getDataList();
+    },
+    changeTableSize(v) {
+      this.tableSize = v;
+    },
+    exportData() {
+      this.$refs.table.exportCsv({
+        filename: "数据",
+      });
     },
     getDataList() {
       this.loading = true;

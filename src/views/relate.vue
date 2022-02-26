@@ -22,7 +22,7 @@
                   <FormItem prop="username">
                     <Input
                       v-model="form.username"
-                      prefix="ios-contact"
+                      prefix="ios-person-outline"
                       size="large"
                       clearable
                       placeholder="请输入登录账号"
@@ -33,7 +33,7 @@
                     <Input
                       type="password"
                       v-model="form.password"
-                      prefix="ios-lock"
+                      prefix="ios-lock-outline"
                       size="large"
                       clearable
                       placeholder="请输入密码"
@@ -59,7 +59,7 @@
               <router-link to="/reset" class="back">{{
                 $t("forgetPass")
               }}</router-link>
-              <router-link to="/regist" class="back">
+              <router-link to="/register" class="back">
                 {{ $t("registerNow") }}
               </router-link>
             </Row>
@@ -116,14 +116,14 @@ export default {
           {
             required: true,
             message: "账号不能为空",
-            trigger: "change",
+            trigger: "blur",
           },
         ],
         password: [
           {
             required: true,
             message: "密码不能为空",
-            trigger: "change",
+            trigger: "blur",
           },
         ],
       },

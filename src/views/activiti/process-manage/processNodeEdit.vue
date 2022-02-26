@@ -146,7 +146,7 @@
         </Col>
         <Col :md="15" :lg="13" :xl="10" style="margin-left: 10px">
           <Alert type="warning" show-icon style="margin-left: 1vw"
-            >温馨提示：若流程运行至未分配审批人员的审批节点时，流程将自动中断取消</Alert
+            >温馨提示：若流程运行至未分配审批人员的审批节点时，流程将自动提前结束</Alert
           >
           <Form
             ref="form"
@@ -341,7 +341,6 @@
                 type="primary"
                 :loading="submitLoading"
                 @click="handelSubmit"
-                icon="ios-create-outline"
                 :disabled="form.type != 0 && form.type != 1"
                 >保存并提交</Button
               >

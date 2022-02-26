@@ -21,7 +21,7 @@
       <Form
         ref="form"
         :model="form"
-        :label-width="90"
+        :label-width="110"
         :rules="formValidate"
         style="position: relative"
       >
@@ -36,10 +36,10 @@
         </FormItem>
         <FormItem style="margin-bottom: 5px" v-show="form.isTemplate">
           <Alert show-icon
-            >消息模版变量格式：${变量名}【标题及内容都支持】
-            示例：您的验证码为：${code}，该验证码5分钟内有效，请勿泄漏于他人
+            >消息模版变量格式：${变量名} 标题及内容皆支持
+            示例：您的验证码为：${code}，该验证码5分钟内有效
             <a
-              href="https://www.kancloud.cn/Daimao/legion/1021404"
+              href="https://www.kancloud.cn/exrick/legion/1021404"
               target="_blank"
               >详见开发文档</a
             ></Alert
@@ -48,11 +48,24 @@
         <FormItem label="内容" prop="content">
           <editor v-model="form.content" height="250"></editor>
         </FormItem>
-        <FormItem label="新创建的账号也推送" prop="createSend">
+        <FormItem label="新创建账号推送" prop="createSend">
           <i-switch size="large" v-model="form.createSend">
             <span slot="open">开启</span>
             <span slot="close">关闭</span>
           </i-switch>
+          <Tooltip
+            content="新创建注册的账号也为其推送此消息"
+            placement="right"
+            transfer
+            style="display: inline-block !important"
+          >
+            <Icon
+              type="md-help-circle"
+              size="20"
+              color="#c5c5c5"
+              style="margin-left: 10px; cursor: pointer"
+            />
+          </Tooltip>
         </FormItem>
         <div v-if="type == 0">
           <FormItem label="发送范围">
@@ -123,10 +136,8 @@ export default {
         type: [
           { required: true, message: "消息类型不能为空", trigger: "change" },
         ],
-        title: [{ required: true, message: "标题不能为空", trigger: "change" }],
-        content: [
-          { required: true, message: "内容不能为空", trigger: "change" },
-        ],
+        title: [{ required: true, message: "标题不能为空", trigger: "blur" }],
+        content: [{ required: true, message: "内容不能为空" }],
       },
       submitLoading: false, // 添加或编辑提交状态
       backRoute: "",

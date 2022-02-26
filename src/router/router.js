@@ -10,22 +10,31 @@ export const loginRouter = {
     component: () => import('@/views/login.vue')
 };
 
-export const registRouter = {
-    path: '/regist',
-    name: 'regist',
+export const loginQRRouter = {
+    path: '/login-qr',
+    name: 'login-qr',
     meta: {
-        title: '注册'
+        title: '扫码登录'
     },
-    component: () => import('@/views/regist.vue')
+    component: () => import('@/views/login-qr.vue')
+};
+
+export const registRouter = {
+    path: '/register',
+    name: 'register',
+    meta: {
+        title: '注册 '
+    },
+    component: () => import('@/views/register.vue')
 };
 
 export const registResult = {
-    path: '/regist-result',
-    name: 'regist-result',
+    path: '/register-result',
+    name: 'register-result',
     meta: {
         title: '注册结果'
     },
-    component: () => import('@/views/regist-result.vue')
+    component: () => import('@/views/register-result.vue')
 };
 
 export const reset = {
@@ -89,7 +98,7 @@ export const otherRouter = {
     redirect: '/home',
     component: Main,
     children: [
-        { path: 'home', title: { i18n: 'home' }, name: 'home_index', component: () => import('@/views/home/home.vue') },
+        { path: 'home', title: '首页', localize: true, i18n: 'home', name: 'home_index', component: () => import('@/views/home/home.vue') },
         { path: 'ownspace', title: '个人中心', name: 'ownspace_index', component: () => import('@/views/own-space/own-space.vue') },
         { path: 'message', title: '消息中心', name: 'message_index', component: () => import('@/views/message/message.vue') },
         { path: 'add', title: '添加', name: 'add', component: () => import('@/views/legion-vue-template/new-window/add.vue') },
@@ -104,6 +113,7 @@ export const appRouter = [];
 // 所有上面定义的路由都要写在下面的routers里
 export const routers = [
     loginRouter,
+    loginQRRouter,
     registRouter,
     registResult,
     reset,

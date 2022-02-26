@@ -1,4 +1,5 @@
 <style lang="less">
+@import "@/styles/tree&table-common.less";
 @import "@/styles/table-common.less";
 @import "./ossManage.less";
 </style>
@@ -60,7 +61,7 @@
           </FormItem>
         </Form>
       </Row>
-      <Row class="operation" align="middle" justify="space-between">
+      <Row align="middle" justify="space-between" class="operation">
         <div class="br">
           <Button
             @click="uploadVisible = true"
@@ -74,7 +75,6 @@
               <Icon type="md-arrow-dropdown" />
             </Button>
             <DropdownMenu slot="list">
-              <DropdownItem name="refresh">刷新</DropdownItem>
               <DropdownItem v-show="showType == 'list'" name="removeAll"
                 >批量删除</DropdownItem
               >
@@ -93,18 +93,44 @@
               <DropdownItem name="config">存储配置</DropdownItem>
             </DropdownMenu>
           </Dropdown>
-          <Button type="dashed" @click="openSearch = !openSearch">{{
-            openSearch ? "关闭搜索" : "开启搜索"
-          }}</Button>
-          <Button type="dashed" @click="openTip = !openTip">{{
-            openTip ? "关闭提示" : "开启提示"
-          }}</Button>
         </div>
 
-        <div>
+        <div class="icons">
+          <Tooltip content="刷新" placement="top" transfer>
+            <Icon
+              type="md-refresh"
+              size="18"
+              class="item"
+              @click="getDataList"
+            />
+          </Tooltip>
+          <Tooltip
+            :content="openSearch ? '关闭搜索' : '开启搜索'"
+            placement="top"
+            transfer
+          >
+            <Icon
+              type="ios-search"
+              size="18"
+              class="item tip"
+              @click="openSearch = !openSearch"
+            />
+          </Tooltip>
+          <Tooltip
+            :content="openTip ? '关闭提示' : '开启提示'"
+            placement="top"
+            transfer
+          >
+            <Icon
+              type="md-bulb"
+              size="18"
+              class="item tip"
+              @click="openTip = !openTip"
+            />
+          </Tooltip>
           <Select
             v-model="fileType"
-            style="width: 150px; margin-right: 25px"
+            style="width: 150px; margin: 0 25px 0 15px"
             @on-change="changeFileType"
           >
             <Option value="all">所有文件</Option>
@@ -154,75 +180,66 @@
           @on-selection-change="changeSelect"
         ></Table>
       </div>
-      <div v-show="showType == 'thumb'">
-        <div class="oss-wrapper">
-          <Row type="flex" :gutter="30">
-            <Col :lg="6" :md="12" v-for="(item, i) in data" :key="i">
-              <Card class="oss-card">
-                <div class="content">
-                  <img
-                    @click="showPic(item)"
-                    v-if="item.type.indexOf('image') >= 0"
-                    class="img"
-                    :src="item.url"
-                  />
-                  <div
-                    v-else-if="item.type.indexOf('video') >= 0"
-                    class="video"
-                    @click="showVideo(item)"
-                  >
-                    <!-- 文件小于5MB显示video -->
-                    <video class="cover" v-if="item.size < 1024 * 1024 * 5">
-                      <source :src="item.url" />
-                    </video>
-                    <img class="play" src="@/assets/icon/play.png" />
-                  </div>
-                  <div v-else class="other" @click="previewFile(item)">
-                    <div class="name">{{ item.name }}</div>
-                    <div class="key">{{ item.fkey }}</div>
-                    <div class="info">
-                      文件类型：{{ item.type }} 文件大小：{{
-                        ((item.size * 1.0) / (1024 * 1024)).toFixed(2)
-                      }}
-                      MB 创建时间：{{ item.createTime }}
-                    </div>
-                  </div>
-                  <div class="actions">
-                    <div class="btn">
-                      <Tooltip content="下载" placement="top">
-                        <Icon
-                          @click="download(item)"
-                          type="md-download"
-                          size="16"
-                        />
-                      </Tooltip>
-                    </div>
-                    <div class="btn">
-                      <Tooltip content="重命名" placement="top">
-                        <Icon
-                          @click="rename(item)"
-                          type="md-create"
-                          size="16"
-                        />
-                      </Tooltip>
-                    </div>
-                    <div class="btn">
-                      <Tooltip content="复制" placement="top">
-                        <Icon @click="copy(item)" type="md-copy" size="16" />
-                      </Tooltip>
-                    </div>
-                    <div class="btn-no">
-                      <Tooltip content="删除" placement="top">
-                        <Icon @click="remove(item)" type="md-trash" size="16" />
-                      </Tooltip>
-                    </div>
-                  </div>
+      <Row type="flex" :gutter="30" v-show="showType == 'thumb'">
+        <Col :lg="6" :md="12" :xs="12" v-for="(item, i) in data" :key="i">
+          <Card class="oss-card">
+            <div class="content">
+              <img
+                @click="showPic(item)"
+                v-if="item.type.indexOf('image') >= 0"
+                class="img"
+                :src="item.url"
+              />
+              <div
+                v-else-if="item.type.indexOf('video') >= 0"
+                class="video"
+                @click="showVideo(item)"
+              >
+                <video class="cover">
+                  <source :src="item.url + '#t=1'" preload="metadata" />
+                </video>
+                <img class="play" src="@/assets/icon/play.png" />
+              </div>
+              <div v-else class="other" @click="previewFile(item)">
+                <div class="name">{{ item.name }}</div>
+                <div class="key">{{ item.fkey }}</div>
+                <div class="info">
+                  文件类型：{{ util.ellipsis(item.type, 30) }} 文件大小：{{
+                    util.getFileSize(item.size)
+                  }}
+                  创建时间：{{ item.createTime }}
                 </div>
-              </Card>
-            </Col>
-          </Row>
-        </div>
-      </div>
+              </div>
+              <div class="actions">
+                <div class="btn">
+                  <Tooltip content="下载" placement="top">
+                    <Icon
+                      @click="download(item)"
+                      type="md-download"
+                      size="16"
+                    />
+                  </Tooltip>
+                </div>
+                <div class="btn">
+                  <Tooltip content="重命名" placement="top">
+                    <Icon @click="rename(item)" type="md-create" size="16" />
+                  </Tooltip>
+                </div>
+                <div class="btn">
+                  <Tooltip content="复制" placement="top">
+                    <Icon @click="copy(item)" type="md-copy" size="16" />
+                  </Tooltip>
+                </div>
+                <div class="btn-no">
+                  <Tooltip content="删除" placement="top">
+                    <Icon @click="remove(item)" type="md-trash" size="16" />
+                  </Tooltip>
+                </div>
+              </div>
+            </div>
+          </Card>
+        </Col>
+      </Row>
       <Row type="flex" justify="end" class="page">
         <Page
           :current="searchForm.pageNumber"
@@ -245,7 +262,7 @@
         :headers="accessToken"
         :on-success="handleSuccess"
         :on-error="handleError"
-        :max-size="512000"
+        :max-size="5120"
         :on-exceeded-size="handleMaxSize"
         :before-upload="beforeUpload"
         multiple
@@ -294,9 +311,10 @@
       <div id="dplayer" style="height: 500px"></div>
       <div slot="footer">
         <span
-          >文件类型：{{ file.type }} 文件大小：{{ file.msize }} 创建时间：{{
-            file.createTime
-          }}</span
+          >文件类型：{{ util.ellipsis(file.type, 30) }} 文件大小：{{
+            file.msize
+          }}
+          创建时间：{{ file.createTime }}</span
         >
       </div>
     </Modal>
@@ -318,6 +336,7 @@ import Viewer from "viewerjs";
 import { shortcuts } from "@/libs/shortcuts";
 export default {
   name: "oss-manage",
+  components: {},
   data() {
     return {
       dp: null,
@@ -361,8 +380,8 @@ export default {
       file: {},
       // 表单验证规则
       formValidate: {
-        name: [{ required: true, message: "不能为空", trigger: "change" }],
-        fkey: [{ required: true, message: "不能为空", trigger: "change" }],
+        name: [{ required: true, message: "不能为空", trigger: "blur" }],
+        fkey: [{ required: true, message: "不能为空", trigger: "blur" }],
       },
       submitLoading: false, // 添加或编辑提交状态
       selectList: [], // 多选数据
@@ -416,37 +435,9 @@ export default {
                 },
               });
             } else if (params.row.type.includes("video") > 0) {
-              // 如果视频文件大小超过5MB不予加载video
-              if (params.row.size < 1024 * 1024 * 5) {
-                return h(
-                  "video",
-                  {
-                    style: {
-                      cursor: "pointer",
-                      width: "80px",
-                      height: "60px",
-                      margin: "10px 0",
-                      "object-fit": "contain",
-                    },
-                    on: {
-                      click: () => {
-                        this.showVideo(params.row);
-                      },
-                    },
-                  },
-                  [
-                    h("source", {
-                      attrs: {
-                        src: params.row.url,
-                      },
-                    }),
-                  ]
-                );
-              } else {
-                return h("img", {
-                  attrs: {
-                    src: require("@/assets/icon/play.png"),
-                  },
+              return h(
+                "video",
+                {
                   style: {
                     cursor: "pointer",
                     width: "80px",
@@ -459,8 +450,16 @@ export default {
                       this.showVideo(params.row);
                     },
                   },
-                });
-              }
+                },
+                [
+                  h("source", {
+                    attrs: {
+                      src: params.row.url + "#t=1",
+                      preload: "metadata",
+                    },
+                  }),
+                ]
+              );
             } else if (params.row.type.includes("word") > 0) {
               return h("img", {
                 attrs: {
@@ -481,6 +480,7 @@ export default {
               });
             } else if (
               params.row.fkey.includes(".xlsx") > 0 ||
+              params.row.fkey.includes(".xls") > 0 ||
               params.row.type.includes("sheet") > 0
             ) {
               return h("img", {
@@ -627,8 +627,7 @@ export default {
           align: "center",
           sortable: true,
           render: (h, params) => {
-            let m =
-              ((params.row.size * 1.0) / (1024 * 1024)).toFixed(2) + " MB";
+            let m = this.util.getFileSize(params.row.size);
             return h("span", m);
           },
         },
@@ -638,31 +637,6 @@ export default {
           width: 120,
           sortable: true,
           align: "center",
-          render: (h, params) => {
-            return h(
-              "Tooltip",
-              {
-                props: {
-                  placement: "top",
-                  content: params.row.createBy,
-                },
-              },
-              [
-                h(
-                  "Tag",
-                  {
-                    style: {
-                      "margin-right": "8px",
-                    },
-                    props: {
-                      type: "border",
-                    },
-                  },
-                  params.row.nickname
-                ),
-              ]
-            );
-          },
         },
         {
           title: "存储位置",
@@ -769,9 +743,7 @@ export default {
   },
   methods: {
     handleDropdown(name) {
-      if (name == "refresh") {
-        this.getDataList();
-      } else if (name == "removeAll") {
+      if (name == "removeAll") {
         this.removeAll();
       } else if (name == "name") {
         this.searchForm.sort = "name";
@@ -832,12 +804,14 @@ export default {
         },
       });
       this.file = v;
-      this.file.msize = ((v.size * 1.0) / (1024 * 1024)).toFixed(2) + " MB";
+      this.file.msize = this.util.getFileSize(v.size);
       this.videoTitle = v.name + "(" + v.fkey + ")";
       this.videoVisible = true;
     },
     closeVideo() {
-      this.dp.destroy();
+      if (this.dp) {
+        this.dp.destroy();
+      }
     },
     dropDown() {
       if (this.drop) {
@@ -951,13 +925,6 @@ export default {
       this.getDataList();
     },
     beforeUpload() {
-      if (
-        this.$route.meta.permTypes &&
-        !this.$route.meta.permTypes.includes("upload")
-      ) {
-        this.$Message.error("此处您没有上传权限(为演示功能，该按钮未配置隐藏)");
-        return false;
-      }
       return true;
     },
     handleMaxSize(file) {
@@ -1000,7 +967,6 @@ export default {
       window.open(v.url + "?preview=true");
     },
     previewFile(v) {
-      console.log(v);
       if (v.type.indexOf("audio") >= 0) {
         this.showVideo(v);
       } else if (v.type.indexOf("office") >= 0 || v.type.indexOf("word") >= 0) {
@@ -1126,7 +1092,7 @@ export default {
       e.forEach((item) => {
         size += item.size * 1.0;
       });
-      this.totalSize = ((size * 1.0) / (1024 * 1024)).toFixed(2) + " MB";
+      this.totalSize = this.util.getFileSize(size);
     },
   },
   mounted() {

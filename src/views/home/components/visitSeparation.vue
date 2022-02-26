@@ -21,29 +21,30 @@ export default {
   name: "visitSeparation",
   data() {
     return {
-      series: [],
+      series: [45, 18, 27, 15, 13],
       chartOptions: {
-        labels: ["移动端", "PC", "平板", "IOS", "其他"],
-        plotOptions: {
-          pie: {
-            donut: {
-              size: "70%",
-            },
-          },
+        chart: {
+          type: "donut",
         },
+        labels: ["移动端", "PC", "平板", "IOS", "其他"],
         dataLabels: {
           enabled: false,
         },
+        responsive: [
+          {
+            breakpoint: 480,
+            options: {
         legend: {
           position: "right",
         },
       },
+          },
+        ],
+      },
     };
   },
   methods: {
-    init() {
-      this.series = [45, 18, 27, 15, 13];
-    },
+    init() {},
   },
   mounted() {
     this.init();

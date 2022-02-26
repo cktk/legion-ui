@@ -37,7 +37,12 @@ export default {
   data() {
     return {
       memory: {
-        series: [],
+        series: [
+          {
+            name: "内存(KB)",
+            data: [0],
+          },
+        ],
         chartOptions: {
           chart: {
             animations: {
@@ -77,7 +82,12 @@ export default {
         xdata: [],
       },
       key: {
-        series: [],
+        series: [
+          {
+            name: "key数量",
+            data: [0],
+          },
+        ],
         chartOptions: {
           chart: {
             animations: {
@@ -133,6 +143,10 @@ export default {
       ],
       redisInfo: [],
       timer: null,
+      minMemory: 1e10,
+      maxMemory: -1e10,
+      minSize: 1e10,
+      maxSize: -1e10,
     };
   },
   methods: {
@@ -142,94 +156,94 @@ export default {
     },
     // 统计
     getData() {
-      let minMemory = 1e10;
-      let minSize = 1e10;
-      let maxMemory = -1e10;
-      let maxSize = -1e10;
+      this.getRequestData();
       this.timer = setInterval(() => {
-        // 内存
-        getRedisMemory().then((res) => {
-          let currentMemory = Number(res.result.memory) / 1024;
-          // 更新最大最小值
-          if (currentMemory < minMemory) {
-            minMemory = currentMemory;
-          }
-          if (currentMemory > maxMemory) {
-            maxMemory = currentMemory;
-          }
-
-          this.memory.data.push(Number(currentMemory.toFixed(2)));
-          this.memory.xdata.push(res.result.time);
-          // 5个点
-          if (this.memory.data.length >= 6) {
-            this.memory.data.shift();
-            this.memory.xdata.shift();
-          }
-          // 更新点信息
-          this.$refs.memoryInfo.updateSeries([
-            {
-              name: "内存(KB)",
-              data: this.memory.data,
-            },
-          ]);
-
-          // 更新最大最小值
-          this.$refs.memoryInfo.updateOptions(
-            {
-              xaxis: {
-                categories: this.memory.xdata,
-              },
-              yaxis: {
-                min: minMemory - 2,
-                max: maxMemory + 2,
-              },
-            },
-            true,
-            true
-          );
-        });
-        // 键值
-        getRedisKeySize().then((res) => {
-          let currentSize = res.result.keySize;
-          // 更新最大最小值
-          if (currentSize < minSize) {
-            minSize = currentSize;
-          }
-          if (currentSize > maxSize) {
-            maxSize = currentSize;
-          }
-
-          this.key.data.push(currentSize);
-          this.key.xdata.push(res.result.time);
-          // 5个点
-          if (this.key.data.length >= 6) {
-            this.key.data.shift();
-            this.key.xdata.shift();
-          }
-          // 更新点信息
-          this.$refs.keySize.updateSeries([
-            {
-              name: "key数量",
-              data: this.key.data,
-            },
-          ]);
-          // 更新最大最小值
-          this.$refs.keySize.updateOptions(
-            {
-              xaxis: {
-                categories: this.key.xdata,
-              },
-              // 避免最大最小值一致
-              yaxis: {
-                min: minSize - 2,
-                max: maxSize + 2,
-              },
-            },
-            true,
-            true
-          );
-        });
+        this.getRequestData();
       }, 5000);
+    },
+    getRequestData() {
+      // 内存
+      getRedisMemory().then((res) => {
+        let currentMemory = Number(res.result.memory) / 1024;
+        // 更新最大最小值
+        if (currentMemory < this.minMemory) {
+          this.minMemory = currentMemory;
+        }
+        if (currentMemory > this.maxMemory) {
+          this.maxMemory = currentMemory;
+        }
+
+        this.memory.data.push(Number(currentMemory.toFixed(2)));
+        this.memory.xdata.push(res.result.time);
+        // 5个点
+        if (this.memory.data.length >= 6) {
+          this.memory.data.shift();
+          this.memory.xdata.shift();
+        }
+        // 更新点信息
+        this.$refs.memoryInfo.updateSeries([
+          {
+            name: "内存(KB)",
+            data: this.memory.data,
+          },
+        ]);
+
+        // 更新最大最小值
+        this.$refs.memoryInfo.updateOptions(
+          {
+            xaxis: {
+              categories: this.memory.xdata,
+            },
+            yaxis: {
+              min: this.minMemory - 2,
+              max: this.maxMemory + 2,
+            },
+          },
+          true,
+          true
+        );
+      });
+      // 键值
+      getRedisKeySize().then((res) => {
+        let currentSize = res.result.keySize;
+        // 更新最大最小值
+        if (currentSize < this.minSize) {
+          this.minSize = currentSize;
+        }
+        if (currentSize > this.maxSize) {
+          this.maxSize = currentSize;
+        }
+
+        this.key.data.push(currentSize);
+        this.key.xdata.push(res.result.time);
+        // 5个点
+        if (this.key.data.length >= 6) {
+          this.key.data.shift();
+          this.key.xdata.shift();
+        }
+        // 更新点信息
+        this.$refs.keySize.updateSeries([
+          {
+            name: "key数量",
+            data: this.key.data,
+          },
+        ]);
+        // 更新最大最小值
+        this.$refs.keySize.updateOptions(
+          {
+            xaxis: {
+              categories: this.key.xdata,
+            },
+            // 避免最大最小值一致
+            yaxis: {
+              min: this.minSize - 2,
+              max: this.maxSize + 2,
+            },
+          },
+          true,
+          true
+        );
+      });
     },
     getInfo() {
       getRedisInfo().then((res) => {

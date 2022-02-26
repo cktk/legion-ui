@@ -38,7 +38,7 @@
 import cardInfo from "./components/cardInfo.vue";
 import LineChart from "./components/line.vue";
 import bar from "./components/bar.vue";
-import mapCard from "./components/map.vue";
+import mapCard from "./components/mapCard.vue";
 import radar from "./components/radar.vue";
 export default {
   name: "dashboard-1",

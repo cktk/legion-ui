@@ -1,5 +1,5 @@
 <template>
-  <div class="regist">
+  <div class="register">
     <Row
       type="flex"
       justify="center"
@@ -11,7 +11,7 @@
         <div>
           <Header />
           <Form ref="registForm" :model="form" :rules="rules" class="form">
-            <span class="regist-title">{{ $t("register") }}</span>
+            <span class="register-title">{{ $t("register") }}</span>
             <FormItem prop="username">
               <Input
                 v-model="form.username"
@@ -19,15 +19,6 @@
                 size="large"
                 clearable
                 placeholder="请输入注册登录账号"
-              />
-            </FormItem>
-            <FormItem prop="nickname">
-              <Input
-                v-model="form.nickname"
-                :maxlength="20"
-                size="large"
-                clearable
-                placeholder="请输入用户名（昵称）"
               />
             </FormItem>
             <FormItem prop="email">
@@ -80,7 +71,7 @@
           </Form>
           <Row type="flex" justify="space-between">
             <Button
-              class="regist-btn"
+              class="register-btn"
               type="primary"
               size="large"
               :loading="loading"
@@ -102,7 +93,7 @@
 </template>
 
 <script>
-import { vaptchaID, vaptchaOffline, regist, sendRegistSms } from "@/api/index";
+import { vaptchaID, vaptchaOffline, register, sendRegistSms } from "@/api/index";
 import {
   validateUsername,
   validateMobile,
@@ -141,26 +132,19 @@ export default {
           {
             required: true,
             message: "请输入注册登录账号",
-            trigger: "change",
+            trigger: "blur",
           },
           { validator: validateUsername, trigger: "change" },
-        ],
-        nickname: [
-          {
-            required: true,
-            message: "请输入用户名（昵称）",
-            trigger: "change",
-          },
         ],
         password: [
           {
             required: true,
             message: "请输入密码",
-            trigger: "change",
+            trigger: "blur",
           },
           {
             validator: validatePassword,
-            trigger: "change",
+            trigger: "blur",
           },
         ],
         email: [
@@ -171,11 +155,11 @@ export default {
           {
             required: true,
             message: "请输入手机号",
-            trigger: "change",
+            trigger: "blur",
           },
           {
             validator: validateMobile,
-            trigger: "change",
+            trigger: "blur",
           },
         ],
       },
@@ -232,14 +216,14 @@ export default {
             this.errorCode = "";
           }
           this.loading = true;
-          regist(this.form).then((res) => {
+          register(this.form).then((res) => {
             this.loading = false;
             if (res.success) {
               let query = {
                 username: this.form.username,
               };
               this.$router.push({
-                name: "regist-result",
+                name: "register-result",
                 query: query,
               });
             } else {
@@ -257,5 +241,5 @@ export default {
 </script>
 
 <style lang="less">
-@import "./regist.less";
+@import "./register.less";
 </style>

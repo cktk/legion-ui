@@ -3578,5 +3578,23 @@ export const iconfont = [
             "menu",
             "fold"
         ]
+    },
+    {
+        "icons": [
+            "iconfont icon-zhanghaodenglu"
+        ],
+        "tags": [
+            "login",
+            "username"
+        ]
+    },
+    {
+        "icons": [
+            "iconfont icon-saomadenglu1"
+        ],
+        "tags": [
+            "login",
+            "qrcode"
+        ]
     }
 ]

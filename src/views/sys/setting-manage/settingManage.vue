@@ -236,7 +236,7 @@
                     <Input
                       type="text"
                       v-model="other.domain"
-                      placeholder="请输入应用部署域名前缀，如http://legion.Daimao.cn"
+                      placeholder="请输入应用部署域名前缀，如http://legion.exrick.cn"
                       style="width: 380px"
                     />
                   </Tooltip>
@@ -251,7 +251,7 @@
                     <Input
                       type="text"
                       v-model="other.ssoDomain"
-                      placeholder="请输入应用部署一级域名，如Daimao.cn"
+                      placeholder="请输入应用部署一级域名，如exrick.cn"
                       style="width: 380px"
                     />
                   </Tooltip>
@@ -332,20 +332,20 @@ export default {
       },
       emailValidate: {
         // 表单验证规则
-        host: [{ required: true, message: "不能为空", trigger: "change" }],
-        username: [{ required: true, message: "不能为空", trigger: "change" }],
-        password: [{ required: true, message: "不能为空", trigger: "change" }],
+        host: [{ required: true, message: "不能为空", trigger: "blur" }],
+        username: [{ required: true, message: "不能为空", trigger: "blur" }],
+        password: [{ required: true, message: "不能为空", trigger: "blur" }],
       },
       vaptchaValidate: {
         // 表单验证规则
-        vid: [{ required: true, message: "不能为空", trigger: "change" }],
-        secretKey: [{ required: true, message: "不能为空", trigger: "change" }],
+        vid: [{ required: true, message: "不能为空", trigger: "blur" }],
+        secretKey: [{ required: true, message: "不能为空", trigger: "blur" }],
       },
       otherValidate: {
         // 表单验证规则
-        domain: [{ required: true, message: "不能为空", trigger: "change" }],
+        domain: [{ required: true, message: "不能为空", trigger: "blur" }],
       },
-
+      
     };
   },
   methods: {

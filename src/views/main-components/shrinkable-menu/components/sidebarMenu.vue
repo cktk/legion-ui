@@ -5,7 +5,7 @@
   <div>
     <Menu
       ref="sideMenu"
-      accordion
+      :accordion="accordion"
       :active-name="$route.name"
       :open-names="openNames"
       :theme="theme"
@@ -83,6 +83,11 @@ export default {
   data() {
     return {};
   },
+  computed: {
+    accordion() {
+      return this.$store.state.theme.theme.accordion;
+    },
+  },
   props: {
     menuList: Array,
     iconSize: Number,
@@ -102,8 +107,8 @@ export default {
       this.$emit("on-select", name);
     },
     itemTitle(item) {
-      if (typeof item.title == "object") {
-        return this.$t(item.title.i18n);
+      if (item.localize && item.i18n) {
+        return this.$t(item.i18n);
       } else {
         return item.title;
       }

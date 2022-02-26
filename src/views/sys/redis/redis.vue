@@ -1,40 +1,78 @@
 <template>
   <div class="search">
     <Card>
-      <Tabs :animated="false" @on-click="handleClickTab">
-        <TabPane label="Redis管理">
-          <Row v-show="openSearch" @keydown.enter.native="handleSearch">
-            <Form ref="searchForm" :model="searchForm" inline :label-width="40">
-              <FormItem label="Key" prop="key">
-                <Input
-                  type="text"
-                  v-model="searchForm.key"
-                  placeholder="请输入Key"
-                  clearable
-                  style="width: 200px"
+      <Tabs v-model="tabName" :animated="false" @on-click="handleClickTab">
+        <TabPane name="redis" label="Redis管理">
+          <Row align="middle" justify="space-between" class="operation">
+            <div>
+              <Button @click="add" type="primary" icon="md-add">添加</Button>
+              <Dropdown @on-click="handleDropdown">
+                <Button>
+                  更多操作
+                  <Icon type="md-arrow-dropdown" />
+                </Button>
+                <DropdownMenu slot="list">
+                  <DropdownItem name="delAll">批量删除</DropdownItem>
+                  <DropdownItem name="clear">清空全部</DropdownItem>
+                </DropdownMenu>
+              </Dropdown>
+              <Input
+                v-model="searchKey"
+                suffix="ios-search"
+                @on-change="search"
+                placeholder="输入Key搜索"
+                clearable
+                style="width: 250px"
+              />
+            </div>
+            <div class="icons">
+              <Tooltip content="刷新" placement="top" transfer>
+                <Icon
+                  type="md-refresh"
+                  size="18"
+                  class="item"
+                  @click="getDataList"
                 />
-              </FormItem>
-              <FormItem style="margin-left: -35px" class="br">
-                <Button @click="handleSearch" type="primary" icon="ios-search"
-                  >搜索</Button
-                >
-                <Button @click="handleReset">重置</Button>
-              </FormItem>
-            </Form>
-          </Row>
-          <Row class="operation">
-            <Button @click="add" type="primary" icon="md-add">添加</Button>
-            <Button type="error" @click="clear" icon="md-trash"
-              >清空全部</Button
-            >
-            <Button @click="delAll" icon="md-trash">批量删除</Button>
-            <Button @click="getDataList" icon="md-refresh">刷新</Button>
-            <Button type="dashed" @click="openSearch = !openSearch">{{
-              openSearch ? "关闭搜索" : "开启搜索"
-            }}</Button>
-            <Button type="dashed" @click="openTip = !openTip">{{
-              openTip ? "关闭提示" : "开启提示"
-            }}</Button>
+              </Tooltip>
+              <Tooltip
+                :content="openTip ? '关闭提示' : '开启提示'"
+                placement="top"
+                transfer
+              >
+                <Icon
+                  type="md-bulb"
+                  size="18"
+                  class="item tip"
+                  @click="openTip = !openTip"
+                />
+              </Tooltip>
+              <Tooltip content="表格密度" placement="top" transfer>
+                <Dropdown @on-click="changeTableSize" trigger="click">
+                  <Icon type="md-list" size="18" class="item" />
+                  <DropdownMenu slot="list">
+                    <DropdownItem
+                      :selected="tableSize == 'default'"
+                      name="default"
+                      >默认</DropdownItem
+                    >
+                    <DropdownItem :selected="tableSize == 'large'" name="large"
+                      >宽松</DropdownItem
+                    >
+                    <DropdownItem :selected="tableSize == 'small'" name="small"
+                      >紧密</DropdownItem
+                    >
+                  </DropdownMenu>
+                </Dropdown>
+              </Tooltip>
+              <Tooltip content="导出数据" placement="top" transfer>
+                <Icon
+                  type="md-download"
+                  size="18"
+                  class="item"
+                  @click="exportData"
+                />
+              </Tooltip>
+            </div>
           </Row>
           <Alert show-icon v-show="openTip">
             已选择
@@ -46,6 +84,7 @@
             border
             :columns="columns"
             :data="data"
+            :size="tableSize"
             ref="table"
             @on-selection-change="changeSelect"
           ></Table>
@@ -65,7 +104,7 @@
           </Row>
         </TabPane>
         <TabPane name="monitor" label="Redis监控">
-          <redis-monitor />
+          <redis-monitor v-if="tabName=='monitor'"/>
         </TabPane>
       </Tabs>
     </Card>
@@ -122,7 +161,9 @@ export default {
   },
   data() {
     return {
-      openSearch: true,
+      tabName: "redis",
+      searchKey: "",
+      tableSize: "default",
       openTip: true,
       loading: true, // 表单加载状态
       modalType: 0, // 添加或编辑标识
@@ -249,6 +290,21 @@ export default {
         this.$Message.info("每隔5秒刷新一次数据，请耐心等待图表绘制");
       }
     },
+    handleDropdown(v) {
+      if (v == "delAll") {
+        this.delAll();
+      } else if (v == "clear") {
+        this.clear();
+      }
+    },
+    changeTableSize(v) {
+      this.tableSize = v;
+    },
+    exportData() {
+      this.$refs.table.exportCsv({
+        filename: "数据",
+      });
+    },
     changePage(v) {
       this.searchForm.pageNumber = v;
       this.getDataList();
@@ -258,16 +314,10 @@ export default {
       this.searchForm.pageSize = v;
       this.getDataList();
     },
-    handleSearch() {
+    search() {
+      this.searchForm.key = this.searchKey;
       this.searchForm.pageNumber = 1;
       this.searchForm.pageSize = 10;
-      this.getDataList();
-    },
-    handleReset() {
-      this.$refs.searchForm.resetFields();
-      this.searchForm.pageNumber = 1;
-      this.searchForm.pageSize = 10;
-      // 重新加载数据
       this.getDataList();
     },
     clearSelectAll() {
@@ -341,7 +391,7 @@ export default {
       });
       this.modalVisible = true;
     },
-    clear(v) {
+    clear() {
       this.$Modal.confirm({
         title: "请谨慎进行此操作！",
         content: "您确认要彻底清空删除所有数据?",

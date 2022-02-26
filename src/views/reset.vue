@@ -21,7 +21,7 @@
                     v-model="form.mobile"
                     size="large"
                     clearable
-                    placeholder="请输入注册或绑定手机号"
+                    placeholder="请输入注册绑定手机号"
                   ></Input>
                 </FormItem>
                 <FormItem prop="code">
@@ -80,6 +80,7 @@
                   v-model="form.password"
                   size="large"
                   @on-change="changeInputPass"
+                  placeholder="请输入新的密码，长度为6-20个字符"
                 />
               </FormItem>
               <FormItem prop="confirmPass">
@@ -89,7 +90,7 @@
                   v-model="form.confirmPass"
                   size="large"
                   clearable
-                  placeholder="请再次输入确认密码"
+                  placeholder="请再次输入确认新的密码"
                 />
               </FormItem>
             </Form>
@@ -175,52 +176,52 @@ export default {
           {
             required: true,
             message: "手机号不能为空",
-            trigger: "change",
+            trigger: "blur",
           },
           {
             validator: validateMobile,
-            trigger: "change",
+            trigger: "blur",
           },
         ],
         email: [
           {
             required: true,
             message: "请输入邮箱地址",
-            trigger: "change",
+            trigger: "blur",
           },
           {
             type: "email",
             message: "邮箱格式不正确",
-            trigger: "change",
+            trigger: "blur",
           },
         ],
         password: [
           {
             required: true,
             message: "密码不能为空",
-            trigger: "change",
+            trigger: "blur",
           },
           {
             validator: validatePassword,
-            trigger: "change",
+            trigger: "blur",
           },
         ],
         code: [
           {
             required: true,
             message: "验证码不能为空",
-            trigger: "change",
+            trigger: "blur",
           },
         ],
         confirmPass: [
           {
             required: true,
             message: "确认密码不能为空",
-            trigger: "change",
+            trigger: "blur",
           },
           {
             validator: validateConfirmPass,
-            trigger: "change",
+            trigger: "blur",
           },
         ],
       },

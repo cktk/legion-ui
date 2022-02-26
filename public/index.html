@@ -16,15 +16,6 @@
     <script src="./cdn/vue-i18n.min.js"></script>
     <script src="./cdn/vue-router.min.js"></script>
     <script src="./cdn/axios.min.js"></script>
-    <!-- 这里是新加的 -->
-    <!--     <script src="./cdn/app.61f9fb1a.js"></script>  // 已删除
-    <link rel="stylesheet" href="./cdn/app.19113652.css">   // 已删除
-    <script src="./cdn/chunk-3a2c415b.29fe0dcf.js"></script> //已删除
-    <link rel="stylesheet" href="./cdn/chunk-3a2c415b.f1b47af0.css"> //已删除
-    <script src="./cdn/chunk-vendors.fd1aaea1.js"></script> //已删除
-    <script src="./cdn/editor.main.js"></script>
-    <script src="./cdn/editor.main.nls.zh-cn.js"></script>
-    <script src="./cdn/stomp.min.js"></script> -->
 
     <link rel="stylesheet" href="./cdn/iview.css" />
     <script src="./cdn/iview.min.js"></script>
@@ -56,13 +47,9 @@
 
     <!-- vaptcha -->
     <script src="./cdn/v3.js"></script>
-    <!-- monaco编辑器 -->
-    <!-- <link
-      rel="stylesheet"
-      data-name="vs/editor/editor.main"
-      href="https://cdn.jsdelivr.net/npm/monaco-editor@0.24.0/min/vs/editor/editor.main.css"
-    /> -->
+    <script src="<%= BASE_URL %>js/watermark-dom@2.3.0.js"></script>
     <link rel="stylesheet" href="./cdn/editor.main.css" />
+    <link rel="stylesheet" href="./cdn/mapbox-gl-geocoder.css">
 
     <script>
       self.require = {
@@ -85,14 +72,7 @@
 
     <link rel="stylesheet" href="./cdn/mapbox-gl-geocoder.css" />
 
-    <script>
-      // (function() {
-      //   var hm = document.createElement("script");
-      //   hm.src = "https://hm.baidu.com/hm.js?64e52d9ed8f5acc3eb7d60058e2fb7ab";
-      //   var s = document.getElementsByTagName("script")[0];
-      //   s.parentNode.insertBefore(hm, s);
-      // })();
-    </script>
+
     <style>
       .page-loading-wrap {
         padding: 120px;
@@ -256,6 +236,5 @@
         </h4>
       </div>
     </div>
-    <!-- built files will be auto injected -->
   </body>
 </html>

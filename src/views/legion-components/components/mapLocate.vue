@@ -20,7 +20,7 @@
         >免费额度</a
       >
     </Alert>
-    <Map v-model="data" style="width: 400px" />
+    <mapLocate v-model="data" style="width: 400px" />
     <h3 class="component-article">基础用法</h3>
     基本用法，使用<code>v-model</code>实现数据的双向绑定。不同页面使用该组件时，需设定不同的id值加以区分。
     <h3 class="component-article">props</h3>
@@ -43,10 +43,10 @@
 </template>
 <script>
 import { props, events, methods } from "./columns";
-import Map from "@/views/my-components/legion/map";
+import mapLocate from "@/views/my-components/legion/mapLocate";
 export default {
   components: {
-    Map,
+    mapLocate,
   },
   data() {
     return {
@@ -99,7 +99,7 @@ export default {
           value: "true",
         },
         {
-          name: "style",
+          name: "styles",
           desc:
             "地图默认样式，详见 https://docs.mapbox.com/mapbox-gl-js/api/map",
           type: "String",

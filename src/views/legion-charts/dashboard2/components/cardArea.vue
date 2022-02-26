@@ -12,14 +12,20 @@
         </Dropdown>
       </div>
       <div class="value">
-        <countUp id="1" prefix="￥" :endVal="126560" countSize="30px" countWeight="400"/>
+        <count-up
+          id="dashboard2-1"
+          prefix="￥"
+          :endVal="126560"
+          countSize="30px"
+          countWeight="400"
+        />
       </div>
       <apexchart
         type="area"
         height="45"
         :options="chartOptions"
         :series="series"
-      />
+      ></apexchart>
       <div class="today">
         <span class="t">今日销售额</span>
         <span class="v">￥12,423</span>
@@ -48,9 +54,8 @@ export default {
       chartOptions: {
         colors: ["#ff455f"],
         chart: {
-          toolbar: {
-            show: false,
-          },
+          id: "dashboard2-1",
+          type: "area",
           sparkline: {
             enabled: true,
           },

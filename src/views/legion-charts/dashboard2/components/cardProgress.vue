@@ -12,10 +12,15 @@
         </Dropdown>
       </div>
       <div class="value">
-        <countUp id="4" :endVal="560" countSize="30px" countWeight="400"/>
+        <countUp
+          id="dashboard2-4"
+          :endVal="560"
+          countSize="30px"
+          countWeight="400"
+        />
       </div>
       <Progress
-        :percent="65"
+        :percent="percent"
         status="success"
         hide-info
         style="margin: 20px 0 7px 0"
@@ -35,10 +40,15 @@ export default {
   components: { countUp },
   props: {},
   data() {
-    return {};
+    return {
+      percent: 0,
+    };
   },
   methods: {
     init() {
+      setTimeout(() => {
+        this.percent = 65;
+      }, 200);
     },
   },
   mounted() {

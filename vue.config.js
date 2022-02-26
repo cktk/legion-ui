@@ -2,13 +2,10 @@ const CompressionPlugin = require('compression-webpack-plugin');
 
 module.exports = {
     devServer: {
-        // host: '127.0.0.1',
         port: 9999,
         proxy: {
             '/api': {
-                // target: 'http://192.168.1.10:17435',  // 请求本地 需要lunara后端项目
-                target: 'http://127.0.0.1:8888',  // 请求本地 需要lunara后端项目
-                // target: 'http://192.168.0.106:8888',  // 请求本地 需要lunara后端项目
+                target: 'http://127.0.0.1:8080',
                 ws: true
             },
             '/foo': {

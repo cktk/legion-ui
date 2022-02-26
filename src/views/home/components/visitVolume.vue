@@ -14,6 +14,7 @@
       </div>
       <div style="height: 273px">
         <apexchart
+          ref="visitChart"
           type="bar"
           height="280"
           :options="chartOptions"
@@ -35,15 +36,11 @@ export default {
       options: {
         shortcuts: shortcuts,
       },
-      series: [
-        {
-          name: "",
-          data: [],
-        },
-      ],
+      series: [],
       chartOptions: {
         colors: ["#398af7", "#63a3f9", "#b3d1fd"],
         chart: {
+          type: "bar",
           stacked: true,
           toolbar: {
             show: false,
@@ -89,6 +86,17 @@ export default {
   },
   methods: {
     init() {
+      let categories = [];
+      let num = 14;
+      let start = subDays(new Date(), num);
+      for (let i = 0; i < num; i++) {
+        categories.push(addDays(start, i).getTime());
+      }
+      this.chartOptions = {
+        xaxis: {
+          categories: categories,
+        },
+      };
       this.series = [
         {
           name: "登录次数",
@@ -103,16 +111,9 @@ export default {
           data: [11, 17, 15, 15, 21, 14, 17, 15, 15, 21, 14, 21, 14, 35],
         },
       ];
-      let categories = [];
-      let num = 14;
-      let start = subDays(new Date(), num);
-      for (let i = 0; i < num; i++) {
-        categories.push(addDays(start, i).getTime());
-      }
-      this.chartOptions.xaxis.categories = categories;
     },
   },
-  created() {
+  mounted() {
     this.init();
   },
 };

@@ -112,7 +112,7 @@ export default {
       },
       // 表单验证规则
       formValidate: {
-        name: [{ required: true, message: "不能为空", trigger: "change" }],
+        name: [{ required: true, message: "不能为空", trigger: "blur" }],
       },
       submitLoading: false, // 添加或编辑提交状态
       selectList: [], // 多选数据
@@ -269,7 +269,7 @@ export default {
         },
         {
           id: "2",
-          name: "Daimao",
+          name: "Exrick",
           sex: "女",
           createTime: "2018-08-08 00:08:00",
           updateTime: "2018-08-08 00:08:00",

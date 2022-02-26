@@ -14,7 +14,7 @@
         <XIcon :type="item.icon" size="24"></XIcon>
       </Badge>
       <div class="nav-title-wrap">
-        <div class="nav-title">{{ item.title }}</div>
+        <div class="nav-title">{{ itemTitle(item) }}</div>
       </div>
     </div>
   </div>
@@ -31,6 +31,13 @@ export default {
     return {};
   },
   methods: {
+    itemTitle(item) {
+      if (item.localize && item.i18n) {
+        return this.$t(item.i18n);
+      } else {
+        return item.title;
+      }
+    },
     selectNav(v) {
       this.$emit("on-click", v);
     },

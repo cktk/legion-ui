@@ -32,7 +32,7 @@
 <script>
 import { unlock } from "@/api/index";
 export default {
-  name: "circleLoading",
+  name: "checkPassword",
   data() {
     return {
       loading: false,

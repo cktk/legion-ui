@@ -79,7 +79,7 @@ export default {
   },
   data() {
     return {
-      series: [],
+      series: [60],
       chartOptions: {
         colors: ["#5b73e8"],
         chart: {
@@ -109,7 +109,6 @@ export default {
   },
   methods: {
     init() {
-      this.series = [60];
     },
   },
   mounted() {

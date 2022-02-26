@@ -5,11 +5,11 @@
  * @param callback 回调函数
  */
 export const validateUsername = (rule, value, callback) => {
-  var reg = /^[a-zA-Z0-9_\u4e00-\u9fa5]{1,16}$/;
+  var reg = /^[a-zA-Z0-9_]{1,16}$/;
   if (value.length > 16) {
     callback(new Error('长度不能超过16个字符'));
   } else if (!reg.test(value)) {
-    callback(new Error('仅支持大小写英文、中文和下划线_'));
+    callback(new Error('仅支持大小写英文、数字和下划线_'));
   } else {
     callback();
   }

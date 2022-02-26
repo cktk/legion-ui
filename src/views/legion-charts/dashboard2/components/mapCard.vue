@@ -8,32 +8,16 @@
 </template>
 
 <script>
-var echarts = require("echarts");
+import * as echarts from 'echarts';
 import axios from "axios";
-import geoData from "../../map-data/get-geography-value.js";
-import cityData from "../../map-data/get-city-value.js";
 export default {
-  name: "card-map",
+  name: "mapCard",
   components: {},
   props: {},
   data() {
     return {};
   },
   methods: {
-    convertData(data) {
-      let res = [];
-      let len = data.length;
-      for (var i = 0; i < len; i++) {
-        var geoCoord = geoData[data[i].name];
-        if (geoCoord) {
-          res.push({
-            name: data[i].name,
-            value: geoCoord.concat(data[i].value),
-          });
-        }
-      }
-      return res;
-    },
     init() {
       axios
         .get("https://cdn.jsdelivr.net/npm/echarts@4.9.0/map/json/world.json")

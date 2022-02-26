@@ -46,16 +46,69 @@
           </FormItem>
         </Form>
       </Row>
-      <Row class="operation">
-        <Button @click="add" type="primary" icon="md-add">添加</Button>
-        <Button @click="delAll" icon="md-trash">批量删除</Button>
-        <Button @click="getDataList" icon="md-refresh">刷新</Button>
-        <Button type="dashed" @click="openSearch = !openSearch">{{
-          openSearch ? "关闭搜索" : "开启搜索"
-        }}</Button>
-        <Button type="dashed" @click="openTip = !openTip">{{
-          openTip ? "关闭提示" : "开启提示"
-        }}</Button>
+      <Row align="middle" justify="space-between" class="operation">
+        <div>
+          <Button @click="add" type="primary" icon="md-add">添加</Button>
+          <Button @click="delAll" icon="md-trash">批量删除</Button>
+        </div>
+        <div class="icons">
+          <Tooltip content="刷新" placement="top" transfer>
+            <Icon
+              type="md-refresh"
+              size="18"
+              class="item"
+              @click="getDataList"
+            />
+          </Tooltip>
+          <Tooltip
+            :content="openSearch ? '关闭搜索' : '开启搜索'"
+            placement="top"
+            transfer
+          >
+            <Icon
+              type="ios-search"
+              size="18"
+              class="item tip"
+              @click="openSearch = !openSearch"
+            />
+          </Tooltip>
+          <Tooltip
+            :content="openTip ? '关闭提示' : '开启提示'"
+            placement="top"
+            transfer
+          >
+            <Icon
+              type="md-bulb"
+              size="18"
+              class="item tip"
+              @click="openTip = !openTip"
+            />
+          </Tooltip>
+          <Tooltip content="表格密度" placement="top" transfer>
+            <Dropdown @on-click="changeTableSize" trigger="click">
+              <Icon type="md-list" size="18" class="item" />
+              <DropdownMenu slot="list">
+                <DropdownItem :selected="tableSize == 'default'" name="default"
+                  >默认</DropdownItem
+                >
+                <DropdownItem :selected="tableSize == 'large'" name="large"
+                  >宽松</DropdownItem
+                >
+                <DropdownItem :selected="tableSize == 'small'" name="small"
+                  >紧密</DropdownItem
+                >
+              </DropdownMenu>
+            </Dropdown>
+          </Tooltip>
+          <Tooltip content="导出数据" placement="top" transfer>
+            <Icon
+              type="md-download"
+              size="18"
+              class="item"
+              @click="exportData"
+            />
+          </Tooltip>
+        </div>
       </Row>
       <Alert show-icon v-show="openTip">
         已选择
@@ -67,6 +120,7 @@
         border
         :columns="columns"
         :data="data"
+        :size="tableSize"
         sortable="custom"
         @on-sort-change="changeSort"
         @on-selection-change="showSelect"
@@ -134,6 +188,7 @@ export default {
   name: "search-table",
   data() {
     return {
+      tableSize: "default",
       openSearch: true, // 显示搜索
       openTip: true, // 显示提示
       loading: true, // 表单加载状态
@@ -166,10 +221,10 @@ export default {
       },
       formValidate: {
         // 表单验证规则
-        name: [{ required: true, message: "不能为空", trigger: "change" }],
+        name: [{ required: true, message: "不能为空", trigger: "blur" }],
         mobile: [
-          { required: true, message: "手机号不能为空", trigger: "change" },
-          { validator: validateMobile, trigger: "change" },
+          { required: true, message: "手机号不能为空", trigger: "blur" },
+          { validator: validateMobile, trigger: "blur" },
         ],
         email: [
           { required: true, message: "请输入邮箱地址" },
@@ -383,6 +438,14 @@ export default {
         this.searchForm.endDate = v[1];
       }
     },
+    changeTableSize(v) {
+      this.tableSize = v;
+    },
+    exportData() {
+      this.$refs.table.exportCsv({
+        filename: "数据",
+      });
+    },
     getDataList() {
       this.loading = true;
       // 带多条件搜索参数获取表单数据 请自行修改接口
@@ -411,7 +474,7 @@ export default {
         },
         {
           id: "2",
-          name: "Daimao",
+          name: "Exrick",
           mobile: "12345678901",
           email: "1012139570@qq.com",
           sex: 0,

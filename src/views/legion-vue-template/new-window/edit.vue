@@ -41,7 +41,7 @@ export default {
       },
       // 表单验证规则
       formValidate: {
-        name: [{ required: true, message: "不能为空", trigger: "change" }]
+        name: [{ required: true, message: "不能为空", trigger: "blur" }]
       },
       backRoute: ""
     };
@@ -78,7 +78,7 @@ export default {
       if (this.form.id == "1") {
         this.form.name = "";
       } else {
-        this.form.name = "Daimao";
+        this.form.name = "Exrick";
       }
     },
     handleSubmit() {

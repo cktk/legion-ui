@@ -2,32 +2,32 @@
   <div class="dashboard-page2">
     <Row :gutter="20">
       <Col :xs="24" :sm="24" :md="12" :lg="6">
-        <cardArea class="margin"/>
+        <cardArea class="margin" />
       </Col>
       <Col :xs="24" :sm="24" :md="12" :lg="6">
-        <cardAreaFill class="margin"/>
+        <cardAreaFill class="margin" />
       </Col>
       <Col :xs="24" :sm="24" :md="12" :lg="6">
         <cardLine />
       </Col>
       <Col :xs="24" :sm="24" :md="12" :lg="6">
-        <cardProgress class="margin"/>
+        <cardProgress class="margin" />
       </Col>
     </Row>
     <Row :gutter="20">
       <Col :xs="24" :sm="24" :lg="24" :xl="12">
-        <LineChart class="margin"/>
+        <lineChart class="margin" />
       </Col>
       <Col :xs="24" :sm="24" :lg="24" :xl="12">
-        <bubble class="margin"/>
+        <bubble class="margin" />
       </Col>
     </Row>
     <Row :gutter="20">
       <Col :xs="24" :sm="24" :lg="24" :xl="18">
-        <mapCard class="margin"/>
+        <mapCard class="margin" />
       </Col>
       <Col :xs="24" :sm="24" :lg="24" :xl="6">
-        <activity class="margin"/>
+        <activity class="margin" />
       </Col>
     </Row>
   </div>
@@ -38,31 +38,31 @@ import cardArea from "./components/cardArea.vue";
 import cardAreaFill from "./components/cardAreaFill.vue";
 import cardLine from "./components/cardLine.vue";
 import cardProgress from "./components/cardProgress.vue";
-import LineChart from "./components/line.vue";
+import lineChart from "./components/line.vue";
 import bubble from "./components/bubble.vue";
-import mapCard from "./components/map.vue";
+import mapCard from "./components/mapCard.vue";
 import activity from "./components/activity.vue";
 export default {
   name: "dashboard-2",
   components: {
     cardArea,
     cardAreaFill,
-    LineChart,
     cardLine,
     cardProgress,
+    lineChart,
     bubble,
     mapCard,
-    activity
+    activity,
   },
   data() {
     return {};
   },
   methods: {
-    init() {}
+    init() {},
   },
   mounted() {
     this.init();
-  }
+  },
 };
 </script>
 <style lang="less" scoped>

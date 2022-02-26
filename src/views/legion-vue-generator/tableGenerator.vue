@@ -351,10 +351,11 @@
       :width="1000"
       :fullscreen="full"
       :styles="full ? {} : modalStyle"
+      footer-hide
     >
       <div slot="header">
         <div class="ivu-modal-header-inner">生成代码</div>
-        <a @click="full = !full" class="modal-fullscreen">
+        <a @click="changeCodeFull" class="modal-fullscreen">
           <Icon
             v-show="!full"
             type="ios-expand"
@@ -409,32 +410,23 @@
           label="api.js"
         ></TabPane>
       </Tabs>
-      <Input
-        v-if="!full"
+      <monaco
+        id="monaco"
+        :title="tabName"
         v-model="code"
-        type="textarea"
-        autosize
-        style="max-height: 60vh; overflow: auto"
+        language="html"
+        :showTitle="false"
+        :showUndo="false"
+        :showRedo="false"
+        :height="codeHeight"
+        ref="monaco"
+        v-if="codeModal"
       />
-      <Input v-if="full" v-model="code" :rows="32" type="textarea" />
-      <div slot="footer">
-        <Button
-          v-clipboard:copy="code"
-          v-clipboard:success="onCopy"
-          v-clipboard:error="onError"
-          type="success"
-          icon="md-copy"
-          >复制代码</Button
-        >
-        <Button type="primary" @click="download" icon="md-download"
-          >下载代码</Button
-        >
-      </div>
     </Modal>
     <Modal v-model="entityModal" :width="700" :fullscreen="fullEntity">
       <div slot="header">
         <div class="ivu-modal-header-inner">自动读取字段</div>
-        <a @click="fullEntity = !fullEntity" class="modal-fullscreen">
+        <a @click="changeEntityFull" class="modal-fullscreen">
           <Icon
             v-show="!fullEntity"
             type="ios-expand"
@@ -460,39 +452,41 @@
         :rules="entityFormValidate"
       >
         <FormItem label="实体类引用路径" prop="path">
-          <Row type="flex" justify="space-between">
+          <Row type="flex">
             <Input
               v-model="entityForm.path"
-              placeholder="例如：cn.Daimao.legion.modules.base.entity.User"
+              placeholder="例如：cn.exrick.legion.modules.base.entity.User"
               clearable
               style="width: 410px"
             />
-            <Button type="warning" icon="md-play" @click="generateEntityData"
+            <Button
+              type="warning"
+              icon="md-play"
+              @click="generateEntityData"
+              style="margin-left: 18px"
               >读取字段</Button
             >
           </Row>
         </FormItem>
       </Form>
-      <Input
-        v-if="!fullEntity"
+      <monaco
+        id="monacoEntity"
         v-model="entityData"
-        type="textarea"
-        autosize
-        style="max-height: 50vh; overflow: auto"
-        placeholder="生成结果"
-      />
-      <Input
-        v-if="fullEntity"
-        v-model="entityData"
-        :rows="32"
-        type="textarea"
+        language="json"
+        :showTitle="false"
+        :showFormat="false"
+        :showUndo="false"
+        :showRedo="false"
+        :height="entityHeight"
+        ref="monacoEntity"
+        v-if="entityModal"
       />
       <div slot="footer">
         <Button
           type="primary"
-          icon="md-checkmark-circle-outline"
+          :disabled="!entityForm.path"
           @click="submitEntityData"
-          >确认提交</Button
+          >确认生成</Button
         >
       </div>
     </Modal>
@@ -502,14 +496,19 @@
 <script>
 import { generateTable, getEntityData } from "@/api/index";
 import customList from "@/views/my-components/legion/custom-list";
-import FileSaver from "file-saver";
+import monaco from "@/views/my-components/legion/monaco";
 export default {
   name: "table-generator",
   components: {
     customList,
+    monaco,
   },
   data() {
     return {
+      entityHeight: 400,
+      fullEntityHeight: 100,
+      codeHeight: 500,
+      fullHeight: 100,
       resultType: "drawerApi",
       tabName: "index.vue",
       modalStyle: {
@@ -650,6 +649,28 @@ export default {
         this.daterangeSearch = eval(daterangeSearch);
       }
     },
+    changeEntityFull() {
+      this.fullEntity = !this.fullEntity;
+      if (this.fullEntity) {
+        this.entityHeight = this.fullEntityHeight;
+      } else {
+        this.entityHeight = 400;
+      }
+      setTimeout(() => {
+        this.$refs.monacoEntity.layout();
+      }, 10);
+    },
+    changeCodeFull() {
+      this.full = !this.full;
+      if (this.full) {
+        this.codeHeight = this.fullHeight;
+      } else {
+        this.codeHeight = 500;
+      }
+      setTimeout(() => {
+        this.$refs.monaco.layout();
+      }, 10);
+    },
     generateEntityData() {
       this.$refs.entityForm.validate((valid) => {
         if (valid) {
@@ -658,6 +679,7 @@ export default {
           }).then((res) => {
             if (res.success) {
               this.entityData = res.result;
+              this.$Message.success("读取成功");
             }
           });
         }
@@ -956,18 +978,6 @@ export default {
         this.code = this.result.single;
       }
     },
-    onCopy() {
-      this.$Message.success("复制成功");
-    },
-    onError() {
-      this.$Message.warning("复制失败，请手动复制");
-    },
-    download() {
-      var blob = new Blob([this.code], {
-        type: "text/plain;charset=utf-8",
-      });
-      FileSaver.saveAs(blob, this.tabName);
-    },
     save() {
       this.setStore("tableData", JSON.stringify(this.data));
       this.setStore("tableVueName", this.vueName);
@@ -977,6 +987,8 @@ export default {
   },
   created() {
     this.init();
+    this.fullHeight = Number(document.body.clientHeight - 218);
+    this.fullEntityHeight = Number(document.body.clientHeight - 288);
   },
 };
 </script>

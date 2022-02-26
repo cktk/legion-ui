@@ -20,7 +20,7 @@ router.beforeEach((to, from, next) => {
     util.title(to.meta.title);
     var name = to.name;
     // 白名单
-    var whiteList = ['login', 'regist', 'regist-result', 'relate', 'reset', 'authorize'];
+    var whiteList = ['login', 'login-qr', 'register', 'register-result', 'relate', 'reset', 'authorize'];
     var isInWhiteList = util.oneOf(name, whiteList);
     if (!Cookies.get('userInfo') && !isInWhiteList) {
         // 判断是否已经登录且页面不在白名单

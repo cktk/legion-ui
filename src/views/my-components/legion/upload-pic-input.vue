@@ -1,6 +1,6 @@
 <template>
   <div>
-    <div style="display: flex;">
+    <div style="display: flex">
       <div style="width: 100%; margin-right: 10px">
         <Input
           v-model="currentValue"
@@ -57,6 +57,7 @@
         :before-upload="beforeUpload"
         :show-upload-list="false"
         :v-show="showUpload"
+        v-if="!material"
       >
         <Button
           :loading="loading"
@@ -69,6 +70,25 @@
           >{{ text }}</Button
         >
       </Upload>
+      <Button
+        :size="size"
+        :disabled="disabled"
+        :icon="icon"
+        :type="type"
+        :shape="shape"
+        :ghost="ghost"
+        v-if="material"
+        @click="showMaterialCenter = true"
+        >{{ text }}</Button
+      >
+      <materialCenter
+        v-if="material"
+        :showInput="false"
+        v-model="showMaterialCenter"
+        @on-change="selectFile"
+        :acceptImg="accept"
+        :maxSize="maxSize"
+      />
     </div>
   </div>
 </template>
@@ -77,8 +97,12 @@
 import "viewerjs/dist/viewer.css";
 import Viewer from "viewerjs";
 import { uploadFile } from "@/api/index";
+import materialCenter from "@/views/my-components/legion/material-center";
 export default {
   name: "uploadPicInput",
+  components: {
+    materialCenter,
+  },
   props: {
     value: String,
     size: String,
@@ -87,6 +111,10 @@ export default {
       default: "可输入图片链接",
     },
     disabled: {
+      type: Boolean,
+      default: false,
+    },
+    material: {
       type: Boolean,
       default: false,
     },
@@ -145,6 +173,7 @@ export default {
       currentValue: this.value,
       loading: false,
       uploadFileUrl: uploadFile,
+      showMaterialCenter: false,
     };
   },
   methods: {
@@ -215,6 +244,9 @@ export default {
       }
       this.currentValue = value;
       this.$emit("on-change", this.currentValue);
+    },
+    selectFile(v) {
+      this.setCurrentValue(v);
     },
   },
   watch: {

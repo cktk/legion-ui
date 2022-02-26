@@ -70,8 +70,8 @@ export default {
       this.$emit("on-change", active);
     },
     itemTitle(item) {
-      if (typeof item.title == "object") {
-        return this.$t(item.title.i18n);
+      if (item.localize && item.i18n) {
+        return this.$t(item.i18n);
       } else {
         return item.title;
       }

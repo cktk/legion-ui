@@ -1,7 +1,15 @@
 <template>
   <div>
     <Divider class="component-blue" orientation="left">图片上传输入框</Divider>
+    <div style="font-size: 12px; margin-bottom: 10px">
+      直接上传
+    </div>
     <upload-pic-input v-model="picUrl" style="width: 400px"></upload-pic-input>
+    <br />
+    <div style="font-size: 12px; margin-bottom: 10px">
+      素材中心上传
+    </div>
+    <upload-pic-input material v-model="picUrl" style="width: 400px"></upload-pic-input>
     <h3 class="component-article">基础用法</h3>
     基本用法，使用 <code>v-model</code> 实现数据的双向绑定。
     <h3 class="component-article">样式冲突</h3>
@@ -44,6 +52,12 @@ export default {
           desc: "绑定的值，可使用 v-model 双向绑定",
           type: "String",
           value: "空",
+        },
+        {
+          name: "material",
+          desc: "是否启用素材中心上传 [完整版]",
+          type: "Boolean",
+          value: "false",
         },
         {
           name: "accept",

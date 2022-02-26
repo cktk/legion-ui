@@ -15,7 +15,7 @@
           type="success"
           size="large"
           style="width: 130px"
-          to="https://www.esmoo.com"
+          to="http://xpay.exrick.cn/pay?legion"
           target="_blank"
           >创建应用</Button
         >

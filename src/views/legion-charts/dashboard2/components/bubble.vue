@@ -3,11 +3,20 @@
     <Card>
       <p slot="title" class="card-title">订单分析</p>
       <div slot="extra">
-        <DatePicker type="year" placeholder="选择查看的年份" style="width: 220px"></DatePicker>
+        <DatePicker
+          type="year"
+          placeholder="选择查看的年份"
+          style="width: 220px"
+        ></DatePicker>
       </div>
       <div class="wrap">
         <div class="chart">
-          <apexchart type="bubble" height="380" :options="chartOptions" :series="series" />
+          <apexchart
+            type="bubble"
+            height="380"
+            :options="chartOptions"
+            :series="series"
+          />
         </div>
         <Row class="row">
           <Col span="8" class="text">
@@ -44,88 +53,117 @@ export default {
     return {
       series: [
         {
-          name: "",
-          data: []
-        }
+          name: "直营",
+          data: this.generateData(10, {
+            min: 10,
+            max: 60,
+          }),
+        },
+        {
+          name: "加盟商",
+          data: this.generateData(10, {
+            min: 10,
+            max: 60,
+          }),
+        },
+        {
+          name: "赞助商",
+          data: this.generateData(10, {
+            min: 10,
+            max: 60,
+          }),
+        },
+        {
+          name: "广告商",
+          data: this.generateData(15, {
+            min: 10,
+            max: 60,
+          }),
+        },
       ],
       chartOptions: {
         chart: {
           stacked: true,
           toolbar: {
-            show: false
+            show: false,
           },
           zoom: {
-            enabled: false
+            enabled: false,
           },
           locales: [zh],
-          defaultLocale: "zh"
+          defaultLocale: "zh",
         },
         fill: {
-          opacity: 0.8
+          opacity: 0.8,
         },
         legend: {
           show: true,
-          offsetY: 5
+          offsetY: 5,
         },
         dataLabels: {
-          enabled: false
-        }
-      }
+          enabled: false,
+        },
+        xaxis: {
+          tickAmount: 12,
+          type: "category",
+        },
+      },
     };
   },
   methods: {
-    generateData(baseval, count, yrange) {
-      var i = 0;
-      var series = [];
+    generateData(count, yrange) {
+      let i = 0;
+      let series = [];
       while (i < count) {
-        var x = Math.floor(Math.random() * (750 - 1 + 1)) + 1;
-        var y =
+        let x = Math.floor(Math.random() * (750 - 1 + 1)) + 1;
+        let y =
           Math.floor(Math.random() * (yrange.max - yrange.min + 1)) +
           yrange.min;
-        var z = Math.floor(Math.random() * (75 - 15 + 1)) + 15;
+        let z = Math.floor(Math.random() * (75 - 15 + 1)) + 15;
 
         series.push([x, y, z]);
-        baseval += 86400000;
         i++;
       }
       return series;
     },
     init() {
-      this.series = [
-        {
-          name: "直营",
-          data: this.generateData(new Date().getTime(), 10, {
-            min: 10,
-            max: 60
-          })
-        },
-        {
-          name: "加盟商",
-          data: this.generateData(new Date().getTime(), 10, {
-            min: 10,
-            max: 60
-          })
-        },
-        {
-          name: "赞助商",
-          data: this.generateData(new Date().getTime(), 10, {
-            min: 10,
-            max: 60
-          })
-        },
-        {
-          name: "广告商",
-          data: this.generateData(new Date().getTime(), 15, {
-            min: 10,
-            max: 60
-          })
-        }
-      ];
-    }
+      this.$nextTick(() => {
+        this.series = [
+          {
+            name: "直营",
+            data: this.generateData(10, {
+              min: 10,
+              max: 60,
+            }),
+          },
+          {
+            name: "加盟商",
+            data: this.generateData(10, {
+              min: 10,
+              max: 60,
+            }),
+          },
+          {
+            name: "赞助商",
+            data: this.generateData(10, {
+              min: 10,
+              max: 60,
+            }),
+          },
+          {
+            name: "广告商",
+            data: this.generateData(15, {
+              min: 10,
+              max: 60,
+            }),
+          },
+        ];
+      });
+    },
   },
   mounted() {
     this.init();
-  }
+  },
 };
 </script>
 <style lang="less">

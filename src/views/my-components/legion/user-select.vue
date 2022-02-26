@@ -323,16 +323,16 @@ export default {
           align: "center",
           fixed: "right",
           render: (h, params) => {
-            let title = "添加该用户";
+            let title = "添加用户";
             if (!this.multiple) {
-              title = "选择该用户";
+              title = "选择用户";
             }
             return h("div", [
               h(
                 "Button",
                 {
                   props: {
-                    type: "info",
+                    type: "default",
                     size: "small",
                   },
                   on: {

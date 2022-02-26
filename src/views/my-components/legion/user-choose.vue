@@ -273,7 +273,7 @@ export default {
                 "Button",
                 {
                   props: {
-                    type: "info",
+                    type: "default",
                     size: "small",
                   },
                   on: {
@@ -282,7 +282,7 @@ export default {
                     },
                   },
                 },
-                "添加该用户"
+                "添加用户"
               ),
             ]);
           },

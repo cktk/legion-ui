@@ -48,13 +48,13 @@
 </template>
 
 <script>
-var echarts = require("echarts");
+import * as echarts from 'echarts';
 import progressItem from "./progress";
 import geoData from "../../map-data/get-geography-value.js";
 import cityData from "../../map-data/get-city-value.js";
 var chinaJson = require("../../map-data/china.json");
 export default {
-  name: "card-map",
+  name: "mapCard",
   components: {
     progressItem,
   },

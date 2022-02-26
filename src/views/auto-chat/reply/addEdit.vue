@@ -4,7 +4,7 @@
     <Drawer
       :title="title"
       v-model="visible"
-      width="630"
+      width="610"
       draggable
       :mask-closable="type == '0'"
     >
@@ -31,7 +31,7 @@
                 <Input
                   v-model="form.keywords"
                   type="textarea"
-                  :rows="5"
+                  :rows="4"
                   clearable
                 />
               </FormItem>
@@ -98,7 +98,7 @@
             </Col>
           </Row>
           <Row :gutter="32" v-show="form.evaluable">
-            <Col span="24">
+            <Col span="12">
               <FormItem label="点赞数" prop="good">
                 <InputNumber
                   v-model="form.good"
@@ -106,9 +106,7 @@
                 ></InputNumber>
               </FormItem>
             </Col>
-          </Row>
-          <Row :gutter="32" v-show="form.evaluable">
-            <Col span="24">
+            <Col span="12">
               <FormItem label="踩数" prop="bad">
                 <InputNumber
                   v-model="form.bad"
@@ -117,6 +115,16 @@
               </FormItem>
             </Col>
           </Row>
+          <!-- <Row :gutter="32" v-show="form.evaluable">
+            <Col span="12">
+              <FormItem label="踩数" prop="bad">
+                <InputNumber
+                  v-model="form.bad"
+                  style="width: 50%"
+                ></InputNumber>
+              </FormItem>
+            </Col>
+          </Row> -->
         </Form>
       </div>
       <div class="drawer-footer br" v-show="type != '0'">
@@ -170,8 +178,8 @@ export default {
       },
       // 表单验证规则
       formValidate: {
-        title: [{ required: true, message: "不能为空", trigger: "change" }],
-        content: [{ required: true, message: "不能为空", trigger: "change" }],
+        title: [{ required: true, message: "不能为空", trigger: "blur" }],
+        content: [{ required: true, message: "不能为空", trigger: "blur" }],
       },
     };
   },

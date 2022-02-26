@@ -5,23 +5,67 @@
 <template>
   <div class="search">
     <Card>
-      <Row class="operation">
-        <Button @click="addRole" type="primary" icon="md-add"
-          >添加新任务</Button
-        >
-        <Button @click="delAll" icon="md-trash">批量删除</Button>
-        <Button @click="init" icon="md-refresh">刷新</Button>
-        <Button type="dashed" @click="openTip = !openTip">{{
-          openTip ? "关闭提示" : "开启提示"
-        }}</Button>
-        <Input
-          v-model="searchForm.key"
-          suffix="ios-search"
-          @on-change="getDataList"
-          placeholder="输入关键词搜索"
-          clearable
-          style="width: 250px"
-        />
+      <Row align="middle" justify="space-between" class="operation">
+        <div>
+          <Button @click="addRole" type="primary" icon="md-add"
+            >添加新任务</Button
+          >
+          <Button @click="delAll" icon="md-trash">批量删除</Button>
+          <Input
+            v-model="searchForm.key"
+            suffix="ios-search"
+            @on-change="getDataList"
+            placeholder="输入关键词搜索"
+            clearable
+            style="width: 250px"
+          />
+        </div>
+        <div class="icons">
+          <Tooltip content="刷新" placement="top" transfer>
+            <Icon
+              type="md-refresh"
+              size="18"
+              class="item"
+              @click="getDataList"
+            />
+          </Tooltip>
+          <Tooltip
+            :content="openTip ? '关闭提示' : '开启提示'"
+            placement="top"
+            transfer
+          >
+            <Icon
+              type="md-bulb"
+              size="18"
+              class="item tip"
+              @click="openTip = !openTip"
+            />
+          </Tooltip>
+          <Tooltip content="表格密度" placement="top" transfer>
+            <Dropdown @on-click="changeTableSize" trigger="click">
+              <Icon type="md-list" size="18" class="item" />
+              <DropdownMenu slot="list">
+                <DropdownItem :selected="tableSize == 'default'" name="default"
+                  >默认</DropdownItem
+                >
+                <DropdownItem :selected="tableSize == 'large'" name="large"
+                  >宽松</DropdownItem
+                >
+                <DropdownItem :selected="tableSize == 'small'" name="small"
+                  >紧密</DropdownItem
+                >
+              </DropdownMenu>
+            </Dropdown>
+          </Tooltip>
+          <Tooltip content="导出数据" placement="top" transfer>
+            <Icon
+              type="md-download"
+              size="18"
+              class="item"
+              @click="exportData"
+            />
+          </Tooltip>
+        </div>
       </Row>
       <Alert show-icon v-show="openTip">
         已选择
@@ -33,6 +77,7 @@
         border
         :columns="columns"
         :data="data"
+        :size="tableSize"
         ref="table"
         sortable="custom"
         @on-sort-change="changeSort"
@@ -61,16 +106,16 @@
       :mask-closable="false"
       :width="500"
     >
-      <Form ref="form" :model="form" :label-width="100" :rules="formValidate">
+      <Form ref="form" :model="form" label-position="top" :rules="formValidate">
         <FormItem label="任务类引用路径" prop="jobClassName">
           <Input
             v-model="form.jobClassName"
-            placeholder="例如 cn.Daimao.legion.quartz.jobs.Job"
+            placeholder="例如 com.esmooc.legion.quartz.jobs.Job"
             clearable
           />
         </FormItem>
         <FormItem
-          label="cron表达式"
+          label="Cron表达式"
           prop="cronExpression"
           style="margin-bottom: 5px"
         >
@@ -84,10 +129,10 @@
           </a>
         </FormItem>
         <FormItem label="参数" prop="parameter">
-          <Input v-model="form.parameter" />
+          <Input type="textarea" :rows="2" v-model="form.parameter" clearable />
         </FormItem>
         <FormItem label="备注" prop="description">
-          <Input v-model="form.description" />
+          <Input v-model="form.description" clearable />
         </FormItem>
       </Form>
       <div slot="footer">
@@ -113,6 +158,7 @@ export default {
   name: "quartz-manage",
   data() {
     return {
+      tableSize: "default",
       openTip: true,
       loading: true,
       sortColumn: "createTime",
@@ -137,10 +183,10 @@ export default {
       },
       formValidate: {
         jobClassName: [
-          { required: true, message: "任务类名不能为空", trigger: "change" },
+          { required: true, message: "任务类名不能为空", trigger: "blur" },
         ],
         cronExpression: [
-          { required: true, message: "cron表达式不能为空", trigger: "change" },
+          { required: true, message: "cron表达式不能为空", trigger: "blur" },
         ],
       },
       submitLoading: false,
@@ -234,7 +280,7 @@ export default {
           key: "action",
           align: "center",
           fixed: "right",
-          width: 220,
+          width: 200,
           render: (h, params) => {
             let runOrResume = "";
             if (params.row.status == 0) {
@@ -324,6 +370,14 @@ export default {
         this.searchForm.order = "";
       }
       this.getDataList();
+    },
+    changeTableSize(v) {
+      this.tableSize = v;
+    },
+    exportData() {
+      this.$refs.table.exportCsv({
+        filename: "数据",
+      });
     },
     getDataList() {
       this.loading = true;

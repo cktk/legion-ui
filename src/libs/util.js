@@ -13,6 +13,21 @@ util.title = function (title) {
     window.document.title = title;
 };
 
+util.getUserInfo = function () {
+    let v = Cookies.get("userInfo");
+    if (v) {
+        for (let attr in v) {
+            if (v[attr] == null) {
+                v[attr] = "";
+            }
+        }
+        let str = JSON.stringify(v);
+        let userInfo = JSON.parse(str);
+        return JSON.parse(userInfo);
+    }
+    return null;
+};
+
 util.millsToTime = function (mills) {
     if (!mills) {
         return "";
@@ -39,8 +54,32 @@ util.millsToTime = function (mills) {
     }
     let year = month / 12
     return year.toFixed(0) + " 年"
-
 };
+
+util.getFileSize = function (size) {
+
+    if (!size)
+        return "0 KB";
+
+    var num = 1024.00;
+
+    if (size < num)
+        return size + " Byte";
+    if (size < Math.pow(num, 2))
+        return (size / num).toFixed(2) + " KB";
+    if (size < Math.pow(num, 3))
+        return (size / Math.pow(num, 2)).toFixed(2) + " MB";
+    if (size < Math.pow(num, 4))
+        return (size / Math.pow(num, 3)).toFixed(2) + " GB";
+    return (size / Math.pow(num, 4)).toFixed(2) + " TB";
+}
+
+util.ellipsis = function (v, size) {
+    if (size <= 0) {
+        return v;
+    }
+    return v ? (v.length > 12 ? (v.substring(0, size)) + "..." : v) : ""
+}
 
 util.inOf = function (arr, targetArr) {
     let res = true;
@@ -78,8 +117,8 @@ util.getRouterObjByName = function (routers, name) {
 };
 
 util.handleTitle = function (vm, item) {
-    if (typeof item.title == 'object') {
-        return vm.$t(item.title.i18n);
+    if (item.localize && item.i18n) {
+        return vm.$t(item.i18n);
     } else {
         return item.title;
     }
@@ -149,7 +188,7 @@ util.setCurrentPath = function (vm, name) {
         if (currentPathObj.children.length <= 1 && currentPathObj.name == 'home') {
             currentPathArr = [
                 {
-                    title: '首页',
+                    title: vm.$t('home'),
                     path: '',
                     name: 'home_index'
                 }
@@ -157,7 +196,7 @@ util.setCurrentPath = function (vm, name) {
         } else if (currentPathObj.children.length <= 1 && currentPathObj.name !== 'home') {
             currentPathArr = [
                 {
-                    title: '首页',
+                    title: vm.$t('home'),
                     path: '/home',
                     name: 'home_index'
                 },
@@ -173,7 +212,7 @@ util.setCurrentPath = function (vm, name) {
             })[0];
             currentPathArr = [
                 {
-                    title: '首页',
+                    title: vm.$t('home'),
                     path: '/home',
                     name: 'home_index'
                 },
@@ -320,7 +359,7 @@ util.initRouter = function (vm) {
         component: 'error-page/404'
     }];
     // 判断用户是否登录
-    let userInfo = Cookies.get('userInfo')
+    let userInfo = Cookies.get('userInfo');
     if (!userInfo) {
         // 未登录
         return;
@@ -389,7 +428,9 @@ util.initMenuData = function (vm, data) {
             isMenu: e.isMenu,
             url: e.url,
             description: e.description,
-            component: e.component
+            component: e.component,
+            localize: e.localize,
+            i18n: e.i18n
         }
         navList.push(nav);
     })
@@ -403,14 +444,14 @@ util.initMenuData = function (vm, data) {
         // 读取缓存title
         for (var item of navList) {
             if (item.name == currNav) {
-                vm.$store.commit('setCurrNavTitle', item.title);
+                vm.$store.commit('setCurrNavTitle', util.handleTitle(vm, item));
                 break;
             }
         }
     } else {
         // 默认第一个
         currNav = navList[0].name;
-        vm.$store.commit('setCurrNavTitle', navList[0].title);
+        vm.$store.commit('setCurrNavTitle', util.handleTitle(vm, navList[0]));
     }
     vm.$store.commit('setCurrNav', currNav);
     for (var item of menuData) {
@@ -451,7 +492,7 @@ util.initRouterNode = function (routers, data) {
         let meta = {};
         // 给页面添加权限、标题、第三方网页链接
         meta.permTypes = menu.permTypes ? menu.permTypes : null;
-        meta.title = menu.title ? menu.title + " - 一站式前后端分离快速开发平台 By: Daimao" : null;
+        meta.title = menu.title ? menu.title  : null;
         meta.url = menu.url ? menu.url : null;
         menu.meta = meta;
 

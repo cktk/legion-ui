@@ -12,7 +12,7 @@
         </Dropdown>
       </div>
       <div class="value">
-        <countUp id="2" :endVal="8856" countSize="30px" countWeight="400"/>
+        <count-up id="dashboard2-2" :endVal="8856" countSize="30px" countWeight="400"/>
       </div>
       <apexchart type="area" height="45" :options="chartOptions" :series="series" />
       <div class="today">
@@ -43,9 +43,7 @@ export default {
       chartOptions: {
         colors: ["#975fe4"],
         chart: {
-          toolbar: {
-            show: false
-          },
+          type: "area",
           sparkline: {
             enabled: true
           },
@@ -63,7 +61,7 @@ export default {
           width: 0,
           curve: "smooth"
         },
-        labels: [...Array(17).keys()].map(n => `2019-011-0${n + 1}`),
+        labels: [...Array(17).keys()].map(n => `2019-11-${n + 1}`),
         yaxis: {
           min: 0
         },
@@ -82,12 +80,15 @@ export default {
   },
   methods: {
     init() {
-      this.series = [
+      this.$nextTick(()=>{
+this.series = [
         {
           name: "销售额",
           data: [7, 5, 4, 2, 4, 7, 5, 6, 5, 9, 6, 3, 1, 5, 3, 6, 5]
         }
       ];
+      })
+      
     }
   },
   mounted() {

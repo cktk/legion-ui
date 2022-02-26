@@ -1,8 +1,8 @@
 <template>
   <div>
     <div
-      :class="className"
-      :style="{
+        :class="className"
+        :style="{
         color: color,
         fontSize: countSize,
         fontWeight: countWeight,
@@ -20,12 +20,11 @@
 
 <script>
 import { CountUp } from "countup.js";
-
 export default {
   data() {
     return {
       unit: "",
-      count: {},
+      count: null,
     };
   },
   name: "countUp",
@@ -75,7 +74,7 @@ export default {
       default: "18px",
     },
     countWeight: {
-      type: Number,
+      type: [Number, String],
       default: 500,
     },
   },
@@ -103,12 +102,11 @@ export default {
           let res = this.transformValue(this.endVal);
           let endVal = res.val;
           this.unit = res.unit;
-          let count = {};
           this.options.decimalPlaces = this.decimalPlaces;
           this.options.duration = this.duration;
-          this.count = count = new CountUp(this.id, endVal, this.options);
-          if (!count.error) {
-            count.start();
+          this.count = new CountUp(this.id, endVal, this.options);
+          if (!this.count.error) {
+            this.count.start();
           }
         }, this.delay);
       });
@@ -119,6 +117,9 @@ export default {
   },
   watch: {
     endVal(val) {
+      if (!this.count) {
+        return;
+      }
       let res = this.transformValue(val);
       let endVal = res.val;
       this.unit = res.unit;

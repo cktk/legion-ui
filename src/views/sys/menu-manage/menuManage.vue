@@ -117,12 +117,7 @@
           </div>
         </Col>
         <Col :sm="16" :md="16" :lg="16" :xl="9">
-          <Form
-            ref="form"
-            :model="form"
-            :label-width="110"
-            :rules="formValidate"
-          >
+          <Form ref="form" :model="form" :label-width="110">
             <FormItem label="类型" prop="type">
               <div v-show="form.type == -1">
                 <Icon
@@ -177,13 +172,55 @@
             <FormItem
               label="名称"
               prop="title"
+              :rules="{
+                required: true,
+                message: '名称不能为空',
+                trigger: 'blur',
+              }"
               v-if="form.type == -1 || form.type == 0"
             >
-              <Input v-model="form.title" />
+              <div style="display: flex">
+                <div style="width: 100%">
+                  <Input v-model="form.title">
+                    <Poptip
+                      transfer
+                      trigger="hover"
+                      title="多语言"
+                      placement="right"
+                      width="350"
+                      style="width: 17px; cursor: pointer"
+                      slot="append"
+                    >
+                      <Button icon="ios-globe-outline"></Button>
+                      <div slot="content">
+                        <Form :label-width="80">
+                          <FormItem label="启用多语言">
+                            <i-switch v-model="form.localize" size="large">
+                              <span slot="open">开</span>
+                              <span slot="close">关</span>
+                            </i-switch>
+                          </FormItem>
+                          <FormItem label="多语言Key">
+                            <Input
+                              v-model="form.i18n"
+                              placeholder="输入用于渲染I18n的$t('KEY')"
+                            ></Input>
+                          </FormItem>
+                        </Form>
+                      </div>
+                    </Poptip>
+                  </Input>
+                </div>
+              </div>
             </FormItem>
             <FormItem
               label="名称"
               prop="title"
+              :rules="{
+                required: true,
+                message: '名称不能为空',
+                trigger: 'blur',
+              }"
               v-if="form.type == 1"
               class="block-tool"
             >
@@ -191,7 +228,16 @@
                 <Input v-model="form.title" />
               </Tooltip>
             </FormItem>
-            <FormItem label="路径" prop="path" v-if="form.type == 0">
+            <FormItem
+              label="路径"
+              prop="path"
+              :rules="{
+                required: true,
+                message: '路径不能为空',
+                trigger: 'blur',
+              }"
+              v-if="form.type == 0"
+            >
               <Input v-model="form.path" />
             </FormItem>
             <FormItem
@@ -199,12 +245,13 @@
               prop="path"
               v-if="form.type == 1"
               class="block-tool"
+              :required="false"
             >
               <Tooltip
                 placement="right"
                 :max-width="230"
                 transfer
-                content="填写后端请求URL，后端将作权限拦截，若无可填写'无'或其他"
+                content="填写后端请求URL，后端将作权限拦截，若无可留空"
               >
                 <Input v-model="form.path" />
               </Tooltip>
@@ -225,6 +272,11 @@
             <FormItem
               label="英文名"
               prop="name"
+              :rules="{
+                required: true,
+                message: '英文名不能为空',
+                trigger: 'blur',
+              }"
               v-if="form.type == -1"
               class="block-tool"
             >
@@ -235,6 +287,11 @@
             <FormItem
               label="路由英文名"
               prop="name"
+              :rules="{
+                required: true,
+                message: '路由英文名不能为空',
+                trigger: 'blur',
+              }"
               v-if="form.type == 0"
               class="block-tool"
             >
@@ -245,6 +302,11 @@
             <FormItem
               label="图标"
               prop="icon"
+              :rules="{
+                required: true,
+                message: '图标不能为空',
+                trigger: 'blur',
+              }"
               v-if="form.type == -1 || form.type == 0"
             >
               <icon-choose
@@ -273,6 +335,11 @@
             <FormItem
               label="其他链接"
               prop="url"
+              :rules="{
+                required: true,
+                message: '其他链接不能为空',
+                trigger: 'blur',
+              }"
               v-if="form.type == -1 && !form.isMenu"
             >
               <Input v-model="form.url" placeholder="Http链接或路由名" />
@@ -280,6 +347,11 @@
             <FormItem
               label="打开方式"
               prop="description"
+              :rules="{
+                required: true,
+                message: '请选择打开方式',
+                trigger: 'change',
+              }"
               v-if="form.type == -1 && !form.isMenu"
             >
               <Select v-model="form.description" placeholder="请选择">
@@ -297,13 +369,23 @@
                 </Option>
               </Select>
             </FormItem>
-            <FormItem label="前端组件" prop="component" v-if="form.type == 0">
+            <FormItem
+              label="前端组件"
+              prop="component"
+              :rules="{
+                required: true,
+                message: '前端组件不能为空',
+                trigger: 'blur',
+              }"
+              v-if="form.type == 0"
+            >
               <Input v-model="form.component" />
             </FormItem>
             <FormItem
               label="第三方链接"
               prop="url"
               v-if="form.type == 0 && form.level == 2"
+              :required="false"
             >
               <Input
                 v-model="form.url"
@@ -314,7 +396,16 @@
                 >前端组件需为 sys/monitor/monitor 时生效</span
               >
             </FormItem>
-            <FormItem label="排序值" prop="sortOrder">
+            <FormItem
+              label="排序值"
+              prop="sortOrder"
+              :rules="{
+                required: true,
+                type: 'number',
+                message: '前端组件不能为空',
+                trigger: 'blur',
+              }"
+            >
               <Tooltip
                 trigger="hover"
                 placement="right"
@@ -370,7 +461,6 @@
                 :loading="submitLoading"
                 :disabled="!form.id || !editTitle"
                 type="primary"
-                icon="ios-create-outline"
                 >修改并保存</Button
               >
               <Button @click="handleReset">重置</Button>
@@ -380,254 +470,19 @@
       </Row>
     </Card>
 
-    <Modal
-      draggable
-      :title="modalTitle"
-      v-model="menuModalVisible"
-      :mask-closable="false"
-      :width="500"
-      :styles="{ top: '30px' }"
-    >
-      <Form
-        ref="formAdd"
-        :model="formAdd"
-        :label-width="110"
-        :rules="formValidate"
-      >
-        <div v-if="showParent">
-          <FormItem label="上级节点：">{{ parentTitle }}</FormItem>
-        </div>
-        <FormItem label="类型" prop="type">
-          <div v-show="formAdd.type == -1">
-            <Icon
-              type="ios-navigate-outline"
-              size="16"
-              style="margin-right: 5px"
-            ></Icon>
-            <span>顶部菜单</span>
-          </div>
-          <div v-show="formAdd.type == 0">
-            <Icon
-              type="ios-list-box-outline"
-              size="16"
-              style="margin-right: 5px"
-            ></Icon>
-            <span>页面菜单</span>
-          </div>
-          <div v-show="formAdd.type == 1">
-            <Icon
-              type="md-radio-button-on"
-              size="16"
-              style="margin-right: 5px"
-            ></Icon>
-            <span>操作按钮</span>
-          </div>
-        </FormItem>
-        <FormItem
-          label="名称"
-          prop="title"
-          v-if="formAdd.type == -1 || formAdd.type == 0"
-        >
-          <Input v-model="formAdd.title" />
-        </FormItem>
-        <FormItem
-          label="名称"
-          prop="title"
-          v-if="formAdd.type == 1"
-          class="block-tool"
-        >
-          <Tooltip placement="right" content="操作按钮名称不得重复">
-            <Input v-model="formAdd.title" />
-          </Tooltip>
-        </FormItem>
-        <FormItem label="路径" prop="path" v-if="formAdd.type == 0">
-          <Input v-model="formAdd.path" />
-        </FormItem>
-        <FormItem
-          label="请求路径"
-          prop="path"
-          v-if="formAdd.type == 1"
-          class="block-tool"
-        >
-          <Tooltip
-            placement="right"
-            :max-width="230"
-            transfer
-            content="填写后端请求URL，后端将作权限拦截，若无可填写'无'或其他"
-          >
-            <Input v-model="formAdd.path" />
-          </Tooltip>
-        </FormItem>
-        <FormItem
-          label="按钮权限类型"
-          prop="buttonType"
-          v-if="formAdd.type == 1"
-        >
-          <dict
-            dict="permission_type"
-            v-model="formAdd.buttonType"
-            placeholder="请选择或输入搜索"
-            filterable
-            clearable
-          />
-        </FormItem>
-        <FormItem
-          label="英文名"
-          prop="name"
-          v-if="formAdd.type == -1"
-          class="block-tool"
-        >
-          <Tooltip placement="right" content="需唯一">
-            <Input v-model="formAdd.name" />
-          </Tooltip>
-        </FormItem>
-        <FormItem
-          label="路由英文名"
-          prop="name"
-          v-if="formAdd.type == 0"
-          class="block-tool"
-        >
-          <Tooltip placement="right" content="需唯一">
-            <Input v-model="formAdd.name" />
-          </Tooltip>
-        </FormItem>
-        <FormItem
-          label="图标"
-          prop="icon"
-          v-if="formAdd.type == -1 || formAdd.type == 0"
-        >
-          <icon-choose
-            showCustom
-            showInput
-            v-model="formAdd.icon"
-          ></icon-choose>
-        </FormItem>
-        <FormItem label="显示红点" prop="component" v-if="formAdd.type == -1">
-          <i-switch
-            size="large"
-            v-model="formAdd.component"
-            :true-value="'hot'"
-            :false-value="'normal'"
-          >
-            <span slot="open">开</span>
-            <span slot="close">关</span>
-          </i-switch>
-        </FormItem>
-        <FormItem label="系统站内菜单" prop="isMenu" v-if="formAdd.type == -1">
-          <i-switch size="large" v-model="formAdd.isMenu">
-            <span slot="open">是</span>
-            <span slot="close">否</span>
-          </i-switch>
-        </FormItem>
-        <FormItem
-          label="其他链接"
-          prop="url"
-          v-if="formAdd.type == -1 && !formAdd.isMenu"
-        >
-          <Input v-model="formAdd.url" placeholder="Http链接或路由名" />
-        </FormItem>
-        <FormItem
-          label="打开方式"
-          prop="description"
-          v-if="formAdd.type == -1 && !formAdd.isMenu"
-        >
-          <Select v-model="formAdd.description" placeholder="请选择">
-            <Option value="direct" label="直接跳转">
-              <span style="margin-right: 10px">直接跳转</span>
-              <span style="color: #ccc">其他链接填写完整链接</span>
-            </Option>
-            <Option value="window" label="新窗口打开">
-              <span style="margin-right: 10px">新窗口打开</span>
-              <span style="color: #ccc">其他链接填写完整链接</span>
-            </Option>
-            <Option value="route" label="站内路由">
-              <span style="margin-right: 10px">站内路由</span>
-              <span style="color: #ccc">其他链接填写Vue路由名</span>
-            </Option>
-          </Select>
-        </FormItem>
-        <FormItem label="前端组件" prop="component" v-if="formAdd.type == 0">
-          <Input v-model="formAdd.component" />
-        </FormItem>
-        <FormItem
-          label="第三方链接"
-          prop="url"
-          v-if="formAdd.type == 0 && formAdd.level == 2"
-        >
-          <Input
-            v-model="formAdd.url"
-            placeholder="http://"
-            @on-change="changeAddUrl"
-          />
-          <span class="url-remark"
-            >前端组件需为 sys/monitor/monitor 时生效</span
-          >
-        </FormItem>
-        <FormItem label="排序值" prop="sortOrder">
-          <Tooltip
-            trigger="hover"
-            placement="right"
-            content="值越小越靠前，支持小数"
-          >
-            <InputNumber
-              :max="1000"
-              :min="0"
-              v-model="formAdd.sortOrder"
-            ></InputNumber>
-          </Tooltip>
-        </FormItem>
-        <FormItem
-          label="始终显示"
-          prop="showAlways"
-          v-if="formAdd.level == 1"
-          class="block-tool"
-        >
-          <i-switch size="large" v-model="formAdd.showAlways">
-            <span slot="open">是</span>
-            <span slot="close">否</span>
-          </i-switch>
-          <Tooltip
-            content="当设为不始终显示时，一级菜单下仅有一个子级菜单只会显示该子级菜单，避免用户多次点击"
-            placement="right"
-            transfer
-            max-width="280"
-            style="display: inline-block !important"
-          >
-            <Icon
-              type="md-help-circle"
-              size="20"
-              color="#c5c5c5"
-              style="margin-left: 10px; cursor: pointer"
-            />
-          </Tooltip>
-        </FormItem>
-        <FormItem label="是否启用" prop="status">
-          <i-switch
-            size="large"
-            v-model="formAdd.status"
-            :true-value="0"
-            :false-value="-1"
-          >
-            <span slot="open">启用</span>
-            <span slot="close">禁用</span>
-          </i-switch>
-        </FormItem>
-      </Form>
-      <div slot="footer">
-        <Button type="text" @click="menuModalVisible = false">取消</Button>
-        <Button type="primary" :loading="submitLoading" @click="submitAdd"
-          >提交</Button
-        >
-      </div>
-    </Modal>
+    <add
+      :form="form"
+      :isRoot="isRoot"
+      :dataLength="data.length"
+      v-model="showAdd"
+      @on-submit="addSuccess"
+    />
   </div>
 </template>
 
 <script>
 import {
-  getAllPermissionList,
   loadPermission,
-  addPermission,
   editPermission,
   deletePermission,
   searchPermission,
@@ -635,12 +490,13 @@ import {
 import dict from "@/views/my-components/legion/dict";
 import IconChoose from "@/views/my-components/legion/icon-choose";
 import util from "@/libs/util.js";
-import Dict from "../../my-components/legion/dict.vue";
+import add from "./add.vue";
 export default {
   name: "menu-manage",
   components: {
     dict,
     IconChoose,
+    add,
   },
   data() {
     return {
@@ -786,14 +642,12 @@ export default {
       strict: true,
       maxHeight: "500px",
       expandLevel: 1,
-      menuModalVisible: false,
-      iconModalVisible: false,
       selectList: [],
-      showParent: false,
       searchKey: "",
       parentTitle: "",
+      isRoot: false,
+      showAdd: false,
       editTitle: "",
-      modalTitle: "",
       form: {
         id: "",
         title: "",
@@ -803,7 +657,8 @@ export default {
         component: "",
         parentId: "",
         buttonType: "",
-        type: 0,
+        isMenu: true,
+        type: -1,
         sortOrder: 0,
         level: 0,
         status: 0,
@@ -811,33 +666,10 @@ export default {
         showAlways: true,
         parentTitle: "",
       },
-      formAdd: {
-        buttonType: "",
-      },
-      formValidate: {
-        title: [{ required: true, message: "名称不能为空", trigger: "change" }],
-        name: [
-          { required: true, message: "路由英文名不能为空", trigger: "change" },
-        ],
-        icon: [{ required: true, message: "图标不能为空", trigger: "change" }],
-        path: [{ required: true, message: "路径不能为空", trigger: "change" }],
-        component: [
-          { required: true, message: "前端组件不能为空", trigger: "change" },
-        ],
-        sortOrder: [
-          {
-            required: true,
-            type: "number",
-            message: "排序值不能为空",
-            trigger: "change",
-          },
-        ],
-      },
       submitLoading: false,
       data: [],
       dataEdit: [],
       tableData: [],
-      dictPermissions: [],
     };
   },
   methods: {
@@ -878,7 +710,7 @@ export default {
       });
     },
     renderContent(h, { root, node, data }) {
-      let icon = "";
+      let icon = "md-radio-button-off";
       if (data.level == 0) {
         icon = "ios-navigate";
       } else if (data.level == 1) {
@@ -887,8 +719,6 @@ export default {
         icon = "md-list";
       } else if (data.level == 3) {
         icon = "md-radio-button-on";
-      } else {
-        icon = "md-radio-button-off";
       }
       return h("span", [
         h("span", [
@@ -1012,6 +842,7 @@ export default {
     },
     selectTree(v) {
       if (v.length > 0) {
+        this.$refs.form.resetFields();
         // 转换null为""
         for (let attr in v[0]) {
           if (v[0][attr] == null) {
@@ -1038,6 +869,12 @@ export default {
         let data = JSON.parse(str);
         if (this.form.id == data.id) {
           this.$Message.warning("请勿选择自己作为父节点");
+          v[0].selected = false;
+          return;
+        }
+        // 验证级别level是否正确
+        if (this.form.level - 1 != data.level) {
+          this.$Message.warning("请选择一个" + this.form.level + "级菜单节点");
           v[0].selected = false;
           return;
         }
@@ -1088,35 +925,12 @@ export default {
           editPermission(this.form).then((res) => {
             this.submitLoading = false;
             if (res.success) {
+              this.editTitle = this.form.title;
               this.$Message.success("编辑成功");
               // 标记重新获取菜单数据
               this.$store.commit("setAdded", false);
               util.initRouter(this);
               this.init();
-              this.menuModalVisible = false;
-            }
-          });
-        }
-      });
-    },
-    submitAdd() {
-      this.$refs.formAdd.validate((valid) => {
-        if (valid) {
-          this.submitLoading = true;
-          if (this.formAdd.type == 1) {
-            this.formAdd.name = "";
-            this.formAdd.icon = "";
-            this.formAdd.component = "";
-          }
-          addPermission(this.formAdd).then((res) => {
-            this.submitLoading = false;
-            if (res.success) {
-              this.$Message.success("添加成功");
-              // 标记重新获取菜单数据
-              this.$store.commit("setAdded", false);
-              util.initRouter(this);
-              this.init();
-              this.menuModalVisible = false;
             }
           });
         }
@@ -1128,53 +942,24 @@ export default {
         this.form.component = "sys/monitor/monitor";
       }
     },
-    changeAddUrl(e) {
-      let v = e.target.value;
-      if (v.indexOf("http") > -1) {
-        this.formAdd.component = "sys/monitor/monitor";
-      }
+    addRoot() {
+      this.isRoot = true;
+      this.showAdd = true;
     },
     add() {
       if (!this.form.id) {
         this.$Message.warning("请先点击选择一个菜单权限节点");
         return;
       }
-      this.parentTitle = this.form.title;
-      this.modalTitle = "添加子节点(可拖动)";
-      this.showParent = true;
-      let type = 0;
-      if (this.form.level == 1) {
-        type = 0;
-      } else if (this.form.level == 2) {
-        type = 1;
-      } else if (this.form.level == 3) {
+      if (this.form.level == 3) {
         this.$Modal.warning({
-          title: "抱歉，不能添加啦",
-          content: "左侧仅支持2级菜单目录",
+          title: "抱歉，无法继续添加",
+          content: "左侧菜单最多仅支持二级菜单目录",
         });
         return;
-      } else {
-        type = 0;
       }
-      let component = "";
-      if (!this.form.children) {
-        this.form.children = [];
-      }
-      this.formAdd = {
-        icon: "",
-        type: type,
-        parentId: this.form.id,
-        level: Number(this.form.level) + 1,
-        sortOrder: this.form.children.length + 1,
-        buttonType: "",
-        status: 0,
-        showAlways: true,
-      };
-      if (this.form.level == 0) {
-        this.formAdd.path = "/";
-        this.formAdd.component = "Main";
-      }
-      this.menuModalVisible = true;
+      this.isRoot = false;
+      this.showAdd = true;
     },
     tableAdd(v) {
       this.form = v;
@@ -1185,19 +970,11 @@ export default {
         data.selected = false;
       }
     },
-    addRoot() {
-      this.modalTitle = "添加顶部菜单(可拖动)";
-      this.showParent = false;
-      this.formAdd = {
-        type: -1,
-        level: 0,
-        parentId: 0,
-        isMenu: true,
-        sortOrder: this.data.length + 1,
-        status: 0,
-        component: "normal"
-      };
-      this.menuModalVisible = true;
+    addSuccess() {
+      // 标记重新获取菜单数据
+      this.$store.commit("setAdded", false);
+      util.initRouter(this);
+      this.init();
     },
     changeSelect(v) {
       this.selectList = v;

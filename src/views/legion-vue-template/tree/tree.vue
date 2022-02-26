@@ -146,7 +146,6 @@
                 :loading="submitLoading"
                 :disabled="!form.id || !editTitle"
                 type="primary"
-                icon="ios-create-outline"
                 >修改并保存</Button
               >
               <Button @click="handleReset">重置</Button>
@@ -256,13 +255,13 @@ export default {
       },
       formValidate: {
         // 表单验证规则
-        title: [{ required: true, message: "名称不能为空", trigger: "change" }],
+        title: [{ required: true, message: "名称不能为空", trigger: "blur" }],
         sortOrder: [
           {
             required: true,
             type: "number",
             message: "排序值不能为空",
-            trigger: "change",
+            trigger: "blur",
           },
         ],
       },
@@ -557,6 +556,7 @@ export default {
     },
     selectTree(v) {
       if (v.length > 0) {
+        this.$refs.form.resetFields();
         // 转换null为""
         for (let attr in v[0]) {
           if (v[0][attr] == null) {
@@ -615,6 +615,7 @@ export default {
           // this.postRequest("请求路径，如/tree/edit", this.form).then(res => {
           //   this.submitLoading = false;
           //   if (res.success) {
+          //     this.editTitle = this.form.title;
           //     this.$Message.success("编辑成功");
           //     this.init();
           //     this.modalVisible = false;

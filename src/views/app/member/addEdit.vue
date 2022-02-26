@@ -220,7 +220,7 @@ import { addMember, editMember } from "@/api/app";
 import { validateMobile, validatePassword } from "@/libs/validate";
 import uploadPicInput from "@/views/my-components/legion/upload-pic-input";
 import SetPassword from "@/views/my-components/legion/set-password";
-import Map from "@/views/my-components/legion/map";
+import Map from "@/views/my-components/legion/mapLocate";
 export default {
   name: "user",
   components: {

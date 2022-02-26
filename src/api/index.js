@@ -24,15 +24,23 @@ export const systemInfo = (params) => {
 }
 // 登陆
 export const login = (params) => {
-    return postNoAuthRequest('/legion/login', params)
+    return postNoAuthRequest('/legion/auth/login', params)
+}
+// 获取扫码登录验证码
+export const getLoginQRCode = (params) => {
+    return getNoAuthRequest('/legion/auth/getLoginQRCode', params)
+}
+// 获取扫码登录验证码状态
+export const checkQRStatus = (checkToken, params) => {
+    return getNoAuthRequest(`/legion/auth/checkQRStatus/${checkToken}`, params)
 }
 // 获取用户登录信息
 export const userInfo = (params) => {
     return getRequest('/legion/user/info', params)
 }
 // 注册
-export const regist = (params) => {
-    return postNoAuthRequest('/legion/user/regist', params)
+export const register = (params) => {
+    return postNoAuthRequest('/legion/auth/register', params)
 }
 // 初始化验证码
 export const initCaptcha = (params) => {
@@ -56,7 +64,7 @@ export const sendEditMobileSms = (mobile, params) => {
 }
 // 通过手机重置密码
 export const resetByMobile = (params) => {
-    return postNoAuthRequest('/legion/user/resetByMobile', params)
+    return postNoAuthRequest('/legion/auth/resetByMobile', params)
 }
 // 发送重置密码邮件验证码
 export const sendResetEmail = (email, params) => {
@@ -68,11 +76,11 @@ export const sendEditEmail = (email, params) => {
 }
 // 通过邮件重置密码
 export const resetByEmail = (params) => {
-    return postNoAuthRequest('/legion/email/resetByEmail', params)
+    return postNoAuthRequest('/legion/auth/resetByEmail', params)
 }
 // 短信验证码登录
 export const smsLogin = (params) => {
-    return postRequest('/legion/user/smsLogin', params)
+    return postRequest('/legion/auth/smsLogin', params)
 }
 // IP天气信息
 export const ipInfo = (params) => {
@@ -452,6 +460,35 @@ export const allMessageSend = (type, params) => {
 }
 
 
+// 获取一级类别
+export const initFileCate = (params) => {
+    return getRequest('/legion/fileCategory/getByParentId/0', params)
+}
+// 加载类别子级数据
+export const loadFileCate = (id, params) => {
+    return getRequest(`/legion/fileCategory/getByParentId/${id}`, params)
+}
+// 添加分类
+export const addFileCate = (params) => {
+    return postRequest('/legion/fileCategory/add', params)
+}
+// 编辑分类
+export const editFileCate = (params) => {
+    return postRequest('/legion/fileCategory/edit', params)
+}
+// 移动文件
+export const moveFile = (params) => {
+    return postRequest('/legion/fileCategory/moveByIds', params)
+}
+// 删除分类
+export const deleteFileCate = (params) => {
+    return postRequest('/legion/fileCategory/delByIds', params)
+}
+// 搜索分类
+export const searchFileCate = (params) => {
+    return getRequest('/legion/fileCategory/search', params)
+}
+
 
 // 分页获取文件数据
 export const getFileListData = (params) => {
@@ -469,7 +506,14 @@ export const renameFile = (params) => {
 export const deleteFile = (params) => {
     return postRequest('/legion/file/delete', params)
 }
-
+// 用户删除文件
+export const deleteUserFile = (params) => {
+    return postRequest('/legion/file/deleteUserFile', params)
+}
+// 用户重命名文件
+export const renameUserFile = (params) => {
+    return postRequest('/legion/file/renameUserFile', params)
+}
 // 检查oss配置
 export const checkOssSet = (params) => {
     return getRequest('/legion/setting/oss/check', params)

@@ -629,7 +629,6 @@ export default {
     card3,
     card4,
     cardApp,
-    dashboard2,
   },
   data() {
     return {
@@ -700,7 +699,7 @@ export default {
   },
   methods: {
     init() {
-      let userInfo = JSON.parse(Cookies.get("userInfo"));
+      let userInfo = this.getUserInfo();
       this.departmentTitle = userInfo.departmentTitle;
       if (userInfo.type == "0") {
         this.userType = "普通用户";

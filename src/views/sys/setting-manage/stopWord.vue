@@ -93,11 +93,11 @@ export default {
       modalTitle: "", // 添加或编辑标题
       form: {
         // 添加或编辑表单对象初始化数据
-        name: "",
+        title: "",
       },
       // 表单验证规则
       formValidate: {
-        name: [{ required: true, message: "不能为空", trigger: "change" }],
+        title: [{ required: true, message: "不能为空", trigger: "blur" }],
       },
       submitLoading: false, // 添加或编辑提交状态
       selectList: [], // 多选数据

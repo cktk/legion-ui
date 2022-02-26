@@ -88,28 +88,73 @@
           </FormItem>
         </Form>
       </Row>
-      <Row class="operation">
-        <Button @click="add" type="primary" icon="md-add">添加用户</Button>
-        <Button @click="delAll" icon="md-trash">批量删除</Button>
-        <Dropdown @on-click="handleDropdown">
-          <Button>
-            更多操作
-            <Icon type="md-arrow-dropdown" />
-          </Button>
-          <DropdownMenu slot="list">
-            <DropdownItem name="refresh">刷新</DropdownItem>
-            <DropdownItem name="reset">重置用户密码</DropdownItem>
-            <DropdownItem name="exportData">导出所选数据</DropdownItem>
-            <DropdownItem name="exportAll">导出全部数据</DropdownItem>
-            <DropdownItem name="importData">导入数据(付费)</DropdownItem>
-          </DropdownMenu>
-        </Dropdown>
-        <Button type="dashed" @click="openSearch = !openSearch">{{
-          openSearch ? "关闭搜索" : "开启搜索"
-        }}</Button>
-        <Button type="dashed" @click="openTip = !openTip">{{
-          openTip ? "关闭提示" : "开启提示"
-        }}</Button>
+      <Row align="middle" justify="space-between" class="operation">
+        <div>
+          <Button @click="add" type="primary" icon="md-add">添加用户</Button>
+          <Button @click="delAll" icon="md-trash">批量删除</Button>
+          <Dropdown @on-click="handleDropdown">
+            <Button>
+              更多操作
+              <Icon type="md-arrow-dropdown" />
+            </Button>
+            <DropdownMenu slot="list">
+              <DropdownItem name="reset">重置用户密码</DropdownItem>
+              <DropdownItem name="exportData">导出所选数据</DropdownItem>
+              <DropdownItem name="exportAll">导出全部数据</DropdownItem>
+              <DropdownItem name="importData">导入数据(付费)</DropdownItem>
+            </DropdownMenu>
+          </Dropdown>
+        </div>
+        <div class="icons">
+          <Tooltip content="刷新" placement="top" transfer>
+            <Icon
+              type="md-refresh"
+              size="18"
+              class="item"
+              @click="getDataList"
+            />
+          </Tooltip>
+          <Tooltip
+            :content="openSearch ? '关闭搜索' : '开启搜索'"
+            placement="top"
+            transfer
+          >
+            <Icon
+              type="ios-search"
+              size="18"
+              class="item tip"
+              @click="openSearch = !openSearch"
+            />
+          </Tooltip>
+          <Tooltip
+            :content="openTip ? '关闭提示' : '开启提示'"
+            placement="top"
+            transfer
+          >
+            <Icon
+              type="md-bulb"
+              size="18"
+              class="item tip"
+              @click="openTip = !openTip"
+            />
+          </Tooltip>
+          <Tooltip content="表格密度" placement="top" transfer>
+            <Dropdown @on-click="changeTableSize" trigger="click">
+              <Icon type="md-list" size="18" class="item" />
+              <DropdownMenu slot="list">
+                <DropdownItem :selected="tableSize == 'default'" name="default"
+                  >默认</DropdownItem
+                >
+                <DropdownItem :selected="tableSize == 'large'" name="large"
+                  >宽松</DropdownItem
+                >
+                <DropdownItem :selected="tableSize == 'small'" name="small"
+                  >紧密</DropdownItem
+                >
+              </DropdownMenu>
+            </Dropdown>
+          </Tooltip>
+        </div>
       </Row>
       <Alert show-icon v-show="openTip">
         已选择
@@ -121,6 +166,7 @@
         border
         :columns="columns"
         :data="data"
+        :size="tableSize"
         sortable="custom"
         @on-sort-change="changeSort"
         @on-selection-change="showSelect"
@@ -166,6 +212,7 @@
         </FormItem>
       </Form>
     </Modal>
+    <!-- 导入数据 -->
     <Drawer
       title="导入数据"
       closable
@@ -244,7 +291,6 @@ import {
   importUserData,
   resetUserPass,
 } from "@/api/index";
-import { validateMobile } from "@/libs/validate";
 import departmentChoose from "@/views/my-components/legion/department-choose";
 import checkPassword from "@/views/my-components/legion/check-password";
 import { shortcuts } from "@/libs/shortcuts";
@@ -265,7 +311,7 @@ export default {
   },
   data() {
     return {
-      message: "",
+      tableSize: "default",
       height: 510,
       showUser: false,
       showType: "0",
@@ -607,6 +653,9 @@ export default {
         this.searchForm.endDate = v[1];
       }
     },
+    changeTableSize(v) {
+      this.tableSize = v;
+    },
     getDataList() {
       // 多条件搜索用户列表
       this.loading = true;
@@ -653,9 +702,7 @@ export default {
       this.getDataList();
     },
     handleDropdown(name) {
-      if (name == "refresh") {
-        this.getDataList();
-      } else if (name == "reset") {
+      if (name == "reset") {
         if (this.selectList.length <= 0) {
           this.$Message.warning("您还未选择要重置密码的用户");
           return;
@@ -689,7 +736,7 @@ export default {
         content:
           "您确认要重置所选的 " +
           this.selectList.length +
-          " 条用户数据密码为【123456】?",
+          " 条用户数据密码为 123456 ?",
         loading: true,
         onOk: () => {
           let ids = "";

@@ -141,7 +141,7 @@
               <FormItem label="所在地区" prop="address">
                 <al-cascader
                   v-model="form.address"
-                  data-type="name"
+                  data-type="code"
                   level="2"
                   transfer
                 />
@@ -194,7 +194,7 @@ import uploadPicInput from "@/views/my-components/legion/upload-pic-input";
 import SetPassword from "@/views/my-components/legion/set-password";
 import dict from "@/views/my-components/legion/dict";
 export default {
-  name: "user",
+  name: "addEdit",
   components: {
     departmentTreeChoose,
     uploadPicInput,
@@ -228,18 +228,18 @@ export default {
       formValidate: {
         // 表单验证规则
         username: [
-          { required: true, message: "请输入登录账号", trigger: "change" },
-          { validator: validateUsername, trigger: "change" },
+          { required: true, message: "请输入登录账号", trigger: "blur" },
+          { validator: validateUsername, trigger: "blur" },
         ],
         nickname: [
-          { required: true, message: "请输入用户名", trigger: "change" },
+          { required: true, message: "请输入用户名", trigger: "blur" },
         ],
         mobile: [
-          { required: true, message: "请输入手机号", trigger: "change" },
-          { validator: validateMobile, trigger: "change" },
+          { required: true, message: "请输入手机号", trigger: "blur" },
+          { validator: validateMobile, trigger: "blur" },
         ],
         password: [
-          { required: true, message: "请输入密码", trigger: "change" },
+          { required: true, message: "请输入密码", trigger: "blur" },
           { validator: validatePassword, trigger: "blur" },
         ],
         email: [

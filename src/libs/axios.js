@@ -26,7 +26,7 @@ axios.interceptors.response.use(response => {
             Cookies.set('userInfo', '');
             setStore('accessToken', '');
             if (router.history.current.name != "login") {
-                if (data.message !== null) {
+                if (data.message) {
                     Message.error(data.message);
                 } else {
                     Message.error("未知错误，请重新登录");
@@ -36,7 +36,7 @@ axios.interceptors.response.use(response => {
             break;
         case 403:
             // 没有权限
-            if (data.message !== null) {
+            if (data.message) {
                 Message.error(data.message);
             } else {
                 Message.error("未知错误");
@@ -44,7 +44,7 @@ axios.interceptors.response.use(response => {
             break;
         case 500:
             // 错误
-            if (data.message !== null) {
+            if (data.message) {
                 Message.error(data.message);
             } else {
                 Message.error("未知错误");

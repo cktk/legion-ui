@@ -76,8 +76,8 @@ export const userData = [
         defaultRole: "角色 0(不分配默认角色) 1(分配默认注册用户角色)"
     },
     {
-        username: "legion",
-        nickname: "Daimao",
+        username: "admin",
+        nickname: "管理员",
         password: "123456",
         avatar: "https://s1.ax1x.com/2018/05/19/CcdVQP.png",
         departmentId: "40652338142121984",

@@ -154,7 +154,6 @@
                 :loading="submitLoading"
                 :disabled="!form.id || !editTitle"
                 type="primary"
-                icon="ios-create-outline"
                 >修改并保存</Button
               >
               <Button @click="handleReset">重置</Button>
@@ -268,7 +267,7 @@ export default {
         title: "",
         parentId: "",
         parentTitle: "",
-        type: null,
+        type: "0",
         sortOrder: 0,
         status: 0,
         url: "",
@@ -485,6 +484,7 @@ export default {
     },
     selectTree(v) {
       if (v.length > 0) {
+        this.$refs.form.resetFields();
         // 转换null为""
         for (let attr in v[0]) {
           if (v[0][attr] == null) {
@@ -547,6 +547,7 @@ export default {
           editActCategory(this.form).then((res) => {
             this.submitLoading = false;
             if (res.success) {
+              this.editTitle = this.form.title;
               this.$Message.success("编辑成功");
               this.init();
               this.modalVisible = false;

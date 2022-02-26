@@ -133,7 +133,6 @@ import {
   dingdingLogin,
   workwechatLogin,
 } from "@/api/index";
-import Cookies from "js-cookie";
 export default {
   components: {},
   name: "social",
@@ -145,15 +144,7 @@ export default {
   },
   methods: {
     init() {
-      let v = JSON.parse(Cookies.get("userInfo"));
-      // 转换null为""
-      for (let attr in v) {
-        if (v[attr] == null) {
-          v[attr] = "";
-        }
-      }
-      let str = JSON.stringify(v);
-      let userInfo = JSON.parse(str);
+      let userInfo = this.getUserInfo();
 
       relatedInfo(userInfo.username).then((res) => {
         if (res.success) {

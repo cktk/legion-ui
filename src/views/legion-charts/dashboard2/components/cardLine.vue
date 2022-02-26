@@ -12,7 +12,7 @@
         </Dropdown>
       </div>
       <div class="value">
-        <countUp id="3" :endVal="65560" countSize="30px" countWeight="400"/>
+        <countUp id="dashboard2-3" :endVal="65560" countSize="30px" countWeight="400"/>
       </div>
       <apexchart type="bar" height="45" :options="chartOptions" :series="series" />
       <div class="today">

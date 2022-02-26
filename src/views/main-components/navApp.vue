@@ -5,26 +5,26 @@
         <XIcon type="ios-apps" :size="20"></XIcon>
       </div>
       <div
-        :class="`single-nav header-action single-nav-theme-${theme} `"
-        v-else
+          :class="`single-nav header-action single-nav-theme-${theme} `"
+          v-else
       >
         {{ currNavTitle }}
         <XIcon type="ios-arrow-down" class="single-nav-dropdown-icon"></XIcon>
       </div>
       <DropdownMenu slot="list" v-if="type == 'list'">
         <DropdownItem
-          v-for="(item, i) in navList"
-          :key="i"
-          :name="item.name"
-          :selected="currNav == item.name"
+            v-for="(item, i) in navList"
+            :key="i"
+            :name="item.name"
+            :selected="currNav == item.name"
         >
           <Badge :dot="item.component == 'hot'">
             <XIcon
-              :type="item.icon"
-              :size="14"
-              style="margin: 0 10px 0 0"
+                :type="item.icon"
+                :size="14"
+                style="margin: 0 10px 0 0"
             ></XIcon>
-            {{ item.title }}
+            {{ itemTitle(item) }}
           </Badge>
         </DropdownItem>
       </DropdownMenu>
@@ -67,6 +67,13 @@ export default {
     return {};
   },
   methods: {
+    itemTitle(item) {
+      if (item.localize && item.i18n) {
+        return this.$t(item.i18n);
+      } else {
+        return item.title;
+      }
+    },
     selectNav(v) {
       this.$emit("on-click", v);
     },

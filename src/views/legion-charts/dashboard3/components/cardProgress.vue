@@ -23,7 +23,7 @@
             <div class="dot" style="background: #5b73e8"></div>
             <div class="title">PC端</div>
             <Progress
-              :percent="72"
+              :percent="percent1"
               :stroke-width="6"
               stroke-color="#5b73e8"
               hide-info
@@ -34,7 +34,7 @@
             <div class="dot" style="background: #23b397"></div>
             <div class="title">iPhone</div>
             <Progress
-              :percent="39"
+              :percent="percent2"
               :stroke-width="6"
               stroke-color="#23b397"
               hide-info
@@ -45,7 +45,7 @@
             <div class="dot" style="background: #56c2d6"></div>
             <div class="title">Android</div>
             <Progress
-              :percent="61"
+              :percent="percent3"
               :stroke-width="6"
               stroke-color="#56c2d6"
               hide-info
@@ -56,7 +56,7 @@
             <div class="dot" style="background: #f8cc6b"></div>
             <div class="title">小程序</div>
             <Progress
-              :percent="52"
+              :percent="percent4"
               :stroke-width="6"
               stroke-color="#f8cc6b"
               hide-info
@@ -67,7 +67,7 @@
             <div class="dot" style="background: #f0643b"></div>
             <div class="title">平板端</div>
             <Progress
-              :percent="28"
+              :percent="percent5"
               :stroke-width="6"
               stroke-color="#f0643b"
               hide-info
@@ -87,11 +87,24 @@ export default {
   props: {},
   data() {
     return {
+      percent1: 0,
+      percent2: 0,
+      percent3: 0,
+      percent4: 0,
+      percent5: 0,
       sortBy: "按年统计",
     };
   },
   methods: {
-    init() {},
+    init() {
+      setTimeout(() => {
+        this.percent1 = 72;
+        this.percent2 = 39;
+        this.percent3 = 61;
+        this.percent4 = 52;
+        this.percent5 = 28;
+      }, 200);
+    },
   },
   mounted() {
     this.init();

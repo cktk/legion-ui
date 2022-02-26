@@ -54,16 +54,71 @@
           </FormItem>
         </Form>
       </Row>
-      <Row class="operation">
-        <Button @click="clearAll" type="error" icon="md-trash">清空全部</Button>
-        <Button @click="delAll" icon="md-trash">批量删除</Button>
-        <Button @click="getDataList" icon="md-refresh">刷新</Button>
-        <Button type="dashed" @click="openSearch = !openSearch">{{
-          openSearch ? "关闭搜索" : "开启搜索"
-        }}</Button>
-        <Button type="dashed" @click="openTip = !openTip">{{
-          openTip ? "关闭提示" : "开启提示"
-        }}</Button>
+      <Row align="middle" justify="space-between" class="operation">
+        <div>
+          <Button @click="clearAll" type="error" icon="md-trash"
+            >清空全部</Button
+          >
+          <Button @click="delAll" icon="md-trash">批量删除</Button>
+        </div>
+        <div class="icons">
+          <Tooltip content="刷新" placement="top" transfer>
+            <Icon
+              type="md-refresh"
+              size="18"
+              class="item"
+              @click="getDataList"
+            />
+          </Tooltip>
+          <Tooltip
+            :content="openSearch ? '关闭搜索' : '开启搜索'"
+            placement="top"
+            transfer
+          >
+            <Icon
+              type="ios-search"
+              size="18"
+              class="item tip"
+              @click="openSearch = !openSearch"
+            />
+          </Tooltip>
+          <Tooltip
+            :content="openTip ? '关闭提示' : '开启提示'"
+            placement="top"
+            transfer
+          >
+            <Icon
+              type="md-bulb"
+              size="18"
+              class="item tip"
+              @click="openTip = !openTip"
+            />
+          </Tooltip>
+          <Tooltip content="表格密度" placement="top" transfer>
+            <Dropdown @on-click="changeTableSize" trigger="click">
+              <Icon type="md-list" size="18" class="item" />
+              <DropdownMenu slot="list">
+                <DropdownItem :selected="tableSize == 'default'" name="default"
+                  >默认</DropdownItem
+                >
+                <DropdownItem :selected="tableSize == 'large'" name="large"
+                  >宽松</DropdownItem
+                >
+                <DropdownItem :selected="tableSize == 'small'" name="small"
+                  >紧密</DropdownItem
+                >
+              </DropdownMenu>
+            </Dropdown>
+          </Tooltip>
+          <Tooltip content="导出数据" placement="top" transfer>
+            <Icon
+              type="md-download"
+              size="18"
+              class="item"
+              @click="exportData"
+            />
+          </Tooltip>
+        </div>
       </Row>
       <Alert show-icon v-show="openTip">
         已选择
@@ -75,6 +130,7 @@
         border
         :columns="columns"
         :data="data"
+        :size="tableSize"
         ref="table"
         sortable="custom"
         @on-sort-change="changeSort"
@@ -105,6 +161,7 @@ export default {
   name: "log-manage",
   data() {
     return {
+      tableSize: "default",
       tabName: "",
       member: false,
       openSearch: true,
@@ -168,7 +225,7 @@ export default {
               value: "DELETE",
             },
           ],
-          filterMultiple: false,
+          filterMultiple: true,
           filterMethod(value, row) {
             return row.requestType == value;
           },
@@ -246,7 +303,7 @@ export default {
               text = "操作日志";
             } else if (params.row.logType == 1) {
               color = "green";
-              text = "登陆日志";
+              text = "登录日志";
             }
             return h("div", [
               h(
@@ -320,6 +377,14 @@ export default {
       this.searchForm.pageNumber = 1;
       this.searchForm.pageSize = 10;
       this.getDataList();
+    },
+    changeTableSize(v) {
+      this.tableSize = v;
+    },
+    exportData() {
+      this.$refs.table.exportCsv({
+        filename: "数据",
+      });
     },
     getDataList() {
       this.loading = true;

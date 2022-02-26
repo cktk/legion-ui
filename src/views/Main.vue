@@ -163,6 +163,7 @@ import user from "./main-components/user.vue";
 import Footer from "./main-components/footer.vue";
 import theme from "./main-components/theme.vue";
 import circleLoading from "@/views/my-components/legion/circle-loading.vue";
+import watermark from "watermark-dom";
 
 import util from "@/libs/util.js";
 
@@ -264,10 +265,15 @@ export default {
     lang() {
       return this.$store.state.app.lang;
     },
+    watermarkConfig() {
+      return this.$store.state.theme.theme.watermarkConfig;
+    },
   },
   methods: {
     init() {
       this.changeFixNav();
+      // 水印
+      this.initWatermark();
       // 菜单
       let pathArr = util.setCurrentPath(this, this.$route.name);
       this.checkTag(this.$route.name);
@@ -380,15 +386,46 @@ export default {
       }
       this.changeFixNav();
     },
+    initWatermark() {
+      let str = JSON.stringify(this.watermarkConfig);
+      let config = JSON.parse(str);
+      if (config && config.open) {
+        let type = config.type,
+          user = this.getUserInfo();
+        if (type == 0) {
+          if (user) {
+            config.watermark_txt = user.username;
+          }
+        } else if (type == 1) {
+          if (user) {
+            config.watermark_txt = user.mobile;
+          }
+        } else {
+          config.watermark_txt = config.custom_txt;
+        }
+        config.watermark_fontsize += "px";
+        if (config.watermark_txt) {
+          watermark.load(config);
+        }
+      }
+    },
   },
   watch: {
-    $route(to) {
+    $route(to, from) {
       this.$store.commit("setCurrentPageName", to.name);
       let pathArr = util.setCurrentPath(this, to.name);
       this.checkTag(to.name);
     },
     lang() {
-      util.setCurrentPath(this, this.$route.name); // 在切换语言时用于刷新面包屑
+      // 切换语言时刷新面包屑
+      util.setCurrentPath(this, this.$route.name);
+      // 切换语言时更新下拉菜单语言
+      for (let item of this.navList) {
+        if (item.name == this.currNav) {
+          this.$store.commit("setCurrNavTitle", util.handleTitle(this, item));
+          break;
+        }
+      }
     },
     fixNav() {
       this.changeFixNav();

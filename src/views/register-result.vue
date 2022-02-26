@@ -1,5 +1,5 @@
 <template>
-  <div class="regist-result">
+  <div class="register-result">
     <Row
       type="flex"
       justify="center"
@@ -17,7 +17,7 @@
               <router-link to="/login">
                 <Button type="primary" size="large" style="margin-right:10px;">立即登录</Button>
               </router-link>
-              <router-link to="/regist">
+              <router-link to="/register">
                 <Button size="large">返回注册</Button>
               </router-link>
             </div>
@@ -54,5 +54,5 @@ export default {
 </script>
 
 <style lang="less">
-@import "./regist-result.less";
+@import "./register-result.less";
 </style>

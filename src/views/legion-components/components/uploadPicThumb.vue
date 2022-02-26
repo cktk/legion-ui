@@ -1,10 +1,13 @@
 <template>
   <div>
     <Divider class="component-blue" orientation="left">图片上传缩略图</Divider>
+    <div style="font-size: 12px; margin-bottom: 10px">直接上传</div>
     <upload-pic-thumb multiple v-model="picUrls"></upload-pic-thumb>
     <br />
+    <div style="font-size: 12px; margin-bottom: 10px">素材中心上传</div>
     <upload-pic-thumb
       v-model="picUrls"
+      material
       multiple
       height="100px"
       width="100px"
@@ -52,10 +55,15 @@ export default {
       data1: [
         {
           name: "value",
-          desc:
-            "绑定的值，可使用 v-model 双向绑定。单张上传时只接受String，多张上传时只接受Array",
+          desc: "绑定的值，可使用 v-model 双向绑定。单张上传时只接受String，多张上传时只接受Array",
           type: "String | Array",
           value: "空",
+        },
+        {
+          name: "material",
+          desc: "是否启用素材中心上传 [完整版]",
+          type: "Boolean",
+          value: "false",
         },
         {
           name: "multiple",
@@ -65,10 +73,9 @@ export default {
         },
         {
           name: "limit",
-          desc:
-            "限制上传数量，开启多张上传multiple设为true时生效，默认限制10张",
+          desc: "限制上传数量，开启多张上传multiple设为true时生效，默认限制5张",
           type: "Number",
-          value: "10",
+          value: "5",
         },
         {
           name: "accept",
@@ -99,6 +106,12 @@ export default {
           desc: "每个图片框的高度，需带单位如60px",
           type: "String",
           value: "60px",
+        },
+        {
+          name: "marginBottom",
+          desc: "每个图片框的下边距，当图片换行时建议设置间距，需带单位如10px",
+          type: "String",
+          value: "0",
         },
         {
           name: "preview",

@@ -6,6 +6,16 @@
     >
     <Timeline class="timeline">
       <TimelineItem>
+        <div class="version">20220222【3.5.0】</div>
+        <ul type="circle">
+          <li>新增素材中心组件</li>
+          <li>图片上传输入框、图片上传缩略、富文本编辑器图支持素材中心选择上传</li>
+          <li>地图选点组件style属性更名为styles，mapbox更新至v2.7.0</li>
+          <li>重构优化monaco编辑器组件，支持更多属性配置，monaco更新至v0.32.1</li>
+          <li>wangEditor更新至v4.7.11</li>
+        </ul>
+      </TimelineItem>
+      <TimelineItem>
         <div class="version">20210701【3.3.4】</div>
         <ul type="circle">
           <li>新增中后台适用Widget物料组件</li>

@@ -8,7 +8,12 @@
       <a href="http://www.wangeditor.com" target="_blank">wangEditor v4</a>
       封装，已配置好图片上传(上传至文件服务或Base64)、视频上传；扩展编辑HTML代码、清空、XSS攻击过滤等。
     </Alert>
-    <editor id="editor" v-model="editorData"></editor>
+    <Tabs v-model="tabName">
+      <TabPane label="素材中心上传" name="material"> </TabPane>
+      <TabPane label="直接上传" name="direct"> </TabPane>
+    </Tabs>
+    <editor id="editor-material" v-model="editorData" material v-show="tabName=='material'"></editor>
+    <editor id="editor-direct" v-show="tabName=='direct'"></editor>
     <h3 class="component-article">基础用法</h3>
     使用
     <code>v-model</code>
@@ -48,6 +53,7 @@ export default {
   },
   data() {
     return {
+      tabName: "material",
       props: props,
       events: events,
       methods: methods,
@@ -62,8 +68,7 @@ export default {
         },
         {
           name: "id",
-          desc:
-            "富文本编辑器的id值，用于绑定富文本编辑器，当同时使用两个及以上该组件时，需设定不同的id值加以区分",
+          desc: "富文本编辑器的id值，用于绑定富文本编辑器，当同时使用两个及以上该组件时，需设定不同的id值加以区分",
           type: "String",
           value: "editor",
         },
@@ -80,6 +85,18 @@ export default {
           value: "在这里输入内容",
         },
         {
+          name: "material",
+          desc: "是否启用素材中心上传图片、视频",
+          type: "Boolean",
+          value: "false",
+        },
+        {
+          name: "maxSize",
+          desc: "启用素材中心时，单个上传文件最大限制大小（单位Mb）",
+          type: "Number",
+          value: "5",
+        },
+        {
           name: "uploadPic",
           desc: "是否开启上传图片功能",
           type: "Boolean",
@@ -87,8 +104,7 @@ export default {
         },
         {
           name: "base64",
-          desc:
-            "是否使用base64存储图片，默认false上传至配置的文件存储服务中，不推荐使用base64存储",
+          desc: "是否使用base64存储图片，默认false上传至配置的文件存储服务中，不推荐使用base64存储",
           type: "Boolean",
           value: "false",
         },
@@ -118,8 +134,7 @@ export default {
         },
         {
           name: "openXss",
-          desc:
-            "是否打开XSS过滤，无需过滤的标签请自行在组件中添加白名单 https://github.com/leizongmin/js-xss",
+          desc: "是否打开XSS过滤，无需过滤的标签请自行在组件中添加白名单 https://github.com/leizongmin/js-xss",
           type: "Boolean",
           value: "false",
         },

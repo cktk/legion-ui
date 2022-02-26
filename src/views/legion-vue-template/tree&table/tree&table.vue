@@ -174,7 +174,7 @@ export default {
       },
       formValidate: {
         // 表单验证规则
-        name: [{ required: true, message: "不能为空", trigger: "change" }],
+        name: [{ required: true, message: "不能为空", trigger: "blur" }],
       },
       columns: [
         // 表头
@@ -454,21 +454,21 @@ export default {
         this.data = [
           {
             id: "1",
-            name: " ",
+            name: "",
             description: "我是一级1的数据",
             status: 0,
             createTime: "2018-08-08 00:08:00",
           },
           {
             id: "2",
-            name: "Daimao",
+            name: "Exrick",
             description: "我是二级1的数据",
             status: 0,
             createTime: "2018-08-08 00:08:00",
           },
           {
             id: "3",
-            name: " ",
+            name: "",
             description: "我是一级2的数据",
             status: -1,
             createTime: "2018-08-08 00:08:00",
@@ -478,7 +478,7 @@ export default {
         this.data = [
           {
             id: "1",
-            name: " ",
+            name: "",
             description: "我是一级1的数据",
             status: 0,
             createTime: "2018-08-08 00:08:00",
@@ -488,7 +488,7 @@ export default {
         this.data = [
           {
             id: "2",
-            name: "Daimao",
+            name: "Exrick",
             description: "我是二级1的数据",
             status: 0,
             createTime: "2018-08-08 00:08:00",
@@ -498,7 +498,7 @@ export default {
         this.data = [
           {
             id: "3",
-            name: "Present By Daimao",
+            name: "Present By Exrick",
             description: "我是一级2的数据",
             status: -1,
             createTime: "2018-08-08 00:08:00",

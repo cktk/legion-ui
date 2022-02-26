@@ -172,7 +172,6 @@ import { validateMobile } from "@/libs/validate";
 import CountDownButton from "@/views/my-components/legion/count-down-button";
 import checkPassword from "@/views/my-components/legion/check-password";
 import changePass from "@/views/change-pass/change-pass";
-import Cookies from "js-cookie";
 export default {
   components: {
     changePass,
@@ -221,15 +220,8 @@ export default {
   },
   methods: {
     init() {
-      let v = JSON.parse(Cookies.get("userInfo"));
-      // 转换null为""
-      for (let attr in v) {
-        if (v[attr] == null) {
-          v[attr] = "";
-        }
-      }
-      let str = JSON.stringify(v);
-      let userInfo = JSON.parse(str);
+      let userInfo = this.getUserInfo();
+
       this.form = userInfo;
       this.initPhone = userInfo.mobile;
       this.mobileEditForm.mobile = userInfo.mobile;

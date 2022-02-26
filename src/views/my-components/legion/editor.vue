@@ -8,6 +8,7 @@
       :width="900"
       :fullscreen="full"
       :z-index="10001"
+      class="wangeditor-model"
     >
       <div slot="header">
         <div class="ivu-modal-header-inner">编辑HTML代码</div>
@@ -33,6 +34,7 @@
         v-model="dataEdit"
         language="html"
         :height="monacoHeight"
+        :showFullscreen="false"
         ref="monaco1"
       />
       <div slot="footer">
@@ -50,7 +52,9 @@
       <div class="ivu-modal-confirm">
         <div class="ivu-modal-confirm-head">
           <div
-            class="ivu-modal-confirm-head-icon ivu-modal-confirm-head-icon-confirm"
+            class="
+              ivu-modal-confirm-head-icon ivu-modal-confirm-head-icon-confirm
+            "
           >
             <i class="ivu-icon ivu-icon-ios-help-circle"></i>
           </div>
@@ -63,6 +67,22 @@
         </div>
       </div>
     </Modal>
+
+    <materialCenter
+      v-if="material"
+      v-model="showMaterialImage"
+      @on-change="selectImage"
+      :maxSize="maxSize"
+      multiple
+    />
+
+    <materialCenter
+      v-if="material"
+      mode="视频"
+      v-model="showMaterialVideo"
+      @on-change="selectVideo"
+      :maxSize="maxSize"
+    />
   </div>
 </template>
 
@@ -71,9 +91,11 @@ import { uploadFile } from "@/api/index";
 import E from "wangeditor";
 import xss from "xss";
 import monaco from "@/views/my-components/legion/monaco";
+import materialCenter from "@/views/my-components/legion/material-center";
 export default {
   components: {
     monaco,
+    materialCenter,
   },
   name: "editor",
   props: {
@@ -93,6 +115,14 @@ export default {
     placeholder: {
       type: String,
       default: "在这里输入内容",
+    },
+    material: {
+      type: Boolean,
+      default: false,
+    },
+    maxSize: {
+      type: Number,
+      default: 5,
     },
     base64: {
       type: Boolean,
@@ -141,21 +171,17 @@ export default {
       showClearModal: false,
       monacoHeight: 500,
       fullHeight: 100,
+      showMaterialImage: false,
+      showMaterialVideo: false,
     };
   },
   methods: {
     initEditor() {
       let that = this;
       this.editor = new E(`#${this.id}`);
-      const {
-        $,
-        BtnMenu,
-        DropListMenu,
-        PanelMenu,
-        DropList,
-        Panel,
-        Tooltip,
-      } = E;
+
+      const { $, BtnMenu, DropListMenu, PanelMenu, DropList, Panel, Tooltip } =
+        E;
       // 扩展菜单
       class EditHTMLMenu extends BtnMenu {
         constructor(editor) {
@@ -185,17 +211,58 @@ export default {
         // 菜单激活状态
         tryChangeActive() {}
       }
+      class ImageMenu extends BtnMenu {
+        constructor(editor) {
+          const $elem = E.$(
+            `<div class="w-e-menu" data-title="图片"><i class="w-e-icon-image"></i></div>`
+          );
+          super($elem, editor);
+        }
+        // 菜单点击事件
+        clickHandler() {
+          that.showMaterialImage = true;
+        }
+        // 菜单激活状态
+        tryChangeActive() {}
+      }
+      class VideoMenu extends BtnMenu {
+        constructor(editor) {
+          const $elem = E.$(
+            `<div class="w-e-menu" data-title="视频"><i class="w-e-icon-play"></i></div>`
+          );
+          super($elem, editor);
+        }
+        // 菜单点击事件
+        clickHandler() {
+          that.showMaterialVideo = true;
+        }
+        // 菜单激活状态
+        tryChangeActive() {}
+      }
       if (this.expandHtml) {
         // 扩展注册菜单 将菜单加入到 editor.config.menus 中
         this.editor.menus.extend("editHTMLMenu", EditHTMLMenu);
-        this.editor.config.menus = this.editor.config.menus.concat(
-          "editHTMLMenu"
-        );
+        this.editor.config.menus.push("editHTMLMenu");
       }
       if (this.expandClear) {
         this.editor.menus.extend("clearMenu", ClearMenu);
-        this.editor.config.menus = this.editor.config.menus.concat("clearMenu");
+        this.editor.config.menus.push("clearMenu");
       }
+
+      if (this.material) {
+        // 移除原图片视频上传菜单
+        this.editor.config.excludeMenus = ["image", "video"];
+        // 添加新素材中心版
+        if (this.uploadPic) {
+          this.editor.menus.extend("imageMenu", ImageMenu);
+          this.editor.config.menus.splice(17, 0, "imageMenu");
+        }
+        if (this.uploadPic) {
+          this.editor.menus.extend("videoMenu", VideoMenu);
+          this.editor.config.menus.splice(18, 0, "videoMenu");
+        }
+      }
+
       // 全屏
       this.editor.config.showFullScreen = this.showFullScreen;
       // 编辑内容绑定数据
@@ -226,6 +293,7 @@ export default {
         } else {
           // 配置上传图片服务器端地址
           this.editor.config.uploadImgServer = uploadFile;
+          // legion如要header中传入token鉴权
           this.editor.config.uploadImgHeaders = {
             accessToken: that.getStore("accessToken"),
           };
@@ -300,9 +368,9 @@ export default {
           },
         };
       }
-      this.editor.config.customAlert = function (info) {
+      this.editor.config.customAlert = (info) => {
         // info 是需要提示的内容
-        // that.$Message.info(info);
+        // this.$Message.info(info);
       };
       this.editor.create();
       if (this.value) {
@@ -312,6 +380,20 @@ export default {
           this.editor.txt.html(this.value);
         }
       }
+    },
+    selectImage(v) {
+      v.forEach((e) => {
+        this.editor.cmd.do(
+          "insertHTML",
+          `<img src="${e}" contenteditable="false" style="max-width: 100%;"/>`
+        );
+      });
+    },
+    selectVideo(v) {
+      this.editor.cmd.do(
+        "insertHTML",
+        `<video src="${v}"  controls="controls" style="max-width:100%"></video>`
+      );
     },
     handleFull() {
       this.full = !this.full;
@@ -372,14 +454,15 @@ export default {
 </script>
 
 <style lang="less">
-.w-e-text-container .placeholder {
-  z-index: -1;
-}
-
 .w-e-toolbar p,
 .w-e-text-container p,
 .w-e-menu-panel p {
   font-size: 1em !important;
+}
+.wangeditor-model {
+  .ivu-modal-body {
+    padding: 0px;
+  }
 }
 </style>
 

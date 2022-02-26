@@ -8,7 +8,7 @@
       <Row type="flex" justify="space-between">
         <Col v-show="expand" span="5">
           <Row class="operation">
-            <Button @click="addDcit" type="primary" icon="md-add"
+            <Button @click="handleAddDict" type="primary" icon="md-add"
               >添加字典</Button
             >
             <Dropdown @on-click="handleDropdown">
@@ -17,9 +17,9 @@
                 <Icon type="md-arrow-dropdown" />
               </Button>
               <DropdownMenu slot="list">
-                <DropdownItem name="editDcit">编辑字典</DropdownItem>
-                <DropdownItem name="delDcit">删除字典</DropdownItem>
-                <DropdownItem name="refreshDcit">刷新</DropdownItem>
+                <DropdownItem name="editDict">编辑字典</DropdownItem>
+                <DropdownItem name="delDict">删除字典</DropdownItem>
+                <DropdownItem name="refreshDict">刷新</DropdownItem>
               </DropdownMenu>
             </Dropdown>
           </Row>
@@ -87,16 +87,73 @@
               </FormItem>
             </Form>
           </Row>
-          <Row class="operation">
-            <Button @click="add" type="primary" icon="md-add">添加数据</Button>
-            <Button @click="delAll" icon="md-trash">批量删除</Button>
-            <Button @click="getDataList" icon="md-refresh">刷新数据</Button>
-            <Button type="dashed" @click="openSearch = !openSearch">{{
-              openSearch ? "关闭搜索" : "开启搜索"
-            }}</Button>
-            <Button type="dashed" @click="openTip = !openTip">{{
-              openTip ? "关闭提示" : "开启提示"
-            }}</Button>
+          <Row align="middle" justify="space-between" class="operation">
+            <div>
+              <Button @click="add" type="primary" icon="md-add"
+                >添加数据</Button
+              >
+              <Button @click="delAll" icon="md-trash">批量删除</Button>
+            </div>
+            <div class="icons">
+              <Tooltip content="刷新" placement="top" transfer>
+                <Icon
+                  type="md-refresh"
+                  size="18"
+                  class="item"
+                  @click="getDataList"
+                />
+              </Tooltip>
+              <Tooltip
+                :content="openSearch ? '关闭搜索' : '开启搜索'"
+                placement="top"
+                transfer
+              >
+                <Icon
+                  type="ios-search"
+                  size="18"
+                  class="item tip"
+                  @click="openSearch = !openSearch"
+                />
+              </Tooltip>
+              <Tooltip
+                :content="openTip ? '关闭提示' : '开启提示'"
+                placement="top"
+                transfer
+              >
+                <Icon
+                  type="md-bulb"
+                  size="18"
+                  class="item tip"
+                  @click="openTip = !openTip"
+                />
+              </Tooltip>
+              <Tooltip content="表格密度" placement="top" transfer>
+                <Dropdown @on-click="changeTableSize" trigger="click">
+                  <Icon type="md-list" size="18" class="item" />
+                  <DropdownMenu slot="list">
+                    <DropdownItem
+                      :selected="tableSize == 'default'"
+                      name="default"
+                      >默认</DropdownItem
+                    >
+                    <DropdownItem :selected="tableSize == 'large'" name="large"
+                      >宽松</DropdownItem
+                    >
+                    <DropdownItem :selected="tableSize == 'small'" name="small"
+                      >紧密</DropdownItem
+                    >
+                  </DropdownMenu>
+                </Dropdown>
+              </Tooltip>
+              <Tooltip content="导出数据" placement="top" transfer>
+                <Icon
+                  type="md-download"
+                  size="18"
+                  class="item"
+                  @click="exportData"
+                />
+              </Tooltip>
+            </div>
           </Row>
           <Alert show-icon v-show="openTip">
             已选择
@@ -108,6 +165,7 @@
             border
             :columns="columns"
             :data="data"
+            :size="tableSize"
             sortable="custom"
             @on-sort-change="changeSort"
             @on-selection-change="showSelect"
@@ -131,58 +189,17 @@
       </Row>
     </Card>
 
-    <Modal
-      :title="dictModalTitle"
-      v-model="dictModalVisible"
-      :mask-closable="false"
-      :width="500"
-    >
-      <Form
-        ref="dictForm"
-        :model="dictForm"
-        :label-width="85"
-        :rules="dictFormValidate"
-      >
-        <FormItem label="字典名称" prop="title">
-          <Input v-model="dictForm.title" />
-        </FormItem>
-        <FormItem label="字典类型" prop="type" class="block-tool">
-          <Tooltip
-            placement="right"
-            :max-width="220"
-            transfer
-            content="建议英文名且需唯一 非开发人员谨慎修改"
-          >
-            <Input v-model="dictForm.type" />
-          </Tooltip>
-        </FormItem>
-        <FormItem label="备注" prop="description">
-          <Input v-model="dictForm.description" />
-        </FormItem>
-        <FormItem label="排序值" prop="sortOrder">
-          <Tooltip
-            trigger="hover"
-            placement="right"
-            content="值越小越靠前，支持小数"
-          >
-            <InputNumber
-              :max="1000"
-              :min="0"
-              v-model="dictForm.sortOrder"
-            ></InputNumber>
-          </Tooltip>
-        </FormItem>
-      </Form>
-      <div slot="footer">
-        <Button type="text" @click="dictModalVisible = false">取消</Button>
-        <Button
-          type="primary"
-          :loading="submitLoading"
-          @click="handelSubmitDict"
-          >提交</Button
-        >
-      </div>
-    </Modal>
+    <addDictType
+      :dataLength="dataLength"
+      v-model="showAddDict"
+      @on-submit="getAllDict"
+    />
+
+    <editDictType
+      :data="dictForm"
+      v-model="showEditDict"
+      @on-submit="editDictSuccess"
+    />
 
     <Modal
       :title="modalTitle"
@@ -238,8 +255,6 @@
 <script>
 import {
   getAllDictList,
-  addDict,
-  editDict,
   deleteDict,
   searchDict,
   getAllDictDataList,
@@ -247,10 +262,21 @@ import {
   editDictData,
   deleteData,
 } from "@/api/index";
+import addDictType from "./addDictType.vue";
+import editDictType from "./editDictType.vue";
 export default {
   name: "dic-manage",
+  components: {
+    addDictType,
+    editDictType,
+  },
   data() {
     return {
+      tableSize: "default",
+      dataLength: 0,
+      showAddDict: false,
+      dictForm: {},
+      showEditDict: false,
       openSearch: true,
       openTip: true,
       treeLoading: false, // 树加载状态
@@ -275,15 +301,7 @@ export default {
       },
       modalType: 0, // 添加或编辑标识
       modalVisible: false, // 添加或编辑显示
-      dictModalVisible: false,
-      dictModalTitle: "",
       modalTitle: "", // 添加或编辑标题
-      dictForm: {
-        title: "",
-        type: "",
-        description: "",
-        sortOrder: 0,
-      },
       form: {
         // 添加或编辑表单对象初始化数据
         title: "",
@@ -292,29 +310,16 @@ export default {
         description: "",
         sortOrder: 0,
       },
-      dictFormValidate: {
-        // 表单验证规则
-        title: [{ required: true, message: "不能为空", trigger: "change" }],
-        type: [{ required: true, message: "不能为空", trigger: "change" }],
-        sortOrder: [
-          {
-            required: true,
-            type: "number",
-            message: "排序值不能为空",
-            trigger: "change",
-          },
-        ],
-      },
       formValidate: {
         // 表单验证规则
-        title: [{ required: true, message: "不能为空", trigger: "change" }],
-        value: [{ required: true, message: "不能为空", trigger: "change" }],
+        title: [{ required: true, message: "不能为空", trigger: "blur" }],
+        value: [{ required: true, message: "不能为空", trigger: "blur" }],
         sortOrder: [
           {
             required: true,
             type: "number",
             message: "排序值不能为空",
-            trigger: "change",
+            trigger: "blur",
           },
         ],
       },
@@ -467,7 +472,6 @@ export default {
     },
     selectTree(v) {
       if (v.length > 0) {
-        this.$refs.dictForm.resetFields();
         // 转换null为""
         for (let attr in v[0]) {
           if (v[0][attr] == null) {
@@ -496,6 +500,14 @@ export default {
       this.selectNode = {};
       this.editTitle = "";
       this.getDataList();
+    },
+    changeTableSize(v) {
+      this.tableSize = v;
+    },
+    exportData() {
+      this.$refs.table.exportCsv({
+        filename: "数据",
+      });
     },
     changeSelect(v) {
       this.selectList = v;
@@ -574,32 +586,38 @@ export default {
       this.getDataList();
     },
     handleDropdown(name) {
-      if (name == "editDcit") {
+      if (name == "editDict") {
         if (!this.selectNode.id) {
           this.$Message.warning("您还未选择要编辑的字典");
           return;
         }
-        this.editDcit();
-      } else if (name == "delDcit") {
-        this.delDcit();
-      } else if (name == "refreshDcit") {
+        this.handleEditDict();
+      } else if (name == "delDict") {
+        this.delDict();
+      } else if (name == "refreshDict") {
         this.refreshDict();
       }
     },
-    addDcit() {
-      this.modalType = 0;
-      this.dictModalTitle = "添加字典";
-      this.$refs.dictForm.resetFields();
-      this.dictForm.sortOrder = this.treeData.length + 1;
-      this.cancelEdit();
-      this.dictModalVisible = true;
+    handleAddDict() {
+      this.dataLength = this.treeData.length + 1;
+      this.showAddDict = true;
     },
-    editDcit() {
-      this.modalType = 1;
-      this.dictModalTitle = "编辑字典";
-      this.dictModalVisible = true;
+    handleEditDict() {
+      this.showEditDict = true;
     },
-    delDcit() {
+    editDictSuccess(v) {
+      for (let attr in v) {
+        if (v[attr] == null) {
+          v[attr] = "";
+        }
+      }
+      let str = JSON.stringify(v);
+      let data = JSON.parse(str);
+      this.dictForm = data;
+      this.editTitle = v.title + "(" + v.type + ")";
+      this.getAllDict();
+    },
+    delDict() {
       if (!this.selectNode.id) {
         this.$Message.warning("您还未选择要删除的字典");
         return;
@@ -607,7 +625,7 @@ export default {
       this.$Modal.confirm({
         title: "确认删除",
         loading: true,
-        content: "您确认要删除 " + this.selectNode.title + " ?",
+        content: "您确认要删除字典 " + this.selectNode.title + " 及其所有数据?",
         onOk: () => {
           // 删除
           deleteDict({ ids: this.selectNode.id }).then((res) => {
@@ -649,35 +667,6 @@ export default {
       let data = JSON.parse(str);
       this.form = data;
       this.modalVisible = true;
-    },
-    handelSubmitDict() {
-      this.$refs.dictForm.validate((valid) => {
-        if (valid) {
-          this.submitLoading = true;
-          if (this.modalType == 0) {
-            // 添加 避免编辑后传入id等数据 记得删除
-            delete this.dictForm.id;
-            addDict(this.dictForm).then((res) => {
-              this.submitLoading = false;
-              if (res.success) {
-                this.$Message.success("操作成功");
-                this.getAllDict();
-                this.dictModalVisible = false;
-              }
-            });
-          } else if (this.modalType == 1) {
-            // 编辑
-            editDict(this.dictForm).then((res) => {
-              this.submitLoading = false;
-              if (res.success) {
-                this.$Message.success("操作成功");
-                this.getAllDict();
-                this.dictModalVisible = false;
-              }
-            });
-          }
-        }
-      });
     },
     handelSubmit() {
       this.$refs.form.validate((valid) => {

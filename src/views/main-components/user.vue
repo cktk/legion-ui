@@ -36,6 +36,7 @@
 import { getOtherSet } from "@/api/index";
 import util from "@/libs/util.js";
 import changePass from "@/views/change-pass/change-pass";
+import Cookies from 'js-cookie';
 export default {
   name: "user",
   components: {
