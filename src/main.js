@@ -2,7 +2,7 @@
 // (runtime-only or standalone) has been set in webpack.base.conf with an alias.
 import Vue from 'vue'
 import ViewUI from 'view-design'
-// import 'view-design/dist/styles/iview.css'
+import 'view-design/dist/styles/iview.css'
 import App from './App'
 import { router } from './router/index'
 import store from './store'
@@ -20,22 +20,6 @@ import VueClipboard from 'vue-clipboard2'
 import VueApexCharts from 'vue-apexcharts'
 import './assets/iconfont/iconfont.css'
 import '@babel/polyfill'
-
-// 新增---start
-// import './util/js/DateComm.js'
-// import VueExpand from './util/js/VueExpand.js'
-// import langSets from './util/js/langSets'
-// import dateFunc from './util/js/dateFunc'
-// import qs from 'qs'
-// import './css/icon/iconfont.css' //可能没用
-// import './css/override.css'//可能没用
-// import './css/mycss.css'//可能没用
-// Vue.prototype.$moment = moment
-// Vue.prototype.$qs = qs
-// Vue.use(VueExpand)
-// Vue.use(langSets)
-// Vue.use(dateFunc)
-
 
 Vue.config.productionTip = false
 Vue.use(VueLazyload, {
@@ -73,7 +57,8 @@ new Vue({
     store,
     i18n,
     render: h => h(App),
-    data: {},
+    data: {
+    },
     mounted() {
         // 加载主题
         this.$store.commit("setTheme", localStorage.theme);
