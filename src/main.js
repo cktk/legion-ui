@@ -21,6 +21,18 @@ import VueApexCharts from 'vue-apexcharts'
 import './assets/iconfont/iconfont.css'
 import '@babel/polyfill'
 
+import AvueFormDesign from '@sscfaith/avue-form-design'
+import basicContainer from '@/components/basic-container/main'
+import ElementUI from 'element-ui'
+import 'element-ui/lib/theme-chalk/index.css'
+import * as filters from './filters' // 全局filter\
+import { iconfontUrl, iconfontVersion } from '@/config/config'
+import {loadStyle, downBlobFile} from '@/util/index'
+
+// import Avue from '@smallwei/avue';
+// import '@smallwei/avue/lib/index.css';
+// Vue.use(Avue);
+
 Vue.config.productionTip = false
 Vue.use(VueLazyload, {
     error: require('./assets/img-error.png'),
@@ -29,6 +41,25 @@ Vue.use(VueLazyload, {
 Vue.use(ViewUI, {
     i18n: (key, value) => i18n.t(key, value)
 });
+
+Vue.use(ElementUI, {
+    size: 'small',
+    menuType: 'text'
+})
+  
+// 表单设计器
+Vue.use(AvueFormDesign);
+// 加载过滤器
+Object.keys(filters).forEach(key => {
+    Vue.filter(key, filters[key])
+  })
+  
+//   Vue.use(AVUE, {
+//     size: 'small',
+//     menuType: 'text'
+//   })
+  // 注册全局容器
+Vue.component('basicContainer', basicContainer)
 Vue.use(VueClipboard);
 Vue.use(hasPermission);
 Vue.use(hasRole);
@@ -49,6 +80,13 @@ Vue.prototype.removeStore = removeStore;
 Vue.prototype.format = format;
 Vue.prototype.util = util;
 Vue.prototype.getUserInfo = util.getUserInfo;
+
+
+// 动态加载阿里云字体库
+iconfontVersion.forEach(ele => {
+    loadStyle(iconfontUrl.replace('$key', ele))
+  })
+  
 
 /* eslint-disable no-new */
 new Vue({
