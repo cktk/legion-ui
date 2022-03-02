@@ -1,15 +1,15 @@
 <template>
   <div style="display: inline-block">
     <Menu
-        :theme="theme"
-        mode="horizontal"
-        :active-name="currNav"
-        @on-select="selectNav"
+      :theme="theme"
+      mode="horizontal"
+      :active-name="currNav"
+      @on-select="selectNav"
     >
       <MenuItem
-          v-for="(item, i) in navList.slice(0, sliceNum)"
-          :key="i"
-          :name="item.name"
+        v-for="(item, i) in navList.slice(0, sliceNum)"
+        :key="i"
+        :name="item.name"
       >
         <Badge :dot="item.component == 'hot'" :offset="[20, 0]">
           <XIcon :type="item.icon" v-if="showIcon" />
@@ -19,15 +19,15 @@
       <Submenu name="sub" v-if="navList.length > sliceNum">
         <template slot="title">{{ $t("more") }}</template>
         <MenuItem
-            v-for="(item, i) in navList.slice(sliceNum, navList.length)"
-            :key="i"
-            :name="item.name"
+          v-for="(item, i) in navList.slice(sliceNum, navList.length)"
+          :key="i"
+          :name="item.name"
         >
           <Badge :dot="item.component == 'hot'">
             <XIcon
-                :type="item.icon"
-                v-if="showIcon"
-                style="margin-right: 6px"
+              :type="item.icon"
+              v-if="showIcon"
+              style="margin-right: 6px"
             />
             {{ itemTitle(item) }}
           </Badge>

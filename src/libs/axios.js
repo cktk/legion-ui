@@ -94,19 +94,6 @@ export const postRequest = (url, params) => {
     });
 };
 
-export const postRequestNone = (url, params) => {
-    let accessToken = getStore("accessToken");
-    return axios({
-        method: 'post',
-        url: `${baseApi}${url}`,
-        data: params,
-        headers: {
-            'Content-Type': 'application/json',
-            'accessToken': accessToken
-        }
-    });
-};
-
 export const putRequest = (url, params) => {
     let accessToken = getStore("accessToken");
     return axios({
@@ -127,23 +114,6 @@ export const putRequest = (url, params) => {
         }
     });
 };
-
-//put封装
-export const putRequestpro = (url, params) => {
-    let accessToken = getStore("accessToken");
-    return axios({
-        method: 'put',
-        url: `${baseApi}${url}`,
-        data: params,
-        headers: {
-            'Content-Type': 'application/json',
-            'accessToken': accessToken
-        }
-    });
-};
-
-
-
 
 export const postBodyRequest = (url, params) => {
     let accessToken = getStore('accessToken');

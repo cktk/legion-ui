@@ -15,7 +15,7 @@
           type="success"
           size="large"
           style="width: 130px"
-          to="http://xpay.exrick.cn/pay?legion"
+          to="http://www.baidu.com"
           target="_blank"
           >创建应用</Button
         >

@@ -1,6 +1,4 @@
 import { validatenull } from "./validate";
-// import request from "@/router/axios";
-// import * as CryptoJS from "crypto-js";
 
 // 表单序列化
 export const serialize = data => {
@@ -366,30 +364,30 @@ export const openWindow = (url, title, w, h) => {
  * @param fileName 文件名称
  * @returns {*}
  */
-// export function downBlobFile(url, query, fileName) {
-//   return request({
-//     url: url,
-//     method: "get",
-//     responseType: "blob",
-//     params: query
-//   }).then(response => {
-//     // 处理返回的文件流
-//     const blob = response.data;
-//     if (blob && blob.size === 0) {
-//       this.$notify.error("内容为空，无法下载");
-//       return;
-//     }
-//     const link = document.createElement("a");
-//     link.href = window.URL.createObjectURL(blob);
-//     link.download = fileName;
-//     document.body.appendChild(link);
-//     link.click();
-//     window.setTimeout(function() {
-//       window.URL.revokeObjectURL(blob);
-//       document.body.removeChild(link);
-//     }, 0);
-//   });
-// }
+export function downBlobFile(url, query, fileName) {
+  return request({
+    url: url,
+    method: "get",
+    responseType: "blob",
+    params: query
+  }).then(response => {
+    // 处理返回的文件流
+    const blob = response.data;
+    if (blob && blob.size === 0) {
+      this.$notify.error("内容为空，无法下载");
+      return;
+    }
+    const link = document.createElement("a");
+    link.href = window.URL.createObjectURL(blob);
+    link.download = fileName;
+    document.body.appendChild(link);
+    link.click();
+    window.setTimeout(function() {
+      window.URL.revokeObjectURL(blob);
+      document.body.removeChild(link);
+    }, 0);
+  });
+}
 
 export function getQueryString(url, paraName) {
   const arrObj = url.split("?");

@@ -5,7 +5,7 @@ export const loginRouter = {
     path: '/login',
     name: 'login',
     meta: {
-        title: '登录'
+        title: '登录 - 前后端分离开发平台 '
     },
     component: () => import('@/views/login.vue')
 };
@@ -14,7 +14,7 @@ export const loginQRRouter = {
     path: '/login-qr',
     name: 'login-qr',
     meta: {
-        title: '扫码登录'
+        title: '扫码登录 - 前后端分离开发平台 '
     },
     component: () => import('@/views/login-qr.vue')
 };
@@ -23,7 +23,7 @@ export const registRouter = {
     path: '/register',
     name: 'register',
     meta: {
-        title: '注册 '
+        title: '注册 - 前后端分离开发平台'
     },
     component: () => import('@/views/register.vue')
 };
@@ -32,7 +32,7 @@ export const registResult = {
     path: '/register-result',
     name: 'register-result',
     meta: {
-        title: '注册结果'
+        title: '注册结果 - 前后端分离开发平台'
     },
     component: () => import('@/views/register-result.vue')
 };
@@ -41,7 +41,7 @@ export const reset = {
     path: '/reset',
     name: 'reset',
     meta: {
-        title: '重置密码'
+        title: '重置密码 - 前后端分离开发平台'
     },
     component: () => import('@/views/reset.vue')
 };
@@ -50,7 +50,7 @@ export const relateRouter = {
     path: '/relate',
     name: 'relate',
     meta: {
-        title: '绑定账号'
+        title: '绑定账号 - 前后端分离开发平台 '
     },
     component: () => import('@/views/relate.vue')
 };
@@ -59,19 +59,19 @@ export const authorizeRouter = {
     path: '/authorize',
     name: 'authorize',
     meta: {
-        title: '统一认证平台'
+        title: '统一认证平台 - 前后端分离开发平台 '
     },
     component: () => import('@/views/authorize.vue')
 };
 
-export const page404 = {
-    path: '/*',
-    name: 'error-404',
-    meta: {
-        title: '404-页面不存在'
-    },
-    component: () => import('@/views/error-page/404.vue')
-};
+// export const page404 = {
+//     path: '/*',
+//     name: 'error-404',
+//     meta: {
+//         title: '404-页面不存在'
+//     },
+//     component: () => import('@/views/error-page/404.vue')
+// };
 
 export const page403 = {
     path: '/403',

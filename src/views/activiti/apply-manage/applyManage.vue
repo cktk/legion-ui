@@ -75,8 +75,8 @@
       </Row>
       <Row align="middle" justify="space-between" class="operation">
         <div>
-        <Button @click="add" type="primary" icon="md-add">新增申请</Button>
-        <Button @click="delAll" icon="md-trash">批量删除</Button>
+          <Button @click="add" type="primary" icon="md-add">新增申请</Button>
+          <Button @click="delAll" icon="md-trash">批量删除</Button>
         </div>
         <div class="icons">
           <Tooltip content="刷新" placement="top" transfer>

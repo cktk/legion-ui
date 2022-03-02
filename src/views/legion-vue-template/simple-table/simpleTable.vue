@@ -269,7 +269,7 @@ export default {
         },
         {
           id: "2",
-          name: "Exrick",
+          name: "Daimao",
           sex: "女",
           createTime: "2018-08-08 00:08:00",
           updateTime: "2018-08-08 00:08:00",

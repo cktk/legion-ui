@@ -710,7 +710,7 @@ export default {
         },
         {
           id: "2",
-          name: "Exrick",
+          name: "Daimao",
           avatar: "https://s1.ax1x.com/2018/05/19/CcdVQP.png",
           categoryTitle: "分类2",
           categoryId: 2,

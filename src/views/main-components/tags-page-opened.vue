@@ -1,26 +1,26 @@
 <template>
   <div
-      ref="scrollCon"
-      @DOMMouseScroll="handlescroll"
-      @mousewheel="handlescroll"
-      class="tags-scroll-content"
+    ref="scrollCon"
+    @DOMMouseScroll="handlescroll"
+    @mousewheel="handlescroll"
+    class="tags-scroll-content"
   >
     <div
-        ref="scrollBody"
-        class="tags-scroll-body"
-        :style="{ left: tagBodyLeft + 'px' }"
+      ref="scrollBody"
+      class="tags-scroll-body"
+      :style="{ left: tagBodyLeft + 'px' }"
     >
       <transition-group name="taglist-moving-animation">
         <Tag
-            type="dot"
-            v-for="item in pageTagsList"
-            ref="tagsPageOpened"
-            :key="item.name"
-            :name="item.name"
-            @on-close="closePage"
-            @click.native="linkTo(item)"
-            :closable="item.name == 'home_index' ? false : true"
-            :color="
+          type="dot"
+          v-for="item in pageTagsList"
+          ref="tagsPageOpened"
+          :key="item.name"
+          :name="item.name"
+          @on-close="closePage"
+          @click.native="linkTo(item)"
+          :closable="item.name == 'home_index' ? false : true"
+          :color="
             item.children
               ? item.children[0].name == currentPageName
                 ? 'primary'
@@ -29,17 +29,17 @@
               ? 'primary'
               : 'default'
           "
-        >{{ itemTitle(item) }}</Tag
+          >{{ itemTitle(item) }}</Tag
         >
       </transition-group>
     </div>
     <div class="close-tag-content">
       <Dropdown
-          transfer
-          trigger="hover"
-          @on-click="handleTagsOption"
-          placement="bottom-end"
-          transfer-class-name="close-tag-dropdown"
+        transfer
+        trigger="hover"
+        @on-click="handleTagsOption"
+        placement="bottom-end"
+        transfer-class-name="close-tag-dropdown"
       >
         <div class="icon-content">
           <Icon type="ios-arrow-down" size="16" />
@@ -47,8 +47,8 @@
         <DropdownMenu slot="list">
           <DropdownItem name="clearAll">{{ $t("closeAll") }}</DropdownItem>
           <DropdownItem name="clearOthers">{{
-              $t("closeOthers")
-            }}</DropdownItem>
+            $t("closeOthers")
+          }}</DropdownItem>
         </DropdownMenu>
       </Dropdown>
     </div>
@@ -146,22 +146,22 @@ export default {
         left = Math.min(0, this.tagBodyLeft + delta);
       } else {
         if (
-            this.$refs.scrollCon.offsetWidth - 100 <
-            this.$refs.scrollBody.offsetWidth
+          this.$refs.scrollCon.offsetWidth - 100 <
+          this.$refs.scrollBody.offsetWidth
         ) {
           if (
-              this.tagBodyLeft <
-              -(
-                  this.$refs.scrollBody.offsetWidth -
-                  this.$refs.scrollCon.offsetWidth +
-                  this.paddingRight
-              )
+            this.tagBodyLeft <
+            -(
+              this.$refs.scrollBody.offsetWidth -
+              this.$refs.scrollCon.offsetWidth +
+              this.paddingRight
+            )
           ) {
             left = this.tagBodyLeft;
           } else {
             left = Math.max(
-                this.tagBodyLeft + delta,
-                this.$refs.scrollCon.offsetWidth -
+              this.tagBodyLeft + delta,
+              this.$refs.scrollCon.offsetWidth -
                 this.$refs.scrollBody.offsetWidth -
                 this.paddingRight
             );
@@ -188,16 +188,16 @@ export default {
         // 标签在可视区域左侧
         this.tagBodyLeft = -tag.offsetLeft + 10;
       } else if (
-          tag.offsetLeft + 10 > -this.tagBodyLeft &&
-          tag.offsetLeft + tag.offsetWidth <
+        tag.offsetLeft + 10 > -this.tagBodyLeft &&
+        tag.offsetLeft + tag.offsetWidth <
           -this.tagBodyLeft +
-          this.$refs.scrollCon.offsetWidth -
-          this.paddingRight
+            this.$refs.scrollCon.offsetWidth -
+            this.paddingRight
       ) {
         // 标签在可视区域
         this.tagBodyLeft = Math.min(
-            0,
-            this.$refs.scrollCon.offsetWidth -
+          0,
+          this.$refs.scrollCon.offsetWidth -
             this.paddingRight -
             tag.offsetWidth -
             tag.offsetLeft -
@@ -206,11 +206,11 @@ export default {
       } else {
         // 标签在可视区域右侧
         this.tagBodyLeft = -(
-            tag.offsetLeft -
-            (this.$refs.scrollCon.offsetWidth -
-                this.paddingRight -
-                tag.offsetWidth) +
-            20
+          tag.offsetLeft -
+          (this.$refs.scrollCon.offsetWidth -
+            this.paddingRight -
+            tag.offsetWidth) +
+          20
         );
       }
     },

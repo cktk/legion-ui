@@ -50,7 +50,7 @@
             <iframe
               scrolling="auto"
               frameborder="0"
-              src="http://appb.exrick.cn"
+              src="http://appb.Daimao.cn"
               id="demo-modal"
               class="iframe"
             ></iframe>
@@ -59,7 +59,7 @@
         <Col :xs="24" :sm="24" :lg="24" :xl="14">
           <Alert type="warning" show-icon>
             说明：全新配套使用Uniapp开发的toB面向企业级App，兼容多端！功能界面完善中...
-            <a href="http://xpay.exrick.cn/pay?legion" target="_blank"
+            <a href="http://www.baidu.com" target="_blank"
               >立即获取完整版</a
             >
           </Alert>
@@ -80,7 +80,7 @@
               >
             </Poptip>
             <Button
-              to="http://appb.exrick.cn"
+              to="http://appb.Daimao.cn"
               target="_blank"
               shape="circle"
               icon="md-browsers"
@@ -88,7 +88,7 @@
               >浏览器打开</Button
             >
             <Button
-              to="http://xpay.exrick.cn/pay?legion"
+              to="http://www.baidu.com"
               target="_blank"
               shape="circle"
               type="warning"

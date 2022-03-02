@@ -1,28 +1,28 @@
 <template>
   <div>
     <div
-        :class="`search-menu search-menu-theme-${theme}`"
-        v-if="type == 'input'"
+      :class="`search-menu search-menu-theme-${theme}`"
+      v-if="type == 'input'"
     >
       <Select
-          v-model="key"
-          prefix="ios-search"
-          transfer
-          clearable
-          filterable
-          :placeholder="$t('searchMenu')"
-          @on-change="changeMenu"
-          ref="select"
+        v-model="key"
+        prefix="ios-search"
+        transfer
+        clearable
+        filterable
+        :placeholder="$t('searchMenu')"
+        @on-change="changeMenu"
+        ref="select"
       >
         <Option v-for="(item, index) in list" :value="item.name" :key="index">{{
-            item.title
-          }}</Option>
+          item.title
+        }}</Option>
       </Select>
       <Icon
-          v-show="key"
-          type="ios-close-circle"
-          class="close-icon"
-          @click="clear"
+        v-show="key"
+        type="ios-close-circle"
+        class="close-icon"
+        @click="clear"
       />
     </div>
     <div class="search-dropdown" v-else>
@@ -34,20 +34,20 @@
         </div>
         <div slot="list" class="search-select">
           <Select
-              v-model="key"
-              prefix="ios-search"
-              transfer
-              clearable
-              filterable
-              :placeholder="$t('searchMenu')"
-              @on-change="changeMenu"
-              ref="select"
+            v-model="key"
+            prefix="ios-search"
+            transfer
+            clearable
+            filterable
+            :placeholder="$t('searchMenu')"
+            @on-change="changeMenu"
+            ref="select"
           >
             <Option
-                v-for="(item, index) in list"
-                :value="item.name"
-                :key="index"
-            >{{ item.title }}</Option
+              v-for="(item, index) in list"
+              :value="item.name"
+              :key="index"
+              >{{ item.title }}</Option
             >
           </Select>
         </div>
@@ -86,11 +86,11 @@ export default {
         let accessToken = this.getStore("accessToken");
         // 加载菜单
         axios
-            .get(getMenuList, { headers: { accessToken: accessToken } })
-            .then((res) => {
-              menuData = res.result;
-              this.list = this.getList(menuData);
-            });
+          .get(getMenuList, { headers: { accessToken: accessToken } })
+          .then((res) => {
+            menuData = res.result;
+            this.list = this.getList(menuData);
+          });
       } else {
         menuData = JSON.parse(menuData);
         this.list = this.getList(menuData);

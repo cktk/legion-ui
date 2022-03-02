@@ -21,7 +21,7 @@
     <Card>
       <Alert type="warning" show-icon>
         说明：全新重构设计微信小程序，现已开源！后端正在中开发
-        <a href="https://www.esmoo.com" target="_blank">立即获取完整版</a>
+        <a href="http://www.baidu.com" target="_blank">立即获取完整版</a>
       </Alert>
       <div class="weapp">
         <Poptip trigger="hover" title="打开微信扫一扫">

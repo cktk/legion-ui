@@ -11,50 +11,50 @@
           <div class="checkbox-content">
             <Tooltip transfer placement="top" :content="$t('lightblue')">
               <div
-                  class="checkbox-item checkbox-item-primary"
-                  @click="changeMainTheme('primary')"
+                class="checkbox-item checkbox-item-primary"
+                @click="changeMainTheme('primary')"
               >
                 <Icon
-                    type="md-checkmark"
-                    class="checkbox-select-icon"
-                    v-if="mainTheme == 'primary'"
+                  type="md-checkmark"
+                  class="checkbox-select-icon"
+                  v-if="mainTheme == 'primary'"
                 />
               </div>
             </Tooltip>
             <Tooltip placement="top" :content="$t('white')">
               <div
-                  class="checkbox-item checkbox-item-light"
-                  @click="changeMainTheme('light')"
+                class="checkbox-item checkbox-item-light"
+                @click="changeMainTheme('light')"
               >
                 <Icon
-                    type="md-checkmark"
-                    class="checkbox-select-icon"
-                    v-if="mainTheme == 'light'"
+                  type="md-checkmark"
+                  class="checkbox-select-icon"
+                  v-if="mainTheme == 'light'"
                 />
               </div>
             </Tooltip>
             <Tooltip placement="top" :content="$t('topNav')">
               <div
-                  class="checkbox-item checkbox-item-nav-black checkbox-item-nav"
-                  @click="changeMainTheme('topNav')"
+                class="checkbox-item checkbox-item-nav-black checkbox-item-nav"
+                @click="changeMainTheme('topNav')"
               >
                 <Icon
-                    type="md-checkmark"
-                    class="checkbox-select-icon"
-                    v-if="mainTheme == 'topNav'"
+                  type="md-checkmark"
+                  class="checkbox-select-icon"
+                  v-if="mainTheme == 'topNav'"
                 />
               </div>
             </Tooltip>
             <Tooltip placement="top" :content="$t('darkMode')">
               <div
-                  class="checkbox-item checkbox-item-darkMode"
-                  @click="changeMainTheme('darkMode')"
+                class="checkbox-item checkbox-item-darkMode"
+                @click="changeMainTheme('darkMode')"
               >
                 <Icon
-                    type="md-checkmark"
-                    class="checkbox-select-icon"
-                    color="#177ddc"
-                    v-if="mainTheme == 'darkMode'"
+                  type="md-checkmark"
+                  class="checkbox-select-icon"
+                  color="#177ddc"
+                  v-if="mainTheme == 'darkMode'"
                 />
               </div>
             </Tooltip>
@@ -66,49 +66,49 @@
           <div class="checkbox-content">
             <Tooltip transfer placement="top" :content="$t('darkblue')">
               <div
-                  class="checkbox-item checkbox-item-darkblue"
-                  @click="changeMenuTheme('darkblue')"
+                class="checkbox-item checkbox-item-darkblue"
+                @click="changeMenuTheme('darkblue')"
               >
                 <Icon
-                    type="md-checkmark"
-                    class="checkbox-select-icon"
-                    v-if="menuTheme == 'darkblue'"
+                  type="md-checkmark"
+                  class="checkbox-select-icon"
+                  v-if="menuTheme == 'darkblue'"
                 />
               </div>
             </Tooltip>
             <Tooltip placement="top" :content="$t('dark')">
               <div
-                  class="checkbox-item checkbox-item-black"
-                  @click="changeMenuTheme('black')"
+                class="checkbox-item checkbox-item-black"
+                @click="changeMenuTheme('black')"
               >
                 <Icon
-                    type="md-checkmark"
-                    class="checkbox-select-icon"
-                    v-if="menuTheme == 'black'"
+                  type="md-checkmark"
+                  class="checkbox-select-icon"
+                  v-if="menuTheme == 'black'"
                 />
               </div>
             </Tooltip>
             <Tooltip placement="top" :content="$t('middle')">
               <div
-                  class="checkbox-item checkbox-item-dark"
-                  @click="changeMenuTheme('dark')"
+                class="checkbox-item checkbox-item-dark"
+                @click="changeMenuTheme('dark')"
               >
                 <Icon
-                    type="md-checkmark"
-                    class="checkbox-select-icon"
-                    v-if="menuTheme == 'dark'"
+                  type="md-checkmark"
+                  class="checkbox-select-icon"
+                  v-if="menuTheme == 'dark'"
                 />
               </div>
             </Tooltip>
             <Tooltip placement="top" :content="$t('white')">
               <div
-                  class="checkbox-item checkbox-item-side-light"
-                  @click="changeMenuTheme('light')"
+                class="checkbox-item checkbox-item-side-light"
+                @click="changeMenuTheme('light')"
               >
                 <Icon
-                    type="md-checkmark"
-                    class="checkbox-select-icon"
-                    v-if="menuTheme == 'light'"
+                  type="md-checkmark"
+                  class="checkbox-select-icon"
+                  v-if="menuTheme == 'light'"
                 />
               </div>
             </Tooltip>
@@ -119,53 +119,53 @@
           <div class="checkbox-content">
             <Tooltip transfer placement="top" :content="$t('darkblue')">
               <div
-                  class="
+                class="
                   checkbox-item checkbox-item-nav-darkblue checkbox-item-nav
                 "
-                  @click="changeNavTheme('darkblue')"
+                @click="changeNavTheme('darkblue')"
               >
                 <Icon
-                    type="md-checkmark"
-                    class="checkbox-select-icon"
-                    v-if="navTheme == 'darkblue'"
+                  type="md-checkmark"
+                  class="checkbox-select-icon"
+                  v-if="navTheme == 'darkblue'"
                 />
               </div>
             </Tooltip>
             <Tooltip placement="top" :content="$t('dark')">
               <div
-                  class="checkbox-item checkbox-item-nav-black checkbox-item-nav"
-                  @click="changeNavTheme('black')"
+                class="checkbox-item checkbox-item-nav-black checkbox-item-nav"
+                @click="changeNavTheme('black')"
               >
                 <Icon
-                    type="md-checkmark"
-                    class="checkbox-select-icon"
-                    v-if="navTheme == 'black'"
+                  type="md-checkmark"
+                  class="checkbox-select-icon"
+                  v-if="navTheme == 'black'"
                 />
               </div>
             </Tooltip>
             <Tooltip placement="top" :content="$t('lightblue')">
               <div
-                  class="
+                class="
                   checkbox-item checkbox-item-nav-primary checkbox-item-nav
                 "
-                  @click="changeNavTheme('primary')"
+                @click="changeNavTheme('primary')"
               >
                 <Icon
-                    type="md-checkmark"
-                    class="checkbox-select-icon"
-                    v-if="navTheme == 'primary'"
+                  type="md-checkmark"
+                  class="checkbox-select-icon"
+                  v-if="navTheme == 'primary'"
                 />
               </div>
             </Tooltip>
             <Tooltip placement="top" :content="$t('white')">
               <div
-                  class="checkbox-item checkbox-item-nav-light checkbox-item-nav"
-                  @click="changeNavTheme('light')"
+                class="checkbox-item checkbox-item-nav-light checkbox-item-nav"
+                @click="changeNavTheme('light')"
               >
                 <Icon
-                    type="md-checkmark"
-                    class="checkbox-select-icon"
-                    v-if="navTheme == 'light'"
+                  type="md-checkmark"
+                  class="checkbox-select-icon"
+                  v-if="navTheme == 'light'"
                 />
               </div>
             </Tooltip>
@@ -177,27 +177,27 @@
           <div class="checkbox-content">
             <Tooltip transfer placement="top" :content="$t('rightTop')">
               <div
-                  class="
+                class="
                   checkbox-item checkbox-item-topright checkbox-layout-item
                 "
-                  @click="changeFixNav(false)"
+                @click="changeFixNav(false)"
               >
                 <Icon
-                    type="md-checkmark"
-                    class="checkbox-select-icon"
-                    v-if="!fixNav"
+                  type="md-checkmark"
+                  class="checkbox-select-icon"
+                  v-if="!fixNav"
                 />
               </div>
             </Tooltip>
             <Tooltip placement="top" :content="$t('topFix')">
               <div
-                  class="checkbox-item checkbox-item-top checkbox-layout-item"
-                  @click="changeFixNav(true)"
+                class="checkbox-item checkbox-item-top checkbox-layout-item"
+                @click="changeFixNav(true)"
               >
                 <Icon
-                    type="md-checkmark"
-                    class="checkbox-select-icon"
-                    v-if="fixNav"
+                  type="md-checkmark"
+                  class="checkbox-select-icon"
+                  v-if="fixNav"
                 />
               </div>
             </Tooltip>
@@ -206,10 +206,10 @@
             <div class="theme-list-item">
               <div class="item-title">{{ $t("navType") }}</div>
               <Select
-                  :value="navType"
-                  @on-change="changeNavType"
-                  style="width: 150px"
-                  size="small"
+                :value="navType"
+                @on-change="changeNavType"
+                style="width: 150px"
+                size="small"
               >
                 <Option value="1">{{ $t("horizontal") }}</Option>
                 <Option value="2">{{ $t("singleDrop") }}</Option>
@@ -219,29 +219,29 @@
             <div class="theme-list-item" v-if="navType == 1">
               <div class="item-title">{{ $t("sliceNum") }}</div>
               <InputNumber
-                  :min="1"
-                  :max="10"
-                  :value="sliceNum"
-                  style="width: 100px"
-                  size="small"
-                  @on-change="changeSliceNum"
+                :min="1"
+                :max="10"
+                :value="sliceNum"
+                style="width: 100px"
+                size="small"
+                @on-change="changeSliceNum"
               />
             </div>
             <div class="theme-list-item" v-if="navType == 1">
               <div class="item-title">{{ $t("showIcon") }}</div>
               <i-switch
-                  :value="showNavMenuIcon"
-                  @on-change="changeShowNavMenuIcon"
-                  size="small"
+                :value="showNavMenuIcon"
+                @on-change="changeShowNavMenuIcon"
+                size="small"
               />
             </div>
             <div class="theme-list-item" v-if="navType == 2 || navType == 3">
               <div class="item-title">{{ $t("dropMenu") }}</div>
               <Select
-                  :value="navShowType"
-                  @on-change="changeNavShowType"
-                  style="width: 150px"
-                  size="small"
+                :value="navShowType"
+                @on-change="changeNavShowType"
+                style="width: 150px"
+                size="small"
               >
                 <Option value="app">{{ $t("appStyle") }}</Option>
                 <Option value="list">{{ $t("listStyle") }}</Option>
@@ -256,60 +256,60 @@
             <div class="theme-list-item">
               <div class="item-title">{{ $t("enableTags") }}</div>
               <i-switch
-                  :value="showTags"
-                  @on-change="changeShowTags"
-                  size="small"
+                :value="showTags"
+                @on-change="changeShowTags"
+                size="small"
               />
             </div>
             <div class="theme-list-item">
               <div class="item-title">{{ $t("showFold") }}</div>
               <i-switch
-                  :value="showFold"
-                  @on-change="changeShowFold"
-                  size="small"
+                :value="showFold"
+                @on-change="changeShowFold"
+                size="small"
               />
             </div>
             <div class="theme-list-item">
               <div class="item-title">{{ $t("showLogo") }}</div>
               <i-switch
-                  :value="showLogo"
-                  @on-change="changeShowLogo"
-                  size="small"
+                :value="showLogo"
+                @on-change="changeShowLogo"
+                size="small"
               />
             </div>
             <div class="theme-list-item">
               <div class="item-title">{{ $t("showSearchMenu") }}</div>
               <i-switch
-                  :value="showSearch"
-                  @on-change="changeShowSearch"
-                  size="small"
+                :value="showSearch"
+                @on-change="changeShowSearch"
+                size="small"
               />
             </div>
             <div class="theme-list-item">
               <div class="item-title">{{ $t("showFooter") }}</div>
               <i-switch
-                  :value="showFooter"
-                  @on-change="changeShowFooter"
-                  size="small"
+                :value="showFooter"
+                @on-change="changeShowFooter"
+                size="small"
               />
             </div>
             <div class="theme-list-item">
               <div class="item-title">{{ $t("sideMenuAccordion") }}</div>
               <i-switch
-                  :value="accordion"
-                  @on-change="changeAccordion"
-                  size="small"
+                :value="accordion"
+                @on-change="changeAccordion"
+                size="small"
               />
             </div>
             <div class="theme-list-item">
               <div class="item-title">{{ $t("sideMenuWidth") }}（px）</div>
               <InputNumber
-                  :min="0"
-                  :max="500"
-                  :value="menuWidth"
-                  style="width: 100px"
-                  size="small"
-                  @on-change="changeMenuWidth"
+                :min="0"
+                :max="500"
+                :value="menuWidth"
+                style="width: 100px"
+                size="small"
+                @on-change="changeMenuWidth"
               />
             </div>
           </div>
@@ -321,32 +321,32 @@
             <div class="theme-list-item">
               <div class="item-title">{{ $t("openWaterMark") }}</div>
               <i-switch
-                  :value="watermarkConfig.open"
-                  @on-change="changeWatermark"
-                  size="small"
+                :value="watermarkConfig.open"
+                @on-change="changeWatermark"
+                size="small"
               />
             </div>
             <div class="theme-list-item" v-show="watermarkConfig.open">
               <div class="item-title">{{ $t("opacity") }}</div>
               <InputNumber
-                  :min="0.005"
-                  :max="1"
-                  :step="0.01"
-                  :value="watermarkConfig.watermark_alpha"
-                  style="width: 100px"
-                  size="small"
-                  @on-change="changeWMAlpha"
+                :min="0.005"
+                :max="1"
+                :step="0.01"
+                :value="watermarkConfig.watermark_alpha"
+                style="width: 100px"
+                size="small"
+                @on-change="changeWMAlpha"
               />
             </div>
             <div class="theme-list-item" v-show="watermarkConfig.open">
               <div class="item-title">{{ $t("fontSize") }}（px）</div>
               <InputNumber
-                  :min="12"
-                  :max="100"
-                  :value="watermarkConfig.watermark_fontsize"
-                  style="width: 100px"
-                  size="small"
-                  @on-change="changeWMFontsize"
+                :min="12"
+                :max="100"
+                :value="watermarkConfig.watermark_fontsize"
+                style="width: 100px"
+                size="small"
+                @on-change="changeWMFontsize"
               />
             </div>
           </div>
@@ -358,9 +358,9 @@
             <div class="theme-list-item">
               <div class="item-title">{{ $t("weakMode") }}</div>
               <i-switch
-                  :value="weakMode"
-                  @on-change="changeWeakMode"
-                  size="small"
+                :value="weakMode"
+                @on-change="changeWeakMode"
+                size="small"
               />
             </div>
           </div>

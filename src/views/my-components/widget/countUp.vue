@@ -1,8 +1,8 @@
 <template>
   <div>
     <div
-        :class="className"
-        :style="{
+      :class="className"
+      :style="{
         color: color,
         fontSize: countSize,
         fontWeight: countWeight,

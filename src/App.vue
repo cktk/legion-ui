@@ -15,6 +15,7 @@ export default {
     },
   },
   mounted() {
+    // 主题预设
     this.changeMode();
   },
   beforeDestroy() {},

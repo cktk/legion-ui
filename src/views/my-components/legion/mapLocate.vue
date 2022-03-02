@@ -74,8 +74,9 @@
 <script>
 import mapboxgl from "mapbox-gl";
 import MapboxGeocoder from "@mapbox/mapbox-gl-geocoder";
+import '@mapbox/mapbox-gl-geocoder/dist/mapbox-gl-geocoder.css';
 export default {
-  name: "map",
+  name: "mapLocate",
   props: {
     id: {
       type: String,
@@ -141,13 +142,15 @@ export default {
       type: String,
       default: "md-locate",
     },
-    style: {
+    styles: {
       type: String,
       default: "mapbox://styles/mapbox/streets-v11",
     },
     center: {
       type: Array,
-      default: [116.35, 39.85],
+      default: function () {
+        return [116.35, 39.85];
+      },
     },
     zoom: {
       type: Number,
@@ -205,7 +208,7 @@ export default {
       mapboxgl.accessToken = config.mapboxToken;
       this.mapbox = new mapboxgl.Map({
         container: this.id,
-        style: this.style,
+        style: this.styles,
         center: this.center,
         zoom: this.zoom,
         pitch: this.pitch,
@@ -286,9 +289,8 @@ export default {
               });
               this.mapStyleContainer.style.display = "none";
               this.styleButton.style.display = "block";
-              const elms = this.mapStyleContainer.getElementsByClassName(
-                "active"
-              );
+              const elms =
+                this.mapStyleContainer.getElementsByClassName("active");
               while (elms[0]) {
                 elms[0].classList.remove("active");
               }

@@ -558,7 +558,7 @@ export default {
       } else {
         this.$Modal.info({
           title: "待开发，获取PLUS版永久更新~",
-          content: "支付链接: http://xpay.exrick.cn/pay?legion",
+          content: "支付链接: http://www.baidu.com",
         });
       }
     },

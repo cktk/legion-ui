@@ -327,7 +327,7 @@ export default {
         },
         {
           id: "2",
-          name: "Exrick",
+          name: "Daimao",
           mobile: "12345678901",
           createTime: "2018-08-08 00:08:00",
           updateTime: "2018-08-08 00:08:00",
@@ -386,7 +386,7 @@ export default {
         },
         {
           id: "2",
-          name: "Exrick",
+          name: "Daimao",
           mobile: "12345678901",
           createTime: "2018-08-08 00:08:00",
           updateTime: "2018-08-08 00:08:00",

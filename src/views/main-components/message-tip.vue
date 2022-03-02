@@ -12,11 +12,11 @@
         <div class="title-content">
           <div class="title">{{ $t("Notifications") }}</div>
           <a class="mark" v-if="messageList.length > 0" @click="markAll">{{
-              $t("markAll")
-            }}</a>
+            $t("markAll")
+          }}</a>
           <a class="mark" v-else @click="getData">{{
-              $t("refresh")
-            }}</a>
+            $t("refresh")
+          }}</a>
         </div>
         <div class="mes-list">
           <div v-if="messageList.length == 0" class="empty-message">
@@ -25,44 +25,44 @@
           </div>
           <div v-else>
             <div
-                v-for="(item, index) in messageList"
-                :key="index"
-                :class="{
+              v-for="(item, index) in messageList"
+              :key="index"
+              :class="{
                 'mes-item': item.status == 0,
                 'mes-item opacity': item.status == 1,
               }"
-                @click="messageDetail(item)"
+              @click="messageDetail(item)"
             >
               <div class="icon">
                 <Avatar
-                    v-if="item.type == '通知'"
-                    style="background-color: #ff9900"
-                    icon="md-send"
-                    class="icon"
+                  v-if="item.type == '通知'"
+                  style="background-color: #ff9900"
+                  icon="md-send"
+                  class="icon"
                 />
                 <Avatar
-                    v-else-if="item.type == '提醒'"
-                    style="background-color: #ed4014"
-                    icon="md-alarm"
-                    class="icon"
+                  v-else-if="item.type == '提醒'"
+                  style="background-color: #ed4014"
+                  icon="md-alarm"
+                  class="icon"
                 />
                 <Avatar
-                    v-else-if="item.type == '私信'"
-                    style="background-color: #87d068"
-                    icon="md-person"
-                    class="icon"
+                  v-else-if="item.type == '私信'"
+                  style="background-color: #87d068"
+                  icon="md-person"
+                  class="icon"
                 />
                 <Avatar
-                    v-else-if="item.type == '工作流'"
-                    style="background-color: #2db7f5"
-                    icon="md-briefcase"
-                    class="icon"
+                  v-else-if="item.type == '工作流'"
+                  style="background-color: #2db7f5"
+                  icon="md-briefcase"
+                  class="icon"
                 />
                 <Avatar
-                    v-else-if="item.type == '系统公告'"
-                    style="background-color: #2d8cf0"
-                    icon="md-mail"
-                    class="icon"
+                  v-else-if="item.type == '系统公告'"
+                  style="background-color: #2d8cf0"
+                  icon="md-mail"
+                  class="icon"
                 />
                 <Avatar v-else icon="ios-mail" class="icon" />
               </div>
@@ -71,7 +71,7 @@
                 <div class="mes-time">
                   <Icon type="md-time" style="margin-right: 3px" /><Time
                     :time="item.createTime"
-                />
+                  />
                 </div>
               </div>
             </div>
@@ -80,9 +80,9 @@
         </div>
         <a class="show-more" @click="showMessage">
           <Icon
-              type="ios-arrow-dropright-circle"
-              size="16"
-              style="margin: 0 5px 2px 0"
+            type="ios-arrow-dropright-circle"
+            size="16"
+            style="margin: 0 5px 2px 0"
           />{{ $t("showMore") }}
         </a>
       </div>
@@ -160,12 +160,12 @@ export default {
     onConnected(frame) {
       console.log("连接ws成功: " + frame);
       let topicSubscription = this.client.subscribe(
-          "/topic/subscribe",
-          this.responseCallback
+        "/topic/subscribe",
+        this.responseCallback
       );
       let queueSubscription = this.client.subscribe(
-          "/user/" + this.userId + "/queue/subscribe",
-          this.responseCallback
+        "/user/" + this.userId + "/queue/subscribe",
+        this.responseCallback
       );
     },
     onFailed(frame) {

@@ -126,7 +126,7 @@
                 </TabPane>
               </Tabs>
               <Tooltip
-                content="App扫码登录"
+                content=" App扫码登录"
                 placement="right"
                 class="qr block-tool"
               >

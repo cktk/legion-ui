@@ -5,9 +5,8 @@
 <template>
   <div>
     <div class="home">
-      <!-- v-if掉了!!!!!!!!! -->
-      <Row :gutter="10" v-if="false">
-        <!-- 左上侧 用户信息及github链接 -->
+
+      <Row :gutter="10" v-if="true">
         <Col :xs="24" :sm="24" :lg="24" :xl="8">
           <Row :gutter="10">
             <Col style="margin-bottom: 10px; width: 100%">
@@ -16,20 +15,20 @@
                   <div class="left">
                     <div class="user">
                       <Avatar
-                        v-if="avatar"
-                        :src="avatar"
-                        size="60"
-                        class="avator-img"
+                          v-if="avatar"
+                          :src="avatar"
+                          size="60"
+                          class="avator-img"
                       ></Avatar>
                       <Avatar
-                        v-else
-                        icon="md-person"
-                        size="60"
-                        class="avator-icon"
+                          v-else
+                          icon="md-person"
+                          size="60"
+                          class="avator-icon"
                       ></Avatar>
                       <div class="info">
                         <p class="username">Hi, {{ nickname }} !</p>
-                        <p class="welcome">欢迎回到Legion快速开发平台</p>
+                        <p class="welcome">欢迎回到平台</p>
                       </div>
                     </div>
                     <div class="list">
@@ -47,144 +46,23 @@
                       </div>
                     </div>
                   </div>
-                  <img
-                    class="pic"
-                    :src="require('@/assets/icon/computer.svg')"
-                  />
-                </div>
-              </Card>
-            </Col>
-            <Col style="margin-bottom: 10px; width: 100%">
-              <Card>
-                <p slot="title">
-                  <Icon
-                    type="logo-github"
-                    size="20"
-                    style="margin-right: 5px"
-                  />
-                  CPU
-                </p>
-                <p slot="extra"></p>
-                <div style="height: 266px; overflow: auto">
-                  <List border class="ivuListStyle">
-                    <ListItem v-for="(value, key) in systemInfoList.cpu" :key="value"
-                      ><span style="float: left">{{ key }}</span>
-                      <span style="float: right">{{ value }}</span></ListItem
-                    >
-                  </List>
+                  <img class="pic" :src="require('@/assets/icon/computer.svg')" />
                 </div>
               </Card>
             </Col>
           </Row>
         </Col>
-        <!-- 右上侧 -->
-        <Col :lg="24" :xl="16">
-          <Row :gutter="10">
-            <Col
-              :xs="24"
-              :sm="24"
-              :lg="24"
-              :xl="12"
-              style="margin-bottom: 10px"
-            >
-              <Card>
-                <p slot="title" style="overflow: visible">
-                  <!-- <a href="http://www.baidu.com" target="_blank">
-                    <Icon
-                      type="ios-star"
-                      size="20"
-                      style="margin-right: 5px"
-                    ></Icon>
-                    <Badge dot>立即获取 Legion 完整版</Badge>
-                  </a> -->
-                  JVM
-                </p>
-                <div class="buy-content">
-                  <div class="qr">
-                    <img src="@/assets/qr.png" width="130" />
-                    <!-- {{ systemInfoList.jvm }} -->
-                    <List border class="ivuListStyle">
-                      <ListItem
-                        v-for="(value, key) in systemInfoList.jvm" :key="value"
-                        ><span style="float: left">{{ key }}</span>
-                        <span style="float: right">{{ value }}</span></ListItem
-                      >
-                    </List>
-                  </div>
-                </div>
-              </Card>
-            </Col>
-            <Col :xs="24" :sm="24" :xl="12" style="margin-bottom: 10px">
-              <Row :gutter="10">
-                <Col style="margin-bottom: 10px; width: 100%">
-                  <Card>
-                    <p slot="title">
-                      <Icon
-                        type="logo-github"
-                        size="20"
-                        style="margin-right: 5px"
-                      />
-                      mem
-                    </p>
-                    <div style="height: 130px; overflow: hidden">
-                      <!-- {{ systemInfoList.mem }} -->
-                      <List border class="ivuListStyle">
-                        <ListItem
-                          v-for="(value, key) in systemInfoList.mem" :key="value"
-                          ><span style="float: left">{{ key }}</span>
-                          <span style="float: right">{{
-                            value
-                          }}</span></ListItem
-                        >
-                      </List>
-                    </div>
-                  </Card>
-                </Col>
-                <Col style="margin-bottom: 10px; width: 100%">
-                  <Card>
-                    <p slot="title">
-                      <Icon
-                        type="logo-github"
-                        size="20"
-                        style="margin-right: 5px"
-                      />
-                      sys
-                    </p>
-                    <p slot="extra"></p>
-                    <div style="height: 233px; overflow: auto">
-                      <!-- {{ systemInfoList.sys }} -->
-                      <List border class="ivuListStyle">
-                        <ListItem
-                          v-for="(value, key) in systemInfoList.sys" :key="value"
-                          ><span style="float: left">{{ key }}</span>
-                          <span style="float: right">{{
-                            value
-                          }}</span></ListItem
-                        >
-                      </List>
-                    </div>
-                  </Card>
-                </Col>
-              </Row>
-              <!-- 下面的card把上面的Row替换下来的 -->
-              <!-- <Card>
-                <p slot="title">
-                  <Icon type="md-bookmark" style="margin-right: 5px"></Icon>MEM
-                </p>
-                <div id="comments" class="comment-container">{{systemInfoList.mem}}</div>
-              </Card> -->
-            </Col>
-          </Row>
-        </Col>
+
+
       </Row>
 
       <Row :gutter="10">
         <Col
-          :xs="12"
-          :sm="12"
-          :lg="12"
-          :xl="12"
-          :style="{ marginBottom: '10px' }"
+            :xs="12"
+            :sm="12"
+            :lg="12"
+            :xl="12"
+            :style="{ marginBottom: '10px' }"
         >
           <Card>
             <p slot="title">CPU</p>
@@ -214,11 +92,11 @@
         </Col>
 
         <Col
-          :xs="12"
-          :sm="12"
-          :lg="12"
-          :xl="12"
-          :style="{ marginBottom: '10px' }"
+            :xs="12"
+            :sm="12"
+            :lg="12"
+            :xl="12"
+            :style="{ marginBottom: '10px' }"
         >
           <Card>
             <p slot="title">内存</p>
@@ -254,82 +132,81 @@
       </Row>
 
       <Row :gutter="10"
-        ><Col
+      ><Col
           :xs="24"
           :sm="24"
           :lg="24"
           :xl="24"
           :style="{ marginBottom: '10px' }"
-        >
-          <Card>
-            <p slot="title">服务器信息</p>
-            <table class="table">
-              <tr>
-                <td>服务器名称</td>
-                <td>{{ systemInfoList.sys.computerName }}</td>
-                <td>操作系统</td>
-                <td>{{ systemInfoList.sys.osName }}</td>
-              </tr>
-              <tr>
-                <td>服务器IP</td>
-                <td>{{ systemInfoList.sys.computerIp }}</td>
-                <td>操作系统</td>
-                <td>{{ systemInfoList.sys.osArch }}</td>
-              </tr>
-            </table>
-          </Card>
-        </Col></Row
+      >
+        <Card>
+          <p slot="title">服务器信息</p>
+          <table class="table">
+            <tr>
+              <td>服务器名称</td>
+              <td>{{ systemInfoList.sys.computerName }}</td>
+              <td>操作系统</td>
+              <td>{{ systemInfoList.sys.osName }}</td>
+            </tr>
+            <tr>
+              <td>服务器IP</td>
+              <td>{{ systemInfoList.sys.computerIp }}</td>
+              <td>操作系统</td>
+              <td>{{ systemInfoList.sys.osArch }}</td>
+            </tr>
+          </table>
+        </Card>
+      </Col></Row
       >
       <Row :gutter="10"
-        ><Col
+      ><Col
           :xs="24"
           :sm="24"
           :lg="24"
           :xl="24"
           :style="{ marginBottom: '10px' }"
-        >
-          <Card>
-            <p slot="title">Java虚拟机信息</p>
-            <table class="table">
-              <tr>
-                <td>Java名称</td>
-                <td>{{ systemInfoList.jvm.name }}</td>
-                <td>Java版本</td>
-                <td>{{ systemInfoList.jvm.version }}</td>
-              </tr>
-              <tr>
-                <td>启动时间</td>
-                <td>{{ systemInfoList.jvm.startTime }}</td>
-                <td>运行时长</td>
-                <td colspan="3">{{ systemInfoList.jvm.runTime }}</td>
-              </tr>
-              <tr>
-                <td>安装路径</td>
-                <td colspan="3">{{ systemInfoList.jvm.home }}</td>
-              </tr>
-              <tr>
-                <td>项目路径</td>
-                <td colspan="3">{{ systemInfoList.sys.userDir }}</td>
-              </tr>
-            </table>
-          </Card>
-        </Col></Row
       >
+        <Card>
+          <p slot="title">Java虚拟机信息</p>
+          <table class="table">
+            <tr>
+              <td>Java名称</td>
+              <td>{{ systemInfoList.jvm.name }}</td>
+              <td>Java版本</td>
+              <td>{{ systemInfoList.jvm.version }}</td>
+            </tr>
+            <tr>
+              <td>启动时间</td>
+              <td>{{ systemInfoList.jvm.startTime }}</td>
+              <td>运行时长</td>
+              <td colspan="3">{{ systemInfoList.jvm.runTime }}</td>
+            </tr>
+            <tr>
+              <td>安装路径</td>
+              <td colspan="3">{{ systemInfoList.jvm.home }}</td>
+            </tr>
+            <tr>
+              <td>项目路径</td>
+              <td colspan="3">{{ systemInfoList.sys.userDir }}</td>
+            </tr>
+          </table>
+        </Card>
+      </Col></Row>
 
       <Row :gutter="10">
         <Col
-          :xs="24"
-          :sm="24"
-          :lg="24"
-          :xl="24"
-          :style="{ marginBottom: '10px' }"
+            :xs="24"
+            :sm="24"
+            :lg="24"
+            :xl="24"
+            :style="{ marginBottom: '10px' }"
         >
           <Card :bordered="false">
             <p slot="title">磁盘状态</p>
             <Table
-              size="large"
-              :columns="sysFilescolumns"
-              :data="systemInfoList.sysFiles"
+                size="large"
+                :columns="sysFilescolumns"
+                :data="systemInfoList.sysFiles"
             >
               <template slot-scope="{ row }" slot="usage">
                 <span>{{ row.usage }}%</span>
@@ -338,267 +215,16 @@
           </Card>
         </Col>
       </Row>
-      <!-- <Row :gutter="10">
-        <Col
-          :xs="24"
-          :sm="24"
-          :md="12"
-          :lg="6"
-          :style="{ marginBottom: '10px' }"
-        >
-          <card1
-            id="card1"
-            prefix="￥"
-            :end-val="count.data1"
-            title="card1"
-            :image="require('@/assets/icon/money.png')"
-            width="34px"
-            height="34px"
-          />
-        </Col>
-        <Col
-          :xs="24"
-          :sm="24"
-          :md="12"
-          :lg="6"
-          :style="{ marginBottom: '10px' }"
-        >
-          <card2
-            id="card2"
-            suffix="%"
-            :end-val="count.data2"
-            color="#f90"
-            title="card2"
-            description="相比昨日"
-          />
-        </Col>
-        <Col
-          :xs="24"
-          :sm="24"
-          :md="12"
-          :lg="6"
-          :style="{ marginBottom: '10px' }"
-        >
-          <card4
-            title="待办事项"
-            :time="time"
-            description="您有一个新的待审批任务，请前往查看"
-          />
-        </Col>
-        <Col
-          :xs="24"
-          :sm="24"
-          :md="12"
-          :lg="6"
-          :style="{ marginBottom: '10px' }"
-        >
-          <card3
-            title="应用中心"
-            description="销量统计，用户统计，日活分析"
-            :image="require('@/assets/icon/app.png')"
-            width="34px"
-            height="34px"
-            titleSize="18px"
-          />
-        </Col>
-      </Row> -->
-      <!-- <Row :gutter="10">
-        <Col
-          :xs="24"
-          :sm="24"
-          :md="12"
-          :lg="4"
-          :style="{ marginBottom: '10px' }"
-        >
-          <cardApp icon="logo-buffer" title="SaaS应用" />
-        </Col>
-        <Col
-          :xs="24"
-          :sm="24"
-          :md="12"
-          :lg="4"
-          :style="{ marginBottom: '10px' }"
-        >
-          <cardApp activeColor="#2db7f5" icon="md-bookmarks" title="日志分析" />
-        </Col>
-        <Col
-          :xs="24"
-          :sm="24"
-          :md="12"
-          :lg="4"
-          :style="{ marginBottom: '10px' }"
-        >
-          <cardApp activeColor="#19be6b" icon="md-cloud" title="云运维" />
-        </Col>
-        <Col
-          :xs="24"
-          :sm="24"
-          :md="12"
-          :lg="4"
-          :style="{ marginBottom: '10px' }"
-        >
-          <cardApp activeColor="#f90" icon="md-film" title="视频监控" />
-        </Col>
-        <Col
-          :xs="24"
-          :sm="24"
-          :md="12"
-          :lg="4"
-          :style="{ marginBottom: '10px' }"
-        >
-          <cardApp activeColor="#8950fc" icon="md-stats" title="数据分析"
-        /></Col>
-        <Col
-          :xs="24"
-          :sm="24"
-          :md="12"
-          :lg="4"
-          :style="{ marginBottom: '10px' }"
-        >
-          <cardApp activeColor="#ed4014" icon="md-people" title="用户分析"
-        /></Col>
-      </Row> -->
-      <!-- <Row :gutter="10">
-        <Col
-          :xs="24"
-          :sm="24"
-          :md="12"
-          :lg="6"
-          :style="{ marginBottom: '10px' }"
-        >
-          <card1
-            id="card5"
-            :bordered="false"
-            :end-val="126778"
-            title="今日新增互动数"
-            backgroundColor="#fff4df"
-            :image="require('@/assets/icon/comment.png')"
-            width="34px"
-            height="34px"
-          />
-        </Col>
-        <Col
-          :xs="24"
-          :sm="24"
-          :md="12"
-          :lg="6"
-          :style="{ marginBottom: '10px' }"
-        >
-          <card1
-            id="card6"
-            :bordered="false"
-            :end-val="68893"
-            backgroundColor="#6993fe"
-            countColor="#fff"
-            icon="md-person-add"
-            iconColor="#fff"
-            titleColor="#fff"
-            title="今日新增用户"
-          />
-        </Col>
-        <Col
-          :xs="24"
-          :sm="24"
-          :md="12"
-          :lg="6"
-          :style="{ marginBottom: '10px' }"
-        >
-          <card1
-            id="card7"
-            :bordered="false"
-            :end-val="count.data4"
-            backgroundColor="#8950fe"
-            countColor="#fff"
-            icon="md-cloud-download"
-            iconColor="#fff"
-            titleColor="#fff"
-            title="今日下载量"
-          />
-        </Col>
-        <Col
-          :xs="24"
-          :sm="24"
-          :md="12"
-          :lg="6"
-          :style="{ marginBottom: '10px' }"
-        >
-          <card1
-            id="card8"
-            :bordered="false"
-            :end-val="13507632434"
-            backgroundColor="#f64e61"
-            countColor="#fff"
-            icon="md-calendar"
-            iconColor="#fff"
-            titleColor="#fff"
-            title="月活"
-          />
-        </Col>
-      </Row> -->
-      <!-- 这两个是那个apexchart图表的 -->
-      <!--       <Row :gutter="10">
-        <Col
-          :xs="24"
-          :sm="24"
-          :lg="24"
-          :xl="16"
-          :style="{ marginBottom: '10px' }"
-        >
-          <visit-volume />
-        </Col>
-        <Col
-          :xs="24"
-          :sm="24"
-          :lg="24"
-          :xl="8"
-          :style="{ marginBottom: '10px' }"
-        >
-          <visit-separation />
-        </Col>
-      </Row> -->
-      <!-- 这下面的是准备放echarts图表的 -->
-      <!-- <Row :gutter="10">
-        <Col
-          :xs="24"
-          :sm="24"
-          :lg="24"
-          :xl="16"
-          :style="{ marginBottom: '10px' }"
-        >
-          <sys-files></sys-files>
-        </Col>
-        <Col
-          :xs="24"
-          :sm="24"
-          :lg="24"
-          :xl="8"
-          :style="{ marginBottom: '10px' }"
-        >
-          2
-        </Col>
-      </Row> -->
+
+
     </div>
+
+
+
     <div v-if="currNav == 'app'">
       <dashboard2 />
     </div>
 
-    <!-- <Modal
-      v-model="showVideo"
-      title="作者亲自制作Legion炫酷文字快闪宣传片"
-      :styles="{ top: '30px' }"
-      footer-hide
-      width="1000"
-    >
-      <iframe
-        src="//player.bilibili.com/player.html?aid=30284667&cid=52827707&page=1"
-        scrolling="no"
-        border="0"
-        frameborder="no"
-        framespacing="0"
-        allowfullscreen="true"
-        style="width: 100%; height: 550px"
-      ></iframe>
-    </Modal> -->
   </div>
 </template>
 
@@ -613,10 +239,7 @@ import card2 from "./components/card2.vue";
 import card3 from "@/views/my-components/widget/card3.vue";
 import card4 from "@/views/my-components/widget/card4.vue";
 import cardApp from "./components/cardApp.vue";
-import dashboard2 from "../legion-charts/dashboard2/dashboard2.vue";
 import Cookies from "js-cookie";
-// import "gitalk/dist/gitalk.css";
-import Gitalk from "gitalk";
 
 export default {
   name: "home",
@@ -718,8 +341,8 @@ export default {
         // console.log(res);
         if (res.success) {
           this.systemInfoList = res.result
-            ? res.result
-            : {
+              ? res.result
+              : {
                 cpu: {
                   cpuNum: "",
                   free: "",
@@ -750,21 +373,8 @@ export default {
                 },
                 sysFiles: [],
               };
-          // const aaa = Object.keys(
-          //   this.systemInfoList.sysFiles[0]
-          //     ? this.systemInfoList.sysFiles[0]
-          //     : []
-          // );
-          // this.sysFilescolumns = [];
-          // for (let i = 0; i < aaa.length; i++) {
-          //   this.sysFilescolumns.push({
-          //     title: aaa[i],
-          //     key: aaa[i],
-          //   });
-          // }
-          // console.log(this.sysFilescolumns);
+
         } else {
-          // this.systemInfoList = [];
         }
       });
     },
@@ -776,9 +386,9 @@ export default {
           }
           let data = res.result;
           if (
-            data.open &&
-            (data.title || data.content) &&
-            data.position == "HOME"
+              data.open &&
+              (data.title || data.content) &&
+              data.position == "HOME"
           ) {
             this.$Notice.info({
               title: data.title,
@@ -799,36 +409,6 @@ export default {
       this.showNotice();
       Cookies.set(noticeFlag, noticeFlag);
     }
-    // 价格
-    // AV.init({
-    //   appId: "6Bstbxl4NDU69I77D3nzf61h-gzGzoHsz",
-    //   appKey: "gaFTnYlTul3M8qdiGlbfvoJK",
-    //   serverURL: "https://6bstbxl4.lc-cn-n1-shared.com",
-    // });
-    // const query = new AV.Query("Price");
-    // query.equalTo("objectId", "6080216c2a5bb23590bcaedb");
-    // query.first().then((e) => {
-    //   this.price = e.attributes.price;
-    // });
-    // Gitalk
-    // 这像是渲染用的
-    /*    var gitalk = new Gitalk({
-      clientID: "a128de2dd7383614273a",
-      clientSecret: "a77691ecb662a8303a6c686ae651ae035868da6e",
-      repo: "legion-comments",
-      owner: "Legion",
-      admin: ["Legion"],
-      distractionFreeMode: false, // 遮罩效果
-    });
-    // 渲染到带这个id 的盒子上
-    gitalk.render("comments"); */
-    // 宣传视频
-    // let videoFlag = "videoShowed";
-    // let legionVideo = Cookies.get(videoFlag);
-    // if (legionVideo != videoFlag) {
-    //   // this.showVideo = true;
-    //   Cookies.set(videoFlag, videoFlag);
-    // }
   },
 };
 </script>

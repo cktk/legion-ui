@@ -76,12 +76,12 @@ export const userData = [
         defaultRole: "角色 0(不分配默认角色) 1(分配默认注册用户角色)"
     },
     {
-        username: "admin",
-        nickname: "管理员",
+        username: "test",
+        nickname: "昵称",
         password: "123456",
         avatar: "https://s1.ax1x.com/2018/05/19/CcdVQP.png",
         departmentId: "40652338142121984",
-        email: "1012139570@qq.com",
+        email: "",
         sex: "男",
         address: "北京市,市辖区,东城区",
         mobile: "18782059033",

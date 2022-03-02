@@ -1,5 +1,5 @@
 export default {
-    legion: '两癌系统',
+    legion: ' 是很不错的一站式前后端分离快速开发平台',
     usernameLogin: '账户密码登录',
     mobileLogin: '手机短信登录',
     autoLogin: '自动登录',

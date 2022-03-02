@@ -34,10 +34,10 @@ export default {
           {
             breakpoint: 480,
             options: {
-        legend: {
-          position: "right",
-        },
-      },
+              legend: {
+                position: "right",
+              },
+            },
           },
         ],
       },

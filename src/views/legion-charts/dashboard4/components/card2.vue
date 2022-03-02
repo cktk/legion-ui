@@ -9,7 +9,7 @@
         <Button
           type="info"
           size="large"
-          to="http://xpay.exrick.cn/pay?legion"
+          to="http://www.baidu.com"
           target="_blank"
           >立即开始</Button
         >

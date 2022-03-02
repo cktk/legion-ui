@@ -21,7 +21,9 @@
               >
               <Submenu name="1">
                 <template slot="title">
-                  <Icon type="md-ionic" /><Badge dot :offset="[5, -3]">通用组件</Badge>
+                  <Icon type="md-ionic" /><Badge dot :offset="[5, -3]"
+                    >通用组件</Badge
+                  >
                 </template>
                 <MenuItem name="1-0">全局Loading加载动画</MenuItem>
                 <MenuItem name="1-1">倒计时按钮</MenuItem>
