@@ -4,9 +4,10 @@
 
 <template>
   <div>
-    <div class="home">
 
-      <Row :gutter="10" v-if="true">
+
+    <div class="home">
+      <Row :gutter="10">
         <Col :xs="24" :sm="24" :lg="24" :xl="8">
           <Row :gutter="10">
             <Col style="margin-bottom: 10px; width: 100%">
@@ -15,20 +16,20 @@
                   <div class="left">
                     <div class="user">
                       <Avatar
-                          v-if="avatar"
-                          :src="avatar"
-                          size="60"
-                          class="avator-img"
+                        v-if="avatar"
+                        :src="avatar"
+                        size="60"
+                        class="avator-img"
                       ></Avatar>
                       <Avatar
-                          v-else
-                          icon="md-person"
-                          size="60"
-                          class="avator-icon"
+                        v-else
+                        icon="md-person"
+                        size="60"
+                        class="avator-icon"
                       ></Avatar>
                       <div class="info">
                         <p class="username">Hi, {{ nickname }} !</p>
-                        <p class="welcome">欢迎回到平台</p>
+                        <p class="welcome">欢迎回到Legion快速开发平台</p>
                       </div>
                     </div>
                     <div class="list">
@@ -46,23 +47,22 @@
                       </div>
                     </div>
                   </div>
-                  <img class="pic" :src="require('@/assets/icon/computer.svg')" />
+
                 </div>
               </Card>
             </Col>
           </Row>
         </Col>
-
+        <!-- 右上侧 -->
 
       </Row>
-
       <Row :gutter="10">
         <Col
-            :xs="12"
-            :sm="12"
-            :lg="12"
-            :xl="12"
-            :style="{ marginBottom: '10px' }"
+          :xs="12"
+          :sm="12"
+          :lg="12"
+          :xl="12"
+          :style="{ marginBottom: '10px' }"
         >
           <Card>
             <p slot="title">CPU</p>
@@ -92,11 +92,11 @@
         </Col>
 
         <Col
-            :xs="12"
-            :sm="12"
-            :lg="12"
-            :xl="12"
-            :style="{ marginBottom: '10px' }"
+          :xs="12"
+          :sm="12"
+          :lg="12"
+          :xl="12"
+          :style="{ marginBottom: '10px' }"
         >
           <Card>
             <p slot="title">内存</p>
@@ -132,81 +132,84 @@
       </Row>
 
       <Row :gutter="10"
-      ><Col
+        ><Col
           :xs="24"
           :sm="24"
           :lg="24"
           :xl="24"
           :style="{ marginBottom: '10px' }"
+        >
+          <Card>
+            <p slot="title">服务器信息</p>
+            <table class="table">
+              <tr>
+                <td>服务器名称</td>
+                <td>{{ systemInfoList.sys.computerName }}</td>
+                <td>操作系统</td>
+                <td>{{ systemInfoList.sys.osName }}</td>
+              </tr>
+              <tr>
+                <td>服务器IP</td>
+                <td>{{ systemInfoList.sys.computerIp }}</td>
+                <td>操作系统</td>
+                <td>{{ systemInfoList.sys.osArch }}</td>
+              </tr>
+            </table>
+          </Card>
+        </Col></Row
       >
-        <Card>
-          <p slot="title">服务器信息</p>
-          <table class="table">
-            <tr>
-              <td>服务器名称</td>
-              <td>{{ systemInfoList.sys.computerName }}</td>
-              <td>操作系统</td>
-              <td>{{ systemInfoList.sys.osName }}</td>
-            </tr>
-            <tr>
-              <td>服务器IP</td>
-              <td>{{ systemInfoList.sys.computerIp }}</td>
-              <td>操作系统</td>
-              <td>{{ systemInfoList.sys.osArch }}</td>
-            </tr>
-          </table>
-        </Card>
-      </Col></Row
-      >
+
+
       <Row :gutter="10"
-      ><Col
+        ><Col
           :xs="24"
           :sm="24"
           :lg="24"
           :xl="24"
           :style="{ marginBottom: '10px' }"
+        >
+          <Card>
+            <p slot="title">Java虚拟机信息</p>
+            <table class="table">
+              <tr>
+                <td>Java名称</td>
+                <td>{{ systemInfoList.jvm.name }}</td>
+                <td>Java版本</td>
+                <td>{{ systemInfoList.jvm.version }}</td>
+              </tr>
+              <tr>
+                <td>启动时间</td>
+                <td>{{ systemInfoList.jvm.startTime }}</td>
+                <td>运行时长</td>
+                <td colspan="3">{{ systemInfoList.jvm.runTime }}</td>
+              </tr>
+              <tr>
+                <td>安装路径</td>
+                <td colspan="3">{{ systemInfoList.jvm.home }}</td>
+              </tr>
+              <tr>
+                <td>项目路径</td>
+                <td colspan="3">{{ systemInfoList.sys.userDir }}</td>
+              </tr>
+            </table>
+          </Card>
+        </Col></Row
       >
-        <Card>
-          <p slot="title">Java虚拟机信息</p>
-          <table class="table">
-            <tr>
-              <td>Java名称</td>
-              <td>{{ systemInfoList.jvm.name }}</td>
-              <td>Java版本</td>
-              <td>{{ systemInfoList.jvm.version }}</td>
-            </tr>
-            <tr>
-              <td>启动时间</td>
-              <td>{{ systemInfoList.jvm.startTime }}</td>
-              <td>运行时长</td>
-              <td colspan="3">{{ systemInfoList.jvm.runTime }}</td>
-            </tr>
-            <tr>
-              <td>安装路径</td>
-              <td colspan="3">{{ systemInfoList.jvm.home }}</td>
-            </tr>
-            <tr>
-              <td>项目路径</td>
-              <td colspan="3">{{ systemInfoList.sys.userDir }}</td>
-            </tr>
-          </table>
-        </Card>
-      </Col></Row>
 
       <Row :gutter="10">
         <Col
-            :xs="24"
-            :sm="24"
-            :lg="24"
-            :xl="24"
-            :style="{ marginBottom: '10px' }"
+          :xs="24"
+          :sm="24"
+          :lg="24"
+          :xl="24"
+          :style="{ marginBottom: '10px' }"
         >
           <Card :bordered="false">
             <p slot="title">磁盘状态</p>
             <Table
-                size="large"
-                :columns="sysFilescolumns"
-                :data="systemInfoList.sysFiles"
+              size="large"
+              :columns="sysFilescolumns"
+              :data="systemInfoList.sysFiles"
             >
               <template slot-scope="{ row }" slot="usage">
                 <span>{{ row.usage }}%</span>
@@ -216,11 +219,7 @@
         </Col>
       </Row>
 
-
     </div>
-
-
-
     <div v-if="currNav == 'app'">
       <dashboard2 />
     </div>
@@ -239,7 +238,9 @@ import card2 from "./components/card2.vue";
 import card3 from "@/views/my-components/widget/card3.vue";
 import card4 from "@/views/my-components/widget/card4.vue";
 import cardApp from "./components/cardApp.vue";
+import dashboard2 from "../legion-charts/dashboard2/dashboard2.vue";
 import Cookies from "js-cookie";
+import Gitalk from "gitalk";
 
 export default {
   name: "home",
@@ -341,8 +342,8 @@ export default {
         // console.log(res);
         if (res.success) {
           this.systemInfoList = res.result
-              ? res.result
-              : {
+            ? res.result
+            : {
                 cpu: {
                   cpuNum: "",
                   free: "",
@@ -373,7 +374,6 @@ export default {
                 },
                 sysFiles: [],
               };
-
         } else {
         }
       });
@@ -386,9 +386,9 @@ export default {
           }
           let data = res.result;
           if (
-              data.open &&
-              (data.title || data.content) &&
-              data.position == "HOME"
+            data.open &&
+            (data.title || data.content) &&
+            data.position == "HOME"
           ) {
             this.$Notice.info({
               title: data.title,

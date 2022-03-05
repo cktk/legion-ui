@@ -293,7 +293,6 @@ export default {
         } else {
           // 配置上传图片服务器端地址
           this.editor.config.uploadImgServer = uploadFile;
-          // legion如要header中传入token鉴权
           this.editor.config.uploadImgHeaders = {
             accessToken: that.getStore("accessToken"),
           };

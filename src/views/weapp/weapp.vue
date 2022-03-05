@@ -21,7 +21,7 @@
     <Card>
       <Alert type="warning" show-icon>
         说明：全新重构设计微信小程序，现已开源！后端正在中开发
-        <a href="http://www.baidu.com" target="_blank">立即获取完整版</a>
+        <a href="http://xpay.exrick.cn/pay?legion" target="_blank">立即获取完整版</a>
       </Alert>
       <div class="weapp">
         <Poptip trigger="hover" title="打开微信扫一扫">
@@ -43,7 +43,7 @@
           style="margin-right:20px;"
         >小程序宣传视频</Button>
         <Button
-          to="https://github.com/Daimao/xmall-weapp"
+          to="https://github.com/Exrick/xmall-weapp"
           target="_blank"
           shape="circle"
           icon="logo-github"

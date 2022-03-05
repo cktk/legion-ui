@@ -3,21 +3,21 @@
     <Row type="flex" justify="space-around" class="foot-item">
       <a
         class="item"
-        href="https://www.kancloud.cn/Daimao/legion/1009234"
+        href="https://www.kancloud.cn/exrick/legion/1009234"
         target="_blank"
         >{{ $t("docs") }}</a
       >
-      <a class="item" href="https://github.com/Daimao/x-boot" target="_blank">
+      <a class="item" href="https://github.com/Exrick/x-boot" target="_blank">
         <Icon custom="iconfont icon-github" size="16" />
       </a>
-      <a class="item" href="http://www.baidu.com" target="_blank">{{
+      <a class="item" href="http://xpay.exrick.cn/pay?legion" target="_blank">{{
         $t("fullVersion")
       }}</a>
     </Row>
     <Row type="flex" justify="center" class="copyright">
       Copyright © 2018 - Present
-      <a href="http://Daimao.cn" target="_blank" style="margin: 0 5px"
-        >Daimao</a
+      <a href="http://exrick.cn" target="_blank" style="margin: 0 5px"
+        >Exrick</a
       >
       {{ $t("rights") }}
     </Row>

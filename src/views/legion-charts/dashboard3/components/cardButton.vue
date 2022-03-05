@@ -7,7 +7,7 @@
             立即获取<b>完整版</b>获得更多的功能
             <Icon type="md-arrow-forward" />
           </div>
-          <Button to="http://www.baidu.com" target="_blank" type="success" style="width: 130px">升级账户</Button>
+          <Button to="http://xpay.exrick.cn/pay?legion" target="_blank" type="success" style="width: 130px">升级账户</Button>
         </div>
         <img class="right" src="@/assets/dashboard/process.png"/>
       </div>

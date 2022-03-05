@@ -461,7 +461,7 @@ export default {
           },
           {
             id: "2",
-            name: "Daimao",
+            name: "Exrick",
             description: "我是二级1的数据",
             status: 0,
             createTime: "2018-08-08 00:08:00",
@@ -488,7 +488,7 @@ export default {
         this.data = [
           {
             id: "2",
-            name: "Daimao",
+            name: "Exrick",
             description: "我是二级1的数据",
             status: 0,
             createTime: "2018-08-08 00:08:00",
@@ -498,7 +498,7 @@ export default {
         this.data = [
           {
             id: "3",
-            name: "Present By Daimao",
+            name: "Present By Exrick",
             description: "我是一级2的数据",
             status: -1,
             createTime: "2018-08-08 00:08:00",

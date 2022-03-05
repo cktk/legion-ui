@@ -21,7 +21,7 @@
     <Card>
       <Alert type="warning" show-icon>
         说明：基于Uniapp开发的配套 App，后端正在中开发
-        <a href="http://www.baidu.com" target="_blank">立即获取完整版</a>
+        <a href="http://xpay.exrick.cn/pay?legion" target="_blank">立即获取完整版</a>
       </Alert>
       <div class="uniapp">H5演示版本请等待上线！前端请等待开源！敬请关注！</div>
       <div class="uniapp-imgs">

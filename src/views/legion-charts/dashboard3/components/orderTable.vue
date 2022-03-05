@@ -172,7 +172,7 @@ export default {
         },
         {
           id: "2838061428384468992",
-          name: "Daimao",
+          name: "Exrick",
           total: "568.80",
           payType: 1,
           status: 1,
@@ -180,7 +180,7 @@ export default {
         },
         {
           id: "3338066255608942592",
-          name: "Daimao",
+          name: "Exrick",
           total: "168.00",
           payType: 2,
           status: 2,
@@ -188,7 +188,7 @@ export default {
         },
         {
           id: "1344692740297986048",
-          name: "Daimao",
+          name: "Exrick",
           total: "68.50",
           payType: 3,
           status: 3,
@@ -196,7 +196,7 @@ export default {
         },
         {
           id: "5344708212645040128",
-          name: "Daimao",
+          name: "Exrick",
           total: "1068.00",
           payType: 4,
           status: 4,

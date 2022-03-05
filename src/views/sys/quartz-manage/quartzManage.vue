@@ -110,7 +110,7 @@
         <FormItem label="任务类引用路径" prop="jobClassName">
           <Input
             v-model="form.jobClassName"
-            placeholder="例如 cn.Daimao.legion.quartz.jobs.Job"
+            placeholder="例如 cn.exrick.legion.quartz.jobs.Job"
             clearable
           />
         </FormItem>

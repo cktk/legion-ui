@@ -78,7 +78,7 @@ export default {
       if (this.form.id == "1") {
         this.form.name = "";
       } else {
-        this.form.name = "Daimao";
+        this.form.name = "Exrick";
       }
     },
     handleSubmit() {

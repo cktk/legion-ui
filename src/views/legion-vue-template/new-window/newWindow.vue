@@ -181,7 +181,7 @@ export default {
         },
         {
           id: "2",
-          name: "Daimao(新窗口提交自动关闭后可返回该页面)",
+          name: "Exrick(新窗口提交自动关闭后可返回该页面)",
           createTime: "2018-08-08 00:08:00",
           updateTime: "2018-08-08 00:08:00",
         },

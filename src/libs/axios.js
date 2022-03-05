@@ -129,8 +129,8 @@ export const postBodyRequest = (url, params) => {
 
 /**
  * 无需token验证的GET请求 避免旧token过期导致请求失败
- * @param {*} url 
- * @param {*} params 
+ * @param {*} url
+ * @param {*} params
  */
 export const getNoAuthRequest = (url, params) => {
     return axios({

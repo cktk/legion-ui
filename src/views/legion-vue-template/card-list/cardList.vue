@@ -146,7 +146,7 @@ export default {
         },
         {
           url: "https://gw.alipayobjects.com/zos/rmsportal/iZBVOIhGJiAnhplqjvZW.png",
-          name: "Daimao",
+          name: "Exrick",
           type: "image",
           fkey: " 是很不错的Web前后端分离架构开发平台",
           size: 18659,
@@ -180,7 +180,7 @@ export default {
               avatar: "https://s1.ax1x.com/2018/05/19/CcdVQP.png",
             },
             {
-              name: "Daimao",
+              name: "Exrick",
               avatar: "https://ooo.0o0.ooo/2021/01/16/VuODA1yUSCeXzFM.png",
             },
           ],
@@ -188,7 +188,7 @@ export default {
         },
         {
           url: "https://gw.alipayobjects.com/zos/rmsportal/iZBVOIhGJiAnhplqjvZW.png",
-          title: "Daimao",
+          title: "Exrick",
           description: " 是很不错的Web前后端分离架构开发平台",
           author: [
             {
@@ -196,7 +196,7 @@ export default {
               avatar: "https://s1.ax1x.com/2018/05/19/CcdVQP.png",
             },
             {
-              name: "Daimao",
+              name: "Exrick",
               avatar: "https://ooo.0o0.ooo/2021/01/16/VuODA1yUSCeXzFM.png",
             },
           ],

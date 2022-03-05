@@ -455,7 +455,7 @@
           <Row type="flex">
             <Input
               v-model="entityForm.path"
-              placeholder="例如：cn.Daimao.legion.modules.base.entity.User"
+              placeholder="例如：cn.exrick.legion.modules.base.entity.User"
               clearable
               style="width: 410px"
             />
