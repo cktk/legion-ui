@@ -1,5 +1,5 @@
 export default {
-    legion: ' is an excellent one-station front-end and back-end separation fast development platform',
+    legion: 'development platform',
     usernameLogin: 'Username Sign in',
     mobileLogin: 'Phone',
     autoLogin: 'Remember me',

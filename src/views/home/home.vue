@@ -233,10 +233,6 @@ import visitVolume from "./components/visitVolume.vue";
 import visitSeparation from "./components/visitSeparation.vue";
 import sysFiles from "./components/sysFiles.vue";
 
-import card1 from "@/views/my-components/widget/card1.vue";
-import card2 from "./components/card2.vue";
-import card3 from "@/views/my-components/widget/card3.vue";
-import card4 from "@/views/my-components/widget/card4.vue";
 import cardApp from "./components/cardApp.vue";
 import dashboard2 from "../legion-charts/dashboard2/dashboard2.vue";
 import Cookies from "js-cookie";
@@ -248,10 +244,6 @@ export default {
     visitVolume,
     visitSeparation,
     sysFiles,
-    card1,
-    card2,
-    card3,
-    card4,
     cardApp,
   },
   data() {

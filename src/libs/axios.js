@@ -6,7 +6,7 @@ import Cookies from 'js-cookie';
 // 统一请求路径前缀
 let baseApi = config.baseApi;
 // 超时设定
-axios.defaults.timeout = 15000;
+axios.defaults.timeout = 30000;
 
 axios.interceptors.request.use(config => {
     return config;

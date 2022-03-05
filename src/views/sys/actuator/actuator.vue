@@ -234,7 +234,7 @@ export default {
       this.myDeep = null;
       this.modalVisible = true;
       this.loading = true;
-      this.getRequest("/actuator" + v.url).then((res) => {
+      this.getRequest("/legion/actuator" + v.url).then((res) => {
         this.loading = false;
         this.jsonData = res;
       });
