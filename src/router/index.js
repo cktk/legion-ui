@@ -1,7 +1,6 @@
 import Vue from 'vue';
 import ViewUI from 'view-design';
 import util from '../libs/util';
-import VueRouter from 'vue-router';
 import Cookies from 'js-cookie';
 import { routers } from './router';
 

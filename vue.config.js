@@ -18,7 +18,28 @@ module.exports = {
     productionSourceMap: false,
     // 部署优化
     configureWebpack: {
-
+// 使用CDN
+        externals: {
+            vue: 'Vue',
+            'vue-i18n': 'VueI18n',
+            axios: 'axios',
+            'vue-router': 'VueRouter',
+            vuex: 'Vuex',
+            'view-design': 'iview',
+            echarts: 'echarts',
+            apexcharts: 'ApexCharts',
+            xlsx: 'XLSX',
+            dplayer: 'DPlayer',
+            'print-js': 'printJS',
+            html2canvas: 'html2canvas',
+            'vue-lazyload': 'VueLazyload',
+            gitalk: 'Gitalk',
+            stompjs: 'Stomp',
+            'sockjs-client': 'SockJS',
+            vuedraggable: 'vuedraggable',
+            viewerjs: 'Viewer',
+            'watermark-dom': 'watermark'
+        },
         plugins: [
             // GZIP压缩
             new CompressionPlugin({

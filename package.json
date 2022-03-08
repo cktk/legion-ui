@@ -6,7 +6,8 @@
   "private": true,
   "scripts": {
     "dev": "vue-cli-service serve",
-    "build": "vue-cli-service build"
+    "build": "vue-cli-service build",
+    "build:docker": "vue-cli-service build --dest=./docker/dist/"
   },
   "dependencies": {
     "@mapbox/mapbox-gl-geocoder": "^4.7.4",
