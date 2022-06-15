@@ -101,8 +101,6 @@ export const otherRouter = {
         { path: 'home', title: '首页', localize: true, i18n: 'home', name: 'home_index', component: () => import('@/views/home/home.vue') },
         { path: 'ownspace', title: '个人中心', name: 'ownspace_index', component: () => import('@/views/own-space/own-space.vue') },
         { path: 'message', title: '消息中心', name: 'message_index', component: () => import('@/views/message/message.vue') },
-        { path: 'add', title: '添加', name: 'add', component: () => import('@/views/legion-vue-template/new-window/add.vue') },
-        { path: 'edit', title: '编辑', name: 'edit', component: () => import('@/views/legion-vue-template/new-window/edit.vue') },
         { path: 'leave', title: '请假申请', name: 'leave', component: () => import('@/views/activiti/business/leave.vue') },
         { path: 'historic-detail', title: '流程进度历史详情', name: 'historic_detail', component: () => import('@/views/activiti/historic-detail/historicDetail.vue') }
     ]

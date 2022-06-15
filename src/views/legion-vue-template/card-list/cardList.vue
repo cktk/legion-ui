@@ -136,72 +136,10 @@ export default {
       videoTitle: "",
       file: {},
       data: [
-        {
-          url: "https://gw.alipayobjects.com/zos/rmsportal/iXjVmWVHbCJAyqvDxdtx.png",
-          name: "",
-          type: "image",
-          fkey: " 是很不错的Web前后端分离架构开发平台",
-          size: 28659,
-          createTime: "2018-10-22",
-        },
-        {
-          url: "https://gw.alipayobjects.com/zos/rmsportal/iZBVOIhGJiAnhplqjvZW.png",
-          name: "Exrick",
-          type: "image",
-          fkey: " 是很不错的Web前后端分离架构开发平台",
-          size: 18659,
-          createTime: "2018-10-22",
-        },
-        {
-          url: "https://cloud.video.taobao.com//play/u/95292294/p/1/e/6/t/1/210877258798.mp4",
-          name: "视频",
-          type: "video",
-          fkey: " 是很不错的Web前后端分离架构开发平台",
-          size: 8659,
-          createTime: "2018-10-22",
-        },
-        {
-          url: "https://icarusion.gitee.io/iview/e1cf12c07bf6458992569e67927d767e.png",
-          name: "",
-          type: "txt",
-          fkey: " 是很不错的Web前后端分离架构开发平台",
-          size: 8659,
-          createTime: "2018-10-22",
-        },
+
       ],
       data2: [
-        {
-          url: "https://gw.alipayobjects.com/zos/rmsportal/iXjVmWVHbCJAyqvDxdtx.png",
-          title: "",
-          description: " 是很不错的Web前后端分离架构开发平台",
-          author: [
-            {
-              name: "",
-              avatar: "https://s1.ax1x.com/2018/05/19/CcdVQP.png",
-            },
-            {
-              name: "Exrick",
-              avatar: "https://ooo.0o0.ooo/2021/01/16/VuODA1yUSCeXzFM.png",
-            },
-          ],
-          createTime: "2018-10-22",
-        },
-        {
-          url: "https://gw.alipayobjects.com/zos/rmsportal/iZBVOIhGJiAnhplqjvZW.png",
-          title: "Exrick",
-          description: " 是很不错的Web前后端分离架构开发平台",
-          author: [
-            {
-              name: "",
-              avatar: "https://s1.ax1x.com/2018/05/19/CcdVQP.png",
-            },
-            {
-              name: "Exrick",
-              avatar: "https://ooo.0o0.ooo/2021/01/16/VuODA1yUSCeXzFM.png",
-            },
-          ],
-          createTime: "2018-10-22",
-        },
+
       ],
     };
   },

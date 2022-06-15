@@ -220,9 +220,7 @@
       </Row>
 
     </div>
-    <div v-if="currNav == 'app'">
-      <dashboard2 />
-    </div>
+
 
   </div>
 </template>
@@ -234,9 +232,7 @@ import visitSeparation from "./components/visitSeparation.vue";
 import sysFiles from "./components/sysFiles.vue";
 
 import cardApp from "./components/cardApp.vue";
-import dashboard2 from "../legion-charts/dashboard2/dashboard2.vue";
 import Cookies from "js-cookie";
-import Gitalk from "gitalk";
 
 export default {
   name: "home",
